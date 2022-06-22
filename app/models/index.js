@@ -1,6 +1,8 @@
-import { DB, USUARIO, PASS, HOST, dialect as _dialect, pool as _pool } from "../config/db.config.js";
 import Sequelize from "sequelize";
-import Usuario from "./usuarios.js";
+import Persona from "./persona.js";
+import { DB, USUARIO, PASS, HOST, dialect as _dialect, pool as _pool } from "../config/db.config.js";
+
+const db = {};
 
 const sequelize = new Sequelize(DB, USUARIO, PASS, {
   host: HOST,
@@ -13,16 +15,9 @@ const sequelize = new Sequelize(DB, USUARIO, PASS, {
   }
 });
 
-sequelize.authenticate()
-  .then(() => {
-    console.log("Connection has been established succesfully.");
-  })
-  .catch(err => {
-    console.error("Unable to connect to the database: ", err);
-  });
+db.persona = Persona(sequelize, Sequelize);
 
-export {
-  Sequelize,
-  sequelize,
-  Usuario
-};
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+export default db;

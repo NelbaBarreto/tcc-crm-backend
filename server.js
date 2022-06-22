@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config.js";
 import cors from "cors";
-import { sequelize } from "./app/models/index.js";
+import db from "./app/models/index.js";
 const app = express();
 
 var corsOptions = {
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Hello world!" });
 });
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -22,8 +22,6 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-//sequelize.sync();
-
-sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync");
 });

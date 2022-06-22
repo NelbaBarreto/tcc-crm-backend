@@ -1,3 +1,4 @@
+
 export const { HOST, USUARIO, PASS, DB } = process.env;
 export const dialect = "postgres";
 
