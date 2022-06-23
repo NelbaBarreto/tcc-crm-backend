@@ -1,10 +1,14 @@
+const { HOST, USUARIO, PASS, DB } = process.env;
+const dialect = "postgres";
+
+const database = 
 {
   "development": {
-    "username": "postgres",
-    "password": null,
-    "database": "tcc",
-    "host": "127.0.0.1",
-    "dialect": "postgresql"
+    "username": USUARIO,
+    "password": PASS,
+    "database": DB,
+    "host": HOST,
+    "dialect": dialect
   },
   "test": {
     "username": "postgres",
@@ -20,4 +24,6 @@
     "host": "127.0.0.1",
     "dialect": "postgresql"
   }
-}
+};
+
+export default database;

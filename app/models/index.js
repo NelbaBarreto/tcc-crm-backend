@@ -1,23 +1,39 @@
-import Sequelize from "sequelize";
-import Persona from "./persona.js";
-import { DB, USUARIO, PASS, HOST, dialect as _dialect, pool as _pool } from "../config/db.config.js";
+import { readdirSync } from "fs";
+import { basename, dirname } from "path";
+import { Sequelize, DataTypes } from "sequelize";
+import { fileURLToPath } from 'url';
+import database from "../config/config.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const db = {};
+const sequelize = new Sequelize(database.development);
 
-const sequelize = new Sequelize(DB, USUARIO, PASS, {
-  host: HOST,
-  dialect: _dialect,
-  pool: {
-    max: _pool.max,
-    min: _pool.min,
-    acquire: _pool.acquire,
-    idle: _pool.idle
+const getDatabase = async () => {
+  const files = readdirSync(__dirname)
+    .filter(
+      (file) => file.indexOf('.') !== 0
+      && file !== basename(__filename)
+      && file.slice(-3) === '.js',
+    );
+
+  for await (const file of files) {
+    const model = await import(`./${file}`);
+    const namedModel = model.default(sequelize, DataTypes);
+    db[namedModel.name] = namedModel;
   }
-});
 
-db.persona = Persona(sequelize, Sequelize);
+  Object.keys(db).forEach((modelName) => {
+    if (db[modelName].associate) {
+      db[modelName].associate(db);
+    }
+  });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize;
 
-export default db;
+  return db;
+};
+
+export default await getDatabase();
