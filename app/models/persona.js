@@ -1,5 +1,7 @@
-"use strict";
-import { Model } from "sequelize";
+/* eslint-disable require-jsdoc */
+/* eslint-disable valid-jsdoc */
+'use strict';
+import {Model} from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class Persona extends Model {
@@ -8,7 +10,7 @@ export default (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate(_models) {
       // define association here
     }
   }
@@ -18,12 +20,12 @@ export default (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     telefono: DataTypes.STRING,
     celular: DataTypes.STRING,
-    fec_eliminacion: DataTypes.DATE
+    fec_eliminacion: DataTypes.DATE,
   }, {
     sequelize,
-    modelName: "persona",
-    createdAt: "fec_insercion",
-    updatedAt: "fec_modificacion"
+    modelName: 'persona',
+    createdAt: 'fec_insercion',
+    updatedAt: 'fec_modificacion',
   });
   return Persona;
 };

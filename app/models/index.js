@@ -1,7 +1,7 @@
-import { readdirSync } from "fs";
-import { basename, dirname } from "path";
-import { Sequelize, DataTypes } from "sequelize";
-import { fileURLToPath } from 'url';
+import {readdirSync} from 'fs';
+import {basename, dirname} from 'path';
+import {Sequelize, DataTypes} from 'sequelize';
+import {fileURLToPath} from 'url';
 import database from "../config/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,11 +12,11 @@ const sequelize = new Sequelize(database.development);
 
 const getDatabase = async () => {
   const files = readdirSync(__dirname)
-    .filter(
-      (file) => file.indexOf('.') !== 0
-      && file !== basename(__filename)
-      && file.slice(-3) === '.js',
-    );
+      .filter(
+          (file) => file.indexOf('.') !== 0 &&
+      file !== basename(__filename) &&
+      file.slice(-3) === '.js',
+      );
 
   for await (const file of files) {
     const model = await import(`./${file}`);

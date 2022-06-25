@@ -6,7 +6,12 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js --exec babel-node index.js"
+    "dev": "nodemon server.js --exec babel-node index.js",
+    "lint": "npx eslint",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "precommit": "npm run lint -- --fix",
+    "prepush": "npm run lint -- --fix"
   },
   "keywords": [
     "nodejs",
@@ -33,6 +38,9 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
+    "eslint": "^8.18.0",
+    "eslint-config-google": "^0.14.0",
+    "husky": "^8.0.1",
     "nodemon": "^2.0.16"
   }
 }
