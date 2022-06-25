@@ -5,13 +5,14 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "dev": "nodemon server.js --exec babel-node index.js",
-    "lint": "npx eslint",
-    "lint:fix": "npm run lint -- --fix",
-    "format": "npm run prettier:fix && npm run lint:fix",
-    "precommit": "npm run lint -- --fix",
-    "prepush": "npm run lint -- --fix"
+    "prepare": "husky install"
+  },
+  "lint-staged":{
+    "**/*.{js,jsx}":[
+      "npx eslint --fix . --ext .js"
+    ]
   },
   "keywords": [
     "nodejs",
@@ -40,7 +41,8 @@
     "@types/cors": "^2.8.12",
     "eslint": "^8.18.0",
     "eslint-config-google": "^0.14.0",
-    "husky": "^8.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "nodemon": "^2.0.16"
   }
 }

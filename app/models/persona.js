@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
-'use strict';
-import {Model} from 'sequelize';
+"use strict";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Persona extends Model {
@@ -23,9 +23,9 @@ export default (sequelize, DataTypes) => {
     fec_eliminacion: DataTypes.DATE,
   }, {
     sequelize,
-    modelName: 'persona',
-    createdAt: 'fec_insercion',
-    updatedAt: 'fec_modificacion',
+    modelName: "persona",
+    createdAt: "fec_insercion",
+    updatedAt: "fec_modificacion",
   });
   return Persona;
 };
