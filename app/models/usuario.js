@@ -1,31 +1,34 @@
 /* eslint-disable require-jsdoc */
-/* eslint-disable valid-jsdoc */
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Persona extends Model {
+  class Usuario extends Model {
     static associate(_models) {
       // define association here
     }
   }
-  Persona.init({
-    persona_id: {
+  Usuario.init({
+    usuario_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nombre: DataTypes.STRING,
-    apellido: DataTypes.STRING,
-    email: DataTypes.STRING,
-    telefono: DataTypes.STRING,
-    celular: DataTypes.STRING,
-    fec_eliminacion: DataTypes.DATE,
+    nom_usuario: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    activo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
   }, {
     sequelize,
-    modelName: "persona",
+    modelName: "usuarios",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Persona;
+  return Usuario;
 };

@@ -27,13 +27,13 @@ export async function up(queryInterface, Sequelize) {
       },
       unique: {
         args: true,
-        msg: "La dirección de correo ya existe",
+        msg: "La dirección de correo ya existe.",
       },
       comment: "Dirección de correo de la persona.",
       validate: {
         isEmail: {
           args: true,
-          msg: "Ingrese una dirección de correo válida",
+          msg: "Ingrese una dirección de correo válida.",
         },
       },
     },
@@ -49,19 +49,20 @@ export async function up(queryInterface, Sequelize) {
     fec_eliminacion: {
       type: Sequelize.DATE,
       comment: "Fecha en la que se eliminó el Registro",
-      comment: "Fecha en la que se eliminó el registro.",
     },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
       field: "fec_insercion",
       comment: "Fecha en la que se creó el registro.",
+      defaultValue: Date.now(),
     },
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
       field: "fec_modificacion",
       comment: "Fecha en la que se modificó el registro por última vez.",
+      defaultValue: Date.now(),
     },
   });
 }

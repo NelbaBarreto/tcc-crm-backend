@@ -14,7 +14,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}));
 // simple route
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.json({message: "Hello world!"});
 });
 
@@ -26,4 +26,5 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-db.sequelize.sync();
+// Hacer drop de todas las tablas y volver a correr las migraciones
+db.sequelize.sync({force: true});
