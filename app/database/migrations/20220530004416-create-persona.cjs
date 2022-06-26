@@ -1,6 +1,4 @@
 /* eslint-disable require-jsdoc */
-"use strict";
-
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("personas", {
     persona_id: {

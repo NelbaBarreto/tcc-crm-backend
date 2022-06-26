@@ -1,6 +1,5 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
-"use strict";
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
