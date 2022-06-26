@@ -1,10 +1,11 @@
+import "dotenv/config.js";
 const {USUARIO, HOST, PASS, DB} = process.env;
 const dialect = "postgres";
 
 const database =
 {
   development: {
-    username: USUARIO || "postgres",
+    username: USUARIO,
     password: PASS,
     database: DB,
     host: HOST,
