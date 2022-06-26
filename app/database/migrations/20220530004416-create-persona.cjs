@@ -54,7 +54,7 @@ export async function up(queryInterface, Sequelize) {
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
-      field: "fec_creacion",
+      field: "fec_insercion",
       comment: "Fecha en la que se creó el registro.",
     },
     updatedAt: {

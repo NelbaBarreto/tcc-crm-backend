@@ -32,6 +32,7 @@ const getDatabase = async () => {
 
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
+  db.DataTypes = DataTypes;
 
   return db;
 };

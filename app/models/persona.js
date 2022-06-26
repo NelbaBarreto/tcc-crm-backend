@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
+"use strict";
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
@@ -14,6 +15,12 @@ export default (sequelize, DataTypes) => {
     }
   }
   Persona.init({
+    persona_id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
     email: DataTypes.STRING,

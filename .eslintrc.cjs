@@ -11,6 +11,15 @@ module.exports = {
     "sourceType": "module",
   },
   "rules": {
-    quotes: ["error", "double", {"avoidEscape": true}],
+    "quotes": ["error", "double", {"avoidEscape": true}],
+    "camelcase": ["error"],
   },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "camelcase": "off",
+      },
+    },
+  ],
 };

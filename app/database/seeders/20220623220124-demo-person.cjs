@@ -5,7 +5,7 @@ export async function up(queryInterface, Sequelize) {
     apellido: "Taboada",
     email: "rkto737@gmail.com",
     celular: "0972182811",
-    fec_creacion: new Date(),
+    fec_insercion: new Date(),
     fec_modificacion: new Date(),
   }], {});
 }
