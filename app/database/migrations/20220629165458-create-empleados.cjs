@@ -1,18 +1,16 @@
 /* eslint-disable require-jsdoc */
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("usuarios", {
-    usuario_id: {
-      allowNull: false,
-      autoIncrement: true,
-      comment: "Id del usuario.",
-      primaryKey: true,
+  await queryInterface.createTable("empleados", {
+    persona_id: {
       type: Sequelize.INTEGER,
-    },
-    nom_usuario: {
-      type: Sequelize.STRING,
-      comment: "Nombre de usuario en el sistema.",
+      comment: "Id del empleado en la tabla de personas.",
+      references: {
+        model: {
+          tableName: "personas",
+        },
+        key: "persona_id",
+      },
       allowNull: false,
-      unique: true,
     },
     activo: {
       type: Sequelize.BOOLEAN,
@@ -37,5 +35,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("usuarios");
-}
+  await queryInterface.dropTable("empleados");
+};

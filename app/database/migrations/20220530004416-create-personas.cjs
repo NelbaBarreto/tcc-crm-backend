@@ -46,10 +46,6 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       comment: "Número de celular de la persona.",
     },
-    fec_eliminacion: {
-      type: Sequelize.DATE,
-      comment: "Fecha en la que se eliminó el Registro",
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
@@ -67,6 +63,6 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 
-export async function down(queryInterface, _sequelize) {
+export async function down(queryInterface, _Sequelize) {
   await queryInterface.dropTable("personas");
 }
