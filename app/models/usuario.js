@@ -36,7 +36,7 @@ export default (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: async (usuario) => {
         if (usuario.password) {
-          const salt = await bcrypt.genSaltSync(10, "a");
+          const salt = await bcrypt.genSaltSync(10);
           usuario.password = bcrypt.hashSync(usuario.password, salt);
         }
       },

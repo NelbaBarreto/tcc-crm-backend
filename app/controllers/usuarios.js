@@ -25,7 +25,7 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-      err.message || "Ocurrió un error al intentar crear el usuario.",
+        err.message || "Ocurrió un error al intentar crear el usuario.",
     });
   }
 };
@@ -141,4 +141,45 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+const authenticarUsuarioConEmail = (usuario) => {
+  return new Promise((resolve, reject) => {
+    try {
+      Usuario.findOne({
+        where: {
+          email: usuario.email,
+        },
+      }).then(async (response) => {
+        if (!response) {
+          resolve(false);
+        } else {
+          if (!response.dataValues.password ||
+            !await response.validPassword(usuario.password,
+                response.dataValues.password)) {
+            resolve(false);
+          } else {
+            resolve(response.dataValues);
+          }
+        }
+      });
+    } catch (error) {
+      const response = {
+        status: 500,
+        data: {},
+        error: {
+          message: "usuario match failed",
+        },
+      };
+      reject(response);
+    }
+  });
+};
+
+export {
+  create,
+  findAll,
+  findOne,
+  update,
+  _delete,
+  deleteAll,
+  authenticarUsuarioConEmail,
+};
