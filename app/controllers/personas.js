@@ -25,7 +25,7 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-      err.message || "Ocurrió un error al intentar crear la persona.",
+      error.message || "Ocurrió un error al intentar crear la persona.",
     });
   }
 };
@@ -41,7 +41,7 @@ const findAll = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        err.message ||
+        error.message ||
         "Ocurrió un error al intentar obtener la lista de personas",
     });
   }

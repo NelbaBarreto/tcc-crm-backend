@@ -1,28 +1,18 @@
 /* eslint-disable require-jsdoc */
+"use strict";
+// eslint-disable-next-line require-jsdoc
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("usuarios", {
-    usuario_id: {
+  await queryInterface.createTable("Paises", {
+    pais_id: {
       allowNull: false,
       autoIncrement: true,
-      comment: "Id del usuario.",
       primaryKey: true,
       type: Sequelize.INTEGER,
+      comment: "Identificador único del país.",
     },
-    nom_usuario: {
+    nombre: {
       type: Sequelize.STRING,
-      comment: "Nombre de usuario en el sistema.",
-      allowNull: false,
-      unique: true,
-    },
-    activo: {
-      type: Sequelize.BOOLEAN,
-      comment: "Indica si el usuario está activo o inactivo en el sistema.",
-      defaultValue: false,
-      allowNull: false,
-    },
-    password: {
-      type: Sequelize.STRING,
-      allowNull: true,
+      comment: "Nombre del país.",
     },
     createdAt: {
       allowNull: false,
@@ -40,6 +30,6 @@ export async function up(queryInterface, Sequelize) {
     },
   });
 }
-export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("usuarios");
+export async function down(queryInterface, Sequelize) {
+  await queryInterface.dropTable("paises");
 }

@@ -2,11 +2,15 @@ import express from "express";
 import "dotenv/config.js";
 import cors from "cors";
 import db from "./app/models/index.js";
+
 import personas from "./app/routes/personas.js";
+import empleados from "./app/routes/empleados.js";
+import usuarios from "./app/routes/usuarios.js";
+
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "http://localhost:3000",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -19,6 +23,8 @@ app.get("/", (_req, res) => {
 });
 
 personas(app);
+usuarios(app);
+empleados(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -26,5 +32,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-// Hacer drop de todas las tablas y volver a correr las migraciones
-db.sequelize.sync({force: true});
+db.sequelize.sync();

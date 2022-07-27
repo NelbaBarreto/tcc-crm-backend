@@ -42,14 +42,14 @@ export default (sequelize, DataTypes) => {
       },
       beforeUpdate: async (usuario) => {
         if (usuario.password) {
-          const salt = await bcrypt.genSaltSync(10, "a");
+          const salt = await bcrypt.genSaltSync(10);
           usuario.password = bcrypt.hashSync(usuario.password, salt);
         }
       },
     },
     instanceMethods: {
-      validPassword: (password) => {
-        return bcrypt.compareSync(password, password);
+      validPassword: (user_password) => {
+        return bcrypt.compareSync(password, user_password);
       },
     },
   });

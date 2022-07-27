@@ -12,6 +12,17 @@ export async function up(queryInterface, Sequelize) {
       },
       allowNull: false,
     },
+    usuario_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id del usuario relacionado.",
+      references: {
+        model: {
+          tableName: "usuarios",
+        },
+        key: "usuario_id",
+      },
+      allowNull: true,
+    },
     activo: {
       type: Sequelize.BOOLEAN,
       comment: "Indica si el usuario está activo o inactivo en el sistema.",

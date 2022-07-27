@@ -10,6 +10,7 @@
     "prepare": "husky install",
     "migrate:up": "npx sequelize-cli db:migrate",
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "undo:all": "npx sequelize-cli db:migrate:undo:all",
     "migrate:seed": "npx sequelize-cli db:seed:all"
   },
   "lint-staged": {

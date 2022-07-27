@@ -11,11 +11,14 @@ export default (sequelize, DataTypes) => {
     }
   }
   Persona.init({
+    persona_id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     nombre: DataTypes.STRING,
-    apellido: DataTypes.STRING,
     email: DataTypes.STRING,
-    telefono: DataTypes.STRING,
-    celular: DataTypes.STRING,
   }, {
     sequelize,
     modelName: "personas",

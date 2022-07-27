@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("personas", {
@@ -13,11 +14,6 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       allowNull: false,
       comment: "Nombre de la persona.",
-    },
-    apellido: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      comment: "Apellido de la persona.",
     },
     email: {
       type: Sequelize.STRING,
@@ -37,14 +33,21 @@ export async function up(queryInterface, Sequelize) {
         },
       },
     },
-    telefono: {
+    nro_documento: {
       type: Sequelize.STRING,
-      unique: true,
-      comment: "Número de teléfono de la persona.",
+      comment: "Número de documento de la persona.",
+      unique: {
+        args: true,
+        msg: "Ya existe una persona con este número de documento.",
+      },
     },
-    celular: {
-      type: Sequelize.STRING,
-      comment: "Número de celular de la persona.",
+    cod_tip_documento: {
+      type: Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
+      comment: "Número de documento de la persona.",
+      unique: {
+        args: true,
+        msg: "Ya existe una persona con este número de documento.",
+      },
     },
     createdAt: {
       allowNull: false,

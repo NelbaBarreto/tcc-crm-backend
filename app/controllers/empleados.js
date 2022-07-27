@@ -25,7 +25,7 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-      err.message || "Ocurrió un error al intentar crear el empleado.",
+      error.message || "Ocurrió un error al intentar crear el empleado.",
     });
   }
 };
@@ -41,7 +41,7 @@ const findAll = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        err.message ||
+        error.message ||
         "Ocurrió un error al intentar obtener la lista de empleados",
     });
   }
@@ -136,7 +136,7 @@ const deleteAll = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        err.message || "Ocurrió un error al intentar eliminar los empleados",
+        error.message || "Ocurrió un error al intentar eliminar los empleados",
     });
   }
 };
