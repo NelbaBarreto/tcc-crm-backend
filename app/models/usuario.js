@@ -1,10 +1,11 @@
 /* eslint-disable require-jsdoc */
 import {Model} from "sequelize";
+import bcrypt from "bcrypt";
 
 export default (sequelize, DataTypes) => {
   class Usuario extends Model {
-    static associate(_models) {
-      // define association here
+    static associate(models) {
+      this.hasOne(models.empleados, {as: "empleado"});
     }
   }
   Usuario.init({

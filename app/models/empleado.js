@@ -4,7 +4,9 @@ import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Empleado extends Model {
-    static associate(_models) {
+    static associate(models) {
+      this.belongsTo(models.usuarios, {foreignKey: "usuario_id", as: "usuario"});
+      this.belongsTo(models.personas, {foreignKey: "persona_id", as: "persona"});
     }
   }
   Empleado.init({
@@ -21,23 +23,19 @@ export default (sequelize, DataTypes) => {
     },
     persona_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: {
-          tableName: "personas",
-        },
+        model: "personas",
         key: "persona_id",
       },
-      allowNull: false,
     },
     usuario_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
-        model: {
-          tableName: "usuarios",
-        },
+        model: "usuarios",
         key: "usuario_id",
       },
-      allowNull: true,
     },
   }, {
     sequelize,
@@ -45,5 +43,6 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
   return Empleado;
 };

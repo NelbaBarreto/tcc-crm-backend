@@ -6,18 +6,22 @@ const Usuario = usuario(db.sequelize, db.DataTypes);
 // Crear y guardar un nuevo usuario
 const create = async (req, res) => {
   // Validar la petición
-  if (!req.body.title) {
+  /*if (!req.body.title) {
     res.status(400).send({
       message: "No puede estar vacío.",
     });
     return;
-  }
+  }*/
 
   const usuario = {...req.body};
 
   // Guardar el usuario
   try {
-    const data = await Usuario.create(usuario);
+    const data = await Usuario.create({
+      nom_usuario: "nbarreto",
+      activo: true,
+      password: "123456",
+    });
 
     res.status(200).json({
       data,
@@ -141,12 +145,13 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-const authenticarUsuarioConEmail = (usuario) => {
+const autenticarUsuario = (a) => {
   return new Promise((resolve, reject) => {
+    const usuario = {nom_usuario: "nbarreto", password: "123456"};
     try {
       Usuario.findOne({
         where: {
-          email: usuario.email,
+          nom_usuario: usuario.nom_usuario,
         },
       }).then(async (response) => {
         if (!response) {
@@ -181,5 +186,5 @@ export {
   update,
   _delete,
   deleteAll,
-  authenticarUsuarioConEmail,
+  autenticarUsuario,
 };

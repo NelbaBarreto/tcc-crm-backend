@@ -4,21 +4,26 @@ import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Persona extends Model {
-    static associate(_models) {
-      /* Persona.hasOne(models.Empleado, {
-        foreignKey: "persona_id",
-      }); */
+    static associate(models) {
+      this.hasOne(models.empleados);
     }
   }
   Persona.init({
+    /* uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDv4,
+    },*/
     persona_id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
     nombre: DataTypes.STRING,
     email: DataTypes.STRING,
+    nro_documento: DataTypes.STRING,
+    cod_tip_documento:
+      // eslint-disable-next-line new-cap
+      DataTypes.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
   }, {
     sequelize,
     modelName: "personas",

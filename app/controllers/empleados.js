@@ -1,23 +1,30 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
 import empleado from "../models/empleado.js";
+import persona from "../models/persona.js";
+import usuario from "../models/usuario.js";
+
 const Empleado = empleado(db.sequelize, db.DataTypes);
+const Persona = persona(db.sequelize, db.DataTypes);
+const Usuario = usuario(db.sequelize, db.DataTypes);
 
 // Crear y guardar un nuevo empleado
 const create = async (req, res) => {
   // Validar la petición
-  if (!req.body.title) {
+  /*if (!req.body.title) {
     res.status(400).send({
       message: "No puede estar vacío.",
     });
     return;
-  }
+  }*/
 
   const empleado = {...req.body};
 
   // Guardar el empleado
   try {
-    const data = await Empleado.create(empleado);
+    const data = await Empleado.create(empleado, {include:
+      [{model: Persona}, {model: Usuario}],
+    });
 
     res.status(200).json({
       data,
