@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
+import jwt from "jsonwebtoken";
 import usuario from "../models/usuario.js";
 const Usuario = usuario(db.sequelize, db.DataTypes);
 
@@ -133,38 +134,19 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-const autenticarUsuario = (a) => {
-  return new Promise((resolve, reject) => {
-    const usuario = {nom_usuario: "nbarreto", password: "123456"};
-    try {
-      Usuario.findOne({
-        where: {
-          nom_usuario: usuario.nom_usuario,
-        },
-      }).then(async (response) => {
-        if (!response) {
-          resolve(false);
-        } else {
-          if (!response.dataValues.password ||
-            !await response.validPassword(usuario.password,
-                response.dataValues.password)) {
-            resolve(false);
-          } else {
-            resolve(response.dataValues);
-          }
-        }
-      });
-    } catch (error) {
-      const response = {
-        status: 500,
-        data: {},
-        error: {
-          message: "usuario match failed",
-        },
-      };
-      reject(response);
+const autenticarUsuario = async (req, res, next) => {
+  const user = await db.usuario.findOne({where: {nom_usuario: req.body.nom_usuario}});
+  if (user) {
+    const password_valid = await db.usuario.validPassword(req.body.password, user.password);
+    if (password_valid) {
+      let token = jwt.sign({"usuario_id": user.usuario_id, "nom_usuario": user.nom_usuario, "nombre": user.nombre}, process.env.SECRET);
+      res.status(200).json({token: token});
+    } else {
+      res.status(400).json({error: "Password Incorrect"});
     }
-  });
+  } else {
+    res.status(404).json({error: "User does not exist"});
+  }
 };
 
 export {
