@@ -1,23 +1,16 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
-import persona from "../models/persona.js";
-const Persona = persona(db.sequelize, db.DataTypes);
 
 // Crear y guardar una nueva persona
 const create = async (req, res) => {
-  // Validar la petición
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "No puede estar vacío.",
-    });
-    return;
-  }
-
   const persona = {...req.body};
 
   // Guardar la persona
   try {
-    const data = await Persona.create(persona);
+    const data = await db.persona.create({...persona}, {include:
+                                      [{model: db.empleado,
+                                        include: [db.usuario]},
+                                      ]});
 
     res.status(200).json({
       data,
@@ -33,7 +26,7 @@ const create = async (req, res) => {
 // Obtener todas las personas
 const findAll = async (_req, res) => {
   try {
-    const data = await Persona.findAll();
+    const data = await db.persona.findAll({include: db.empleado, as: "empleado"});
 
     res.status(200).json({
       data,
@@ -52,7 +45,7 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await Persona.findByPk(id);
+    const data = await db.persona.findByPk(id);
 
     if (data) {
       res.status(200).json({
@@ -75,7 +68,7 @@ const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await Persona.update(req.body, {
+    const data = await db.Persona.update(req.body, {
       where: {persona_id: id},
     });
 
@@ -100,7 +93,7 @@ const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await Persona.destroy({
+    const data = await db.Persona.destroy({
       where: {usuario_id: id},
     });
 

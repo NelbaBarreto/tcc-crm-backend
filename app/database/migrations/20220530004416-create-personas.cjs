@@ -41,7 +41,7 @@ export async function up(queryInterface, Sequelize) {
         msg: "Ya existe una persona con este número de documento.",
       },
     },
-    cod_tip_documento: {
+    tip_documento: {
       type: Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
       comment: "Número de documento de la persona.",
     },

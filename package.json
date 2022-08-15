@@ -12,7 +12,8 @@
     "migrate:undo": "npx sequelize-cli db:migrate:undo",
     "undo:all": "npx sequelize-cli db:migrate:undo:all",
     "migrate:seed": "npx sequelize-cli db:seed:all",
-    "db:drop": "npx sequelize-cli db:drop"
+    "db:drop": "npx sequelize-cli db:drop",
+    "db:create": "npx sequelize-cli db:create"
   },
   "lint-staged": {
     "**/*.{js,jsx}": [

@@ -5,23 +5,11 @@ const Usuario = usuario(db.sequelize, db.DataTypes);
 
 // Crear y guardar un nuevo usuario
 const create = async (req, res) => {
-  // Validar la petición
-  /*if (!req.body.title) {
-    res.status(400).send({
-      message: "No puede estar vacío.",
-    });
-    return;
-  }*/
-
   const usuario = {...req.body};
 
   // Guardar el usuario
   try {
-    const data = await Usuario.create({
-      nom_usuario: "nbarreto",
-      activo: true,
-      password: "123456",
-    });
+    const data = await Usuario.create(usuario);
 
     res.status(200).json({
       data,

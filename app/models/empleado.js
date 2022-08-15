@@ -1,12 +1,12 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
-import {Model} from "sequelize";
+import Sequelize, {Model} from "sequelize";
 
-export default (sequelize, DataTypes) => {
+export default (sequelize) => {
   class Empleado extends Model {
     static associate(models) {
-      this.belongsTo(models.usuarios, {foreignKey: "usuario_id", as: "usuario"});
-      this.belongsTo(models.personas, {foreignKey: "persona_id", as: "persona"});
+      this.belongsTo(models.usuario, {foreignKey: "usuario_id"});
+      this.belongsTo(models.persona, {foreignKey: "persona_id"});
     }
   }
   Empleado.init({
@@ -14,32 +14,32 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
     },
     activo: {
-      type: DataTypes.BOOLEAN,
+      type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false,
     },
     persona_id: {
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: "personas",
+        model: "persona",
         key: "persona_id",
       },
     },
     usuario_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: Sequelize.INTEGER,
+      allowNull: true,
       references: {
-        model: "usuarios",
+        model: "usuario",
         key: "usuario_id",
       },
     },
   }, {
     sequelize,
-    modelName: "empleados",
+    modelName: "empleado",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
