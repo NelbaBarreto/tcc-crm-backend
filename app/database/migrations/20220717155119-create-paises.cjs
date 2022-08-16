@@ -2,7 +2,7 @@
 "use strict";
 // eslint-disable-next-line require-jsdoc
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("Paises", {
+  await queryInterface.createTable("paises", {
     pais_id: {
       allowNull: false,
       autoIncrement: true,

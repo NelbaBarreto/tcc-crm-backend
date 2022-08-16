@@ -1,23 +1,15 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
-import empleado from "../models/empleado.js";
-const Empleado = empleado(db.sequelize, db.DataTypes);
 
 // Crear y guardar un nuevo empleado
 const create = async (req, res) => {
-  // Validar la petición
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "No puede estar vacío.",
-    });
-    return;
-  }
-
   const empleado = {...req.body};
 
   // Guardar el empleado
   try {
-    const data = await Empleado.create(empleado);
+    const data = await db.empleado.create(empleado, {include:
+      [{model: db.persona}, {model: db.usuario}],
+    });
 
     res.status(200).json({
       data,
@@ -33,7 +25,7 @@ const create = async (req, res) => {
 // Obtener todos los empleados
 const findAll = async (_req, res) => {
   try {
-    const data = await Empleado.findAll();
+    const data = await db.empleado.findAll();
 
     res.status(200).json({
       data,
@@ -52,7 +44,7 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await Empleado.findByPk(id);
+    const data = await db.empleado.findByPk(id);
 
     if (data) {
       res.status(200).json({
@@ -75,7 +67,7 @@ const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await Empleado.update(req.body, {
+    const data = await db.empleado.update(req.body, {
       where: {empleado_id: id},
     });
 
@@ -100,7 +92,7 @@ const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await Empleado.destroy({
+    const data = await db.empleado.destroy({
       where: {empleado_id: id},
     });
 
@@ -123,7 +115,7 @@ const _delete = async (req, res) => {
 // Borrar todos los empleados
 const deleteAll = async (_req, res) => {
   try {
-    const data = Empleado.destroy({
+    const data = db.empleado.destroy({
       where: {},
       truncate: false,
     });

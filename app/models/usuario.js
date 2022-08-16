@@ -1,10 +1,11 @@
 /* eslint-disable require-jsdoc */
-import {Model} from "sequelize";
+import Sequelize, {Model} from "sequelize";
+import bcrypt from "bcrypt";
 
-export default (sequelize, DataTypes) => {
+export default (sequelize) => {
   class Usuario extends Model {
-    static associate(_models) {
-      // define association here
+    static associate(models) {
+      this.hasOne(models.empleado, {foreignKey: "empleado_id"});
     }
   }
   Usuario.init({
@@ -12,25 +13,25 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
     },
     nom_usuario: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true,
     },
     activo: {
-      type: DataTypes.BOOLEAN,
+      type: Sequelize.BOOLEAN,
       defaultValue: false,
       allowNull: false,
     },
     password: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: true,
     },
   }, {
     sequelize,
-    modelName: "usuarios",
+    modelName: "usuario",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
     hooks: {

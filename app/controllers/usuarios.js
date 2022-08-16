@@ -1,18 +1,11 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
+import jwt from "jsonwebtoken";
 import usuario from "../models/usuario.js";
 const Usuario = usuario(db.sequelize, db.DataTypes);
 
 // Crear y guardar un nuevo usuario
 const create = async (req, res) => {
-  // Validar la petición
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "No puede estar vacío.",
-    });
-    return;
-  }
-
   const usuario = {...req.body};
 
   // Guardar el usuario
@@ -141,37 +134,19 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-const authenticarUsuarioConEmail = (usuario) => {
-  return new Promise((resolve, reject) => {
-    try {
-      Usuario.findOne({
-        where: {
-          email: usuario.email,
-        },
-      }).then(async (response) => {
-        if (!response) {
-          resolve(false);
-        } else {
-          if (!response.dataValues.password ||
-            !await response.validPassword(usuario.password,
-                response.dataValues.password)) {
-            resolve(false);
-          } else {
-            resolve(response.dataValues);
-          }
-        }
-      });
-    } catch (error) {
-      const response = {
-        status: 500,
-        data: {},
-        error: {
-          message: "usuario match failed",
-        },
-      };
-      reject(response);
+const autenticarUsuario = async (req, res, next) => {
+  const user = await db.usuario.findOne({where: {nom_usuario: req.body.nom_usuario}});
+  if (user) {
+    const password_valid = await db.usuario.validPassword(req.body.password, user.password);
+    if (password_valid) {
+      let token = jwt.sign({"usuario_id": user.usuario_id, "nom_usuario": user.nom_usuario, "nombre": user.nombre}, process.env.SECRET);
+      res.status(200).json({token: token});
+    } else {
+      res.status(400).json({error: "Password Incorrect"});
     }
-  });
+  } else {
+    res.status(404).json({error: "User does not exist"});
+  }
 };
 
 export {
@@ -181,5 +156,5 @@ export {
   update,
   _delete,
   deleteAll,
-  authenticarUsuarioConEmail,
+  autenticarUsuario,
 };

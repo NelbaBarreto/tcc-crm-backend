@@ -1,6 +1,13 @@
 /* eslint-disable require-jsdoc */
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("empleados", {
+    empleado_id: {
+      allowNull: false,
+      autoIncrement: true,
+      comment: "Identificador único del empleado.",
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
     persona_id: {
       type: Sequelize.INTEGER,
       comment: "Id del empleado en la tabla de personas.",

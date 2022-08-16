@@ -3,7 +3,7 @@
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Paises extends Model {
+  class Pais extends Model {
     // eslint-disable-next-line valid-jsdoc
     /**
      * Helper method for defining associations.
@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Paises.init({
+  Pais.init({
     pais_id: {
       allowNull: false,
       autoIncrement: true,
@@ -24,9 +24,9 @@ export default (sequelize, DataTypes) => {
     nombre: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "paises",
+    modelName: "pais",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Paises;
+  return Pais;
 };

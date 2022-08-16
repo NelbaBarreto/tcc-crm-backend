@@ -1,27 +1,33 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
-import {Model} from "sequelize";
+import Sequelize, {Model} from "sequelize";
 
-export default (sequelize, DataTypes) => {
+export default (sequelize) => {
   class Persona extends Model {
-    static associate(_models) {
-      /* Persona.hasOne(models.Empleado, {
-        foreignKey: "persona_id",
-      }); */
+    static associate(models) {
+      this.hasOne(models.empleado, {foreignKey: "persona_id"});
     }
   }
   Persona.init({
+    /* uuid: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDv4,
+    },*/
     persona_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER,
+      type: Sequelize.INTEGER,
     },
-    nombre: DataTypes.STRING,
-    email: DataTypes.STRING,
+    nombre: Sequelize.STRING,
+    email: Sequelize.STRING,
+    nro_documento: Sequelize.STRING,
+    tip_documento:
+      // eslint-disable-next-line new-cap
+      Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
   }, {
     sequelize,
-    modelName: "personas",
+    modelName: "persona",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });

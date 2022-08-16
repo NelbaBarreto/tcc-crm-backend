@@ -1,7 +1,9 @@
 import express from "express";
 import "dotenv/config.js";
+import jwt from "jsonwebtoken";
 import cors from "cors";
-import db from "./app/models/index.js";
+
+const Usuario = "./app/models/Usuario.js";
 
 import personas from "./app/routes/personas.js";
 import empleados from "./app/routes/empleados.js";
@@ -22,6 +24,26 @@ app.get("/", (_req, res) => {
   res.json({message: "Hello world!"});
 });
 
+app.post("/login", async (req, res, next) => {
+  const user = await Usuario.findOne({where: {email: req.body.email}});
+  if (user) {
+    const password_valid =
+      await Usuario.validPassword(req.body.password, user.password);
+
+    if (password_valid) {
+      token = jwt.sign({"id": user.id,
+        "email": user.email,
+        "nombre": user.nombre},
+      process.env.SECRET);
+      res.status(200).json({token: token});
+    } else {
+      res.status(400).json({error: "Contraseña incorrecta"});
+    }
+  } else {
+    res.status(404).json({error: "El usuario no existe"});
+  }
+});
+
 personas(app);
 usuarios(app);
 empleados(app);
@@ -31,5 +53,3 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-db.sequelize.sync();
