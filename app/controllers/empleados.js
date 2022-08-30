@@ -48,7 +48,10 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.empleado.findByPk(id);
+    const data = await db.empleado.findByPk(id, {
+      include:
+        [{model: db.persona}, {model: db.usuario}],
+    });
 
     if (data) {
       res.status(200).json({

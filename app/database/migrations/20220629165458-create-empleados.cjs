@@ -36,6 +36,24 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: false,
       allowNull: false,
     },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: {
+        args: false,
+        msg: "Ingrese la dirección de correo electrónico",
+      },
+      unique: {
+        args: true,
+        msg: "La dirección de correo ya existe.",
+      },
+      comment: "Dirección de correo del usuario.",
+      validate: {
+        isEmail: {
+          args: true,
+          msg: "Ingrese una dirección de correo válida.",
+        },
+      },
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

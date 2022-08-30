@@ -26,7 +26,8 @@ const create = async (req, res) => {
 // Obtener todas las personas
 const findAll = async (_req, res) => {
   try {
-    const data = await db.persona.findAll({include: db.empleado, as: "empleado"});
+    const data =
+    await db.persona.findAll({include: db.empleado, as: "empleado"});
 
     res.status(200).json({
       data,

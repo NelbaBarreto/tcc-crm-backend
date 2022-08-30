@@ -135,17 +135,24 @@ const deleteAll = async (_req, res) => {
 };
 
 const autenticarUsuario = async (req, res, next) => {
-  const user = await db.usuario.findOne({where: {nom_usuario: req.body.nom_usuario}});
+  const user = req.body.nom_usuario ?
+    await db.usuario.findOne({where: {nom_usuario: req.body.nom_usuario}}) :
+    await db.usuario.findOne({where: {email: req.body.email}});
+
   if (user) {
-    const password_valid = await db.usuario.validPassword(req.body.password, user.password);
+    const password_valid = req.body.nom_usuario ?
+      await db.usuario.validPassword(req.body.password, user.password) : true;
+
     if (password_valid) {
-      let token = jwt.sign({"usuario_id": user.usuario_id, "nom_usuario": user.nom_usuario, "nombre": user.nombre}, process.env.SECRET);
+      const token = jwt.sign({"usuario_id": user.usuario_id,
+        "nom_usuario": user.nom_usuario,
+        "nombre": user.nombre}, process.env.SECRET);
       res.status(200).json({token: token});
     } else {
-      res.status(400).json({error: "Password Incorrect"});
+      res.status(400).json({error: "Contraseña incorrecta"});
     }
   } else {
-    res.status(404).json({error: "User does not exist"});
+    res.status(404).json({error: "El usuario no existe"});
   }
 };
 

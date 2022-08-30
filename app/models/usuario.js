@@ -29,6 +29,10 @@ export default (sequelize) => {
       type: Sequelize.STRING,
       allowNull: true,
     },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: "usuario",
