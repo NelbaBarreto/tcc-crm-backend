@@ -7,8 +7,9 @@ const create = async (req, res) => {
 
   // Guardar el empleado
   try {
-    const data = await db.empleado.create(empleado, {include:
-      [{model: db.persona}, {model: db.usuario}],
+    const data = await db.empleado.create(empleado, {
+      include:
+        [{model: db.persona}, {model: db.usuario}],
     });
 
     res.status(200).json({
@@ -17,7 +18,7 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-      error.message || "Ocurrió un error al intentar crear el empleado.",
+        error.message || "Ocurrió un error al intentar crear el empleado.",
     });
   }
 };
@@ -25,7 +26,10 @@ const create = async (req, res) => {
 // Obtener todos los empleados
 const findAll = async (_req, res) => {
   try {
-    const data = await db.empleado.findAll();
+    const data = await db.empleado.findAll({
+      include:
+        [{model: db.persona}, {model: db.usuario}],
+    });
 
     res.status(200).json({
       data,
