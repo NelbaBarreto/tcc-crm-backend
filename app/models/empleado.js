@@ -19,7 +19,6 @@ export default (sequelize) => {
     activo: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
     },
     persona_id: {
       type: Sequelize.INTEGER,
@@ -37,6 +36,8 @@ export default (sequelize) => {
         key: "usuario_id",
       },
     },
+    usu_insercion: Sequelize.STRING,
+    usu_modificacion: Sequelize.STRING,
   }, {
     sequelize,
     modelName: "empleado",

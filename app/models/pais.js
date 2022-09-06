@@ -22,9 +22,14 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     nombre: DataTypes.STRING,
+    nom_corto: DataTypes.STRING,
+    cod_telefono: DataTypes.STRING,
+    usu_insercion: DataTypes.STRING,
+    usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
     modelName: "pais",
+    tableName: "paises",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });

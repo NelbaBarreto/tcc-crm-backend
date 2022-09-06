@@ -22,17 +22,15 @@ export default (sequelize) => {
     },
     activo: {
       type: Sequelize.BOOLEAN,
-      defaultValue: false,
       allowNull: false,
     },
     password: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    email: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
+    email: Sequelize.STRING,
+    usu_insercion: Sequelize.STRING,
+    usu_modificacion: Sequelize.STRING,
   }, {
     sequelize,
     modelName: "usuario",

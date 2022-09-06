@@ -9,10 +9,6 @@ export default (sequelize) => {
     }
   }
   Persona.init({
-    /* uuid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDv4,
-    },*/
     persona_id: {
       allowNull: false,
       autoIncrement: true,
@@ -25,6 +21,8 @@ export default (sequelize) => {
     tip_documento:
       // eslint-disable-next-line new-cap
       Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
+    usu_insercion: Sequelize.STRING,
+    usu_modificacion: Sequelize.STRING,
   }, {
     sequelize,
     modelName: "persona",

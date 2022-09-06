@@ -11,12 +11,13 @@ export async function up(queryInterface, Sequelize) {
       comment: "Identificador único de la persona.",
     },
     nombre: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       allowNull: false,
-      comment: "Nombre de la persona.",
+      comment: "Nombre y apellido de la persona o " +
+        "nombre comercial de la organización.",
     },
     email: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(60),
       allowNull: {
         args: false,
         msg: "Ingrese la dirección de correo electrónico",
@@ -34,7 +35,7 @@ export async function up(queryInterface, Sequelize) {
       },
     },
     nro_documento: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(20),
       comment: "Número de documento de la persona.",
       unique: {
         args: true,
@@ -43,7 +44,12 @@ export async function up(queryInterface, Sequelize) {
     },
     tip_documento: {
       type: Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
-      comment: "Número de documento de la persona.",
+      comment: "Tipo de documento de la persona (CI, RUC, etc.).",
+    },
+    usu_insercion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que insertó el registro.",
     },
     createdAt: {
       allowNull: false,
@@ -58,6 +64,11 @@ export async function up(queryInterface, Sequelize) {
       field: "fec_modificacion",
       comment: "Fecha en la que se modificó el registro por última vez.",
       defaultValue: Date.now(),
+    },
+    usu_modificacion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que modificó el registro por última vez.",
     },
   });
 }

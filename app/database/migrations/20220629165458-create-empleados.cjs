@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("empleados", {
@@ -36,23 +37,10 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: false,
       allowNull: false,
     },
-    email: {
-      type: Sequelize.STRING,
-      allowNull: {
-        args: false,
-        msg: "Ingrese la dirección de correo electrónico",
-      },
-      unique: {
-        args: true,
-        msg: "La dirección de correo ya existe.",
-      },
-      comment: "Dirección de correo del usuario.",
-      validate: {
-        isEmail: {
-          args: true,
-          msg: "Ingrese una dirección de correo válida.",
-        },
-      },
+    usu_insercion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que insertó el registro.",
     },
     createdAt: {
       allowNull: false,
@@ -67,6 +55,11 @@ export async function up(queryInterface, Sequelize) {
       field: "fec_modificacion",
       comment: "Fecha en la que se modificó el registro por última vez.",
       defaultValue: Date.now(),
+    },
+    usu_modificacion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que modificó el registro por última vez.",
     },
   });
 }

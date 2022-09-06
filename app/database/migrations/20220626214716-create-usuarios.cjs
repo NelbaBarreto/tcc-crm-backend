@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("usuarios", {
@@ -9,7 +10,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     nom_usuario: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(20),
       comment: "Nombre de usuario en el sistema.",
       allowNull: false,
       unique: true,
@@ -17,12 +18,35 @@ export async function up(queryInterface, Sequelize) {
     activo: {
       type: Sequelize.BOOLEAN,
       comment: "Indica si el usuario está activo o inactivo en el sistema.",
-      defaultValue: false,
+      defaultValue: true,
       allowNull: false,
     },
     password: {
       type: Sequelize.STRING,
       allowNull: true,
+    },
+    email: {
+      type: Sequelize.STRING(60),
+      allowNull: {
+        args: false,
+        msg: "Ingrese la dirección de correo electrónico",
+      },
+      unique: {
+        args: true,
+        msg: "La dirección de correo ya existe.",
+      },
+      comment: "Dirección de correo del usuario.",
+      validate: {
+        isEmail: {
+          args: true,
+          msg: "Ingrese una dirección de correo válida.",
+        },
+      },
+    },
+    usu_insercion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que insertó el registro.",
     },
     createdAt: {
       allowNull: false,
@@ -37,6 +61,11 @@ export async function up(queryInterface, Sequelize) {
       field: "fec_modificacion",
       comment: "Fecha en la que se modificó el registro por última vez.",
       defaultValue: Date.now(),
+    },
+    usu_modificacion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que modificó el registro por última vez.",
     },
   });
 }

@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 "use strict";
 // eslint-disable-next-line require-jsdoc
@@ -11,8 +12,24 @@ export async function up(queryInterface, Sequelize) {
       comment: "Identificador único del país.",
     },
     nombre: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(1000),
       comment: "Nombre del país.",
+      allowNull: false,
+    },
+    nom_corto: {
+      type: Sequelize.STRING(10),
+      comment: "Nombre corto del país.",
+      allowNull: false,
+    },
+    cod_telefono: {
+      type: Sequelize.STRING(10),
+      comment: "Prefijo para llamadas internacionales.",
+      allowNull: false,
+    },
+    usu_insercion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que insertó el registro.",
     },
     createdAt: {
       allowNull: false,
@@ -28,8 +45,13 @@ export async function up(queryInterface, Sequelize) {
       comment: "Fecha en la que se modificó el registro por última vez.",
       defaultValue: Date.now(),
     },
+    usu_modificacion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que modificó el registro por última vez.",
+    },
   });
 }
-export async function down(queryInterface, Sequelize) {
+export async function down(queryInterface, _Sequelize) {
   await queryInterface.dropTable("paises");
 }
