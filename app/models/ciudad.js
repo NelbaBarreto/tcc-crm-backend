@@ -8,7 +8,7 @@ import {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Ciudad extends Model {
     static associate(models) {
-      this.belongsTo(models.pais, {foreignKey: "pais_id"});
+      this.belongsTo(models.pais, {foreignKey: "pais_id", as: "pais"});
     }
   }
   Ciudad.init({
