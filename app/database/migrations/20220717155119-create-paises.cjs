@@ -15,11 +15,19 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING(1000),
       comment: "Nombre del país.",
       allowNull: false,
+      unique: {
+        args: true,
+        msg: "El país ya existe.",
+      },
     },
     nom_corto: {
       type: Sequelize.STRING(10),
       comment: "Nombre corto del país.",
       allowNull: false,
+      unique: {
+        args: true,
+        msg: "Nombre corto de país ya existe.",
+      },
     },
     cod_telefono: {
       type: Sequelize.STRING(10),
