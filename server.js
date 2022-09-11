@@ -9,6 +9,7 @@ import personas from "./app/routes/personas.js";
 import empleados from "./app/routes/empleados.js";
 import usuarios from "./app/routes/usuarios.js";
 import paises from "./app/routes/paises.js";
+import ciudades from "./app/routes/ciudades.js";
 
 const app = express();
 
@@ -49,6 +50,7 @@ personas(app);
 usuarios(app);
 empleados(app);
 paises(app);
+ciudades(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
