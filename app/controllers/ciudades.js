@@ -23,7 +23,10 @@ const create = async (req, res) => {
 // Obtener todos los ciudades
 const findAll = async (_req, res) => {
   try {
-    const data = await db.ciudad.findAll();
+    const data = await db.ciudad.findAll({
+      include:
+        [{model: db.pais}],
+    });
 
     res.status(200).json({
       data,
@@ -42,7 +45,10 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.ciudad.findByPk(id);
+    const data = await db.ciudad.findByPk(id, {
+      include:
+        [{model: db.pais}],
+    });
 
     if (data) {
       res.status(200).json({
