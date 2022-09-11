@@ -1,31 +1,40 @@
+/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+/* eslint-disable valid-jsdoc */
 "use strict";
+
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Pais extends Model {
+  class Ciudad extends Model {
     static associate(models) {
-      this.hasMany(models.ciudad, {foreignKey: "pais_id"});
+      this.belongsTo(models.pais, {foreignKey: "pais_id"});
     }
   }
-  Pais.init({
-    pais_id: {
+  Ciudad.init({
+    ciudad_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nombre: DataTypes.STRING,
-    nom_corto: DataTypes.STRING,
-    cod_telefono: DataTypes.STRING,
+    nombre: DataTypes.STRING(1000),
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
+    pais_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "pais",
+        key: "pais_id",
+      },
+    },
   }, {
     sequelize,
-    modelName: "pais",
-    tableName: "paises",
+    modelName: "ciudad",
+    tableName: "ciudades",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Pais;
+  return Ciudad;
 };
