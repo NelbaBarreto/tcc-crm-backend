@@ -7,6 +7,10 @@ export default (sequelize) => {
     static associate(models) {
       this.hasOne(models.empleado, {foreignKey: "persona_id"});
     }
+
+    getTipDocumento() {
+      return Persona.getAttributes().tip_documento.values;
+    }
   }
   Persona.init({
     persona_id: {

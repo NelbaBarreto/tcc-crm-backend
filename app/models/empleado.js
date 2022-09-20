@@ -18,7 +18,6 @@ export default (sequelize) => {
     },
     activo: {
       type: Sequelize.BOOLEAN,
-      allowNull: false,
     },
     persona_id: {
       type: Sequelize.INTEGER,
