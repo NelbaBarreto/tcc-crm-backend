@@ -23,7 +23,6 @@ export default (sequelize, DataTypes) => {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,
   }, {

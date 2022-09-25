@@ -3,13 +3,14 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, { Model } from "sequelize";
+import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Lead extends Model {
     static associate(models) {
-      this.belongsTo(models.usuario, { foreignKey: "usu_asignado_id", as: "usuario" });
-      this.belongsTo(models.persona, { foreignKey: "persona_id", as: "persona" });
+      this.belongsTo(models.usuario,
+          {foreignKey: "usu_asignado_id", as: "usuario"});
+      this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
     }
   }
   Lead.init({
@@ -37,7 +38,7 @@ export default (sequelize, DataTypes) => {
     },
     origen:
       // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Correo", "llamada","Red Social"),
+      Sequelize.ENUM("Correo", "llamada", "Red Social"),
 
     persona_id: {
       type: DataTypes.INTEGER,

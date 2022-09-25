@@ -7,7 +7,7 @@ import Sequelize, {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Campana extends Model {
     static associate(models) {
-      
+
     }
   }
   Campana.init({
@@ -18,10 +18,10 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    
+
     fec_inicio: Sequelize.DATE,
     fec_fin: Sequelize.DATE,
-    
+
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,
   }, {

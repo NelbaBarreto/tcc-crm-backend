@@ -20,7 +20,6 @@ export default (sequelize, DataTypes) => {
     nombre: DataTypes.STRING(1000),
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
-    
   }, {
     sequelize,
     modelName: "curso",
