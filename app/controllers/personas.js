@@ -7,18 +7,10 @@ const create = async (req, res) => {
 
   // Guardar la persona
   try {
-    let data;
-    if (persona.empleado.usuario?.nom_usuario) {
-      data = await db.persona.create({...persona}, {include:
-        [{model: db.empleado,
-          include: [db.usuario]},
-        ]});
-    } else {
-      data = await db.persona.create({...persona}, {
-        include:
-          [{model: db.empleado}],
-      });
-    }
+    const data = await db.persona.create({...persona}, {include:
+                                      [{model: db.empleado,
+                                        include: [db.usuario]},
+                                      ]});
 
     res.status(200).json({
       data,
