@@ -5,7 +5,7 @@ export async function up(queryInterface, Sequelize) {
     usuario_id: {
       allowNull: false,
       autoIncrement: true,
-      comment: "Id del usuario.",
+      comment: "Identificador único del usuario.",
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
