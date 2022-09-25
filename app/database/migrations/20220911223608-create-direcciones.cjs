@@ -1,4 +1,6 @@
-'use strict';
+/* eslint-disable new-cap */
+/* eslint-disable require-jsdoc */
+"use strict";
 
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("direcciones", {
@@ -7,7 +9,7 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true,
       primaryKey: true,
       comment: "Identificador único de la dirección.",
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     calle_1: {
       type: Sequelize.STRING(1000),
@@ -51,7 +53,7 @@ export async function up(queryInterface, Sequelize) {
     referencia_id: {
       allowNull: false,
       comment: "Id referencia de la dirección.",
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     ciudad_id: {
       type: Sequelize.INTEGER,
@@ -70,7 +72,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: false,
       allowNull: false,
     },
-    //Auditoria
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),

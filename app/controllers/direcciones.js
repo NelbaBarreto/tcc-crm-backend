@@ -126,7 +126,8 @@ const deleteAll = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar eliminar las direcciones",
+        error.message ||
+          "Ocurrió un error al intentar eliminar las direcciones",
     });
   }
 };

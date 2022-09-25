@@ -1,15 +1,17 @@
-'use strict';
+/* eslint-disable new-cap */
+/* eslint-disable require-jsdoc */
+"use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("Leads", {
+  await queryInterface.createTable("leads", {
     lead_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     estado: {
-      type: Sequelize.ENUM("activo", "inactivo","contactado"),
+      type: Sequelize.ENUM("activo", "inactivo", "contactado"),
       comment: "Estado del lead",
     },
     usu_asginado_id: {
@@ -29,7 +31,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     origen: {
-      type: Sequelize.ENUM("Correo", "llamada","Red Social"),
+      type: Sequelize.ENUM("Correo", "llamada", "Red Social"),
       comment: "Origen del lead",
     },
     persona_id: {
@@ -48,7 +50,7 @@ export async function up(queryInterface, Sequelize) {
       comment: "Id del curso del lead.",
       allowNull: false,
     },
-    //Auditoria
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),

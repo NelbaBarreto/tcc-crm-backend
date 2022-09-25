@@ -1,8 +1,10 @@
-'use strict';
+/* eslint-disable new-cap */
+/* eslint-disable require-jsdoc */
+"use strict";
 
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("campana_tipos", {
-    
+
     campana_id: {
       type: Sequelize.INTEGER,
       comment: "Id de la campaña.",
@@ -20,7 +22,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
 
-    //Auditoria
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),
