@@ -1,78 +1,128 @@
-/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
-export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("personas", {
-    persona_id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER,
-      field: "persona_id",
-      comment: "Identificador único de la persona.",
-    },
-    nombre: {
-      type: Sequelize.STRING(255),
-      allowNull: false,
-      comment: "Nombre y apellido de la persona o " +
-        "nombre comercial de la organización.",
-    },
-    email: {
-      type: Sequelize.STRING(60),
-      allowNull: {
-        args: false,
-        msg: "Ingrese la dirección de correo electrónico",
-      },
-      unique: {
-        args: true,
-        msg: "La dirección de correo ya existe.",
-      },
-      comment: "Dirección de correo de la persona.",
-      validate: {
-        isEmail: {
-          args: true,
-          msg: "Ingrese una dirección de correo válida.",
-        },
-      },
-    },
-    nro_documento: {
-      type: Sequelize.STRING(20),
-      comment: "Número de documento de la persona.",
-      unique: {
-        args: true,
-        msg: "Ya existe una persona con este número de documento.",
-      },
-    },
-    tip_documento: {
-      type: Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
-      comment: "Tipo de documento de la persona (CI, RUC, etc.).",
-    },
-    usu_insercion: {
-      // allowNull: false,
-      type: Sequelize.STRING(20),
-      comment: "Nombre del usuario que insertó el registro.",
-    },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE,
-      field: "fec_insercion",
-      comment: "Fecha en la que se creó el registro.",
-      defaultValue: Date.now(),
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE,
-      field: "fec_modificacion",
-      comment: "Fecha en la que se modificó el registro por última vez.",
-      defaultValue: Date.now(),
-    },
-    usu_modificacion: {
-      // allowNull: false,
-      type: Sequelize.STRING(20),
-      comment: "Nombre del usuario que modificó el registro por última vez.",
-    },
-  });
-}
+import db from "../models/index.js";
 
-export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("personas");
-}
+// Crear y guardar una nueva persona
+const create = async (req, res) => {
+  const persona = {...req.body};
+
+  // Guardar la persona
+  try {
+    let data;
+    if (persona.empleado.usuario?.nom_usuario) {
+      data = await db.persona.create({...persona}, {include:
+        [{model: db.empleado,
+          include: [db.usuario]},
+        ]});
+    } else {
+      data = await db.persona.create({...persona}, {
+        include:
+          [{model: db.empleado}],
+      });
+    }
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+      error.message || "Ocurrió un error al intentar crear la persona.",
+    });
+  }
+};
+
+// Obtener todas las personas
+const findAll = async (_req, res) => {
+  try {
+    const data =
+    await db.persona.findAll({include: db.empleado, as: "empleado"});
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message ||
+        "Ocurrió un error al intentar obtener la lista de personas",
+    });
+  }
+};
+
+// Encontrar una persona según su id
+const findOne = async (req, res) => {
+  const {id} = req.params;
+
+  try {
+    const data = await db.persona.findByPk(id);
+
+    if (data) {
+      res.status(200).json({
+        data,
+      });
+    } else {
+      res.status(404).send({
+        message: `No se pudo encontrar la persona con el id=${id}`,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener persona con id=" + id,
+    });
+  }
+};
+
+// Actualizar persona según su id
+const update = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const data = await db.Persona.update(req.body, {
+      where: {persona_id: id},
+    });
+
+    if (data == 1) {
+      res.status(200).json({
+        message: "Persona actualizada correctamente",
+      });
+    } else {
+      res.status(200).json({
+        message: "No se pudo actualizar a la persona con id=" + id,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Error actualizando persona con id=" + id,
+    });
+  };
+};
+
+// Eliminar persona según su id
+const _delete = async (req, res) => {
+  const {id} = req.params;
+
+  try {
+    const data = await db.Persona.destroy({
+      where: {usuario_id: id},
+    });
+
+    if (data == 1) {
+      res.status(200).json({
+        message: "Persona eliminada correctamente",
+      });
+    } else {
+      res.status(200).json({
+        message: "No se pudo eliminar la persona con id=" + id,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Error eliminando persona con id=" + id,
+    });
+  }
+};
+
+// Borrar todas las personas
+const deleteAll = async (_req, _res) => { };
+
+export {create, findAll, findOne, update, _delete, deleteAll};
