@@ -6,10 +6,7 @@ export default (sequelize) => {
   class Persona extends Model {
     static associate(models) {
       this.hasOne(models.empleado, {foreignKey: "persona_id"});
-    }
-
-    getTipDocumento() {
-      return Persona.getAttributes().tip_documento.values;
+      this.hasMany(models.direccion, {foreignKey: "referencia_id"});
     }
   }
   Persona.init({
