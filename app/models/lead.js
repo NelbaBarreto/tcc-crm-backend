@@ -23,7 +23,6 @@ export default (sequelize, DataTypes) => {
     estado:
       // eslint-disable-next-line new-cap
       Sequelize.ENUM("activo", "inactivo", "contactado"),
-
     usu_asignado_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -52,8 +51,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    usu_insercion: DataTypes.STRING,
-    usu_modificacion: DataTypes.STRING,
+    usu_insercion: DataTypes.STRING(20),
+    usu_modificacion: DataTypes.STRING(20),
   }, {
     sequelize,
     modelName: "lead",

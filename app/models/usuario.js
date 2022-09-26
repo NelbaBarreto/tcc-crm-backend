@@ -6,6 +6,7 @@ export default (sequelize) => {
   class Usuario extends Model {
     static associate(models) {
       this.hasOne(models.empleado, {foreignKey: "empleado_id"});
+      this.hasMany(models.lead, {foreignKey: "usu_asignado_id"});
     }
   }
   Usuario.init({
