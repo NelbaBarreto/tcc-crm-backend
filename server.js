@@ -10,6 +10,9 @@ import empleados from "./app/routes/empleados.js";
 import usuarios from "./app/routes/usuarios.js";
 import paises from "./app/routes/paises.js";
 import ciudades from "./app/routes/ciudades.js";
+import campanas from "./app/routes/campanas.js";
+import tip_campanas from "./app/routes/tip_campanas.js";
+import leads from "./app/routes/leads.js";
 
 const app = express();
 
@@ -51,6 +54,9 @@ usuarios(app);
 empleados(app);
 paises(app);
 ciudades(app);
+campanas(app);
+tip_campanas(app);
+leads(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
