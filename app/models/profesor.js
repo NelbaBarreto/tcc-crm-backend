@@ -6,40 +6,18 @@
 import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Lead extends Model {
+  class Profesor extends Model {
     static associate(models) {
-      this.belongsTo(models.usuario,
-          {foreignKey: "usu_asignado_id", as: "usuario"});
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
     }
   }
-  Lead.init({
-    lead_id: {
+  Profesor.init({
+    profesor_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    estado:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("activo", "inactivo", "contactado"),
-
-    usu_asignado_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "usuario",
-        key: "usuario_id",
-      },
-    },
-    campana_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    origen:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Correo", "llamada", "Red Social"),
-
     persona_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -52,10 +30,10 @@ export default (sequelize, DataTypes) => {
     usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "lead",
-    tableName: "leads",
+    modelName: "profesor",
+    tableName: "profesores",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Lead;
+  return Profesor;
 };

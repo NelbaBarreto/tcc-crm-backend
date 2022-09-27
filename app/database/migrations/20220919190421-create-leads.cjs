@@ -14,7 +14,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.ENUM("activo", "inactivo", "contactado"),
       comment: "Estado del lead",
     },
-    usu_asginado_id: {
+    usu_asignado_id: {
       type: Sequelize.INTEGER,
       comment: "Id de usuario asginado.",
       references: {
@@ -78,5 +78,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("Leads");
+  await queryInterface.dropTable("leads");
 }
