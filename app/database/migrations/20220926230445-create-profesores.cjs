@@ -1,25 +1,27 @@
-'use strict';
+/* eslint-disable new-cap */
+/* eslint-disable require-jsdoc */
+"use strict";
 
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("profesores", {
-      profesor_id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      persona_id: {
-        type: Sequelize.INTEGER,
-        comment: "Id de persona del lead.",
-        references: {
-          model: {
-            tableName: "personas",
-          },
-          key: "persona_id",
+    profesor_id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
+    persona_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de persona del profesor.",
+      references: {
+        model: {
+          tableName: "personas",
         },
-        allowNull: false,
+        key: "persona_id",
       },
-      // Auditoria
+      allowNull: false,
+    },
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),
@@ -44,8 +46,8 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },
-    });
-  }
-  export async function down(queryInterface, _Sequelize) {
-    await queryInterface.dropTable("profesores");
-  }
+  });
+}
+export async function down(queryInterface, _Sequelize) {
+  await queryInterface.dropTable("profesores");
+}

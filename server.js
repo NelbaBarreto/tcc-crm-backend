@@ -17,6 +17,10 @@ import leads from "./app/routes/leads.js";
 import profesores from "./app/routes/profesores.js";
 import sucursales from "./app/routes/sucursales.js";
 import tip_campanas from "./app/routes/tip_campanas.js";
+// Ventas
+import organizaciones from "./app/routes/organizaciones.js";
+import oportunidades from "./app/routes/oportunidades.js";
+import contactos from "./app/routes/contactos.js";
 
 const app = express();
 
@@ -65,6 +69,9 @@ leads(app);
 profesores(app);
 sucursales(app);
 tip_campanas(app);
+organizaciones(app);
+oportunidades(app);
+contactos(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

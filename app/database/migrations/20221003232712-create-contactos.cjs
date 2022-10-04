@@ -1,17 +1,25 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("sucursales", {
-    sucursal_id: {
+  await queryInterface.createTable("contactos", {
+    contacto_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    nombre: {
-      type: Sequelize.STRING,
+    persona_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de persona del contacto.",
+      references: {
+        model: {
+          tableName: "personas",
+        },
+        key: "persona_id",
+      },
       allowNull: false,
     },
     // Auditoria
@@ -42,5 +50,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("sucursales");
+  await queryInterface.dropTable("contactos");
 }

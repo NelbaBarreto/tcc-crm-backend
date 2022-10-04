@@ -1,9 +1,9 @@
 /* eslint-disable new-cap */
 import {Router} from "express";
 import {create, findAll, findOne, update, _delete, deleteAll}
-  from "../controllers/leads.js";
+  from "../controllers/organizaciones.js";
 
-const RutasLeads = (app) => {
+const RutasOrganizaciones = (app) => {
   const router = Router();
 
   router.post("/", create);
@@ -13,7 +13,7 @@ const RutasLeads = (app) => {
   router.delete("/:id", _delete);
   router.delete("/", deleteAll);
 
-  app.use("/api/leads", router);
+  app.use("/api/organizaciones", router);
 };
 
-export default RutasLeads;
+export default RutasOrganizaciones;

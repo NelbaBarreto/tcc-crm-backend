@@ -1,18 +1,36 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("sucursales", {
-    sucursal_id: {
+  await queryInterface.createTable("organizaciones", {
+    organizacion_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    nombre: {
-      type: Sequelize.STRING,
+    persona_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de persona del organizaciones.",
+      references: {
+        model: {
+          tableName: "personas",
+        },
+        key: "persona_id",
+      },
       allowNull: false,
+    },
+    raz_social: {
+      type: Sequelize.STRING(500),
+      allowNull: false,
+    },
+    descripcion: {
+      type: Sequelize.STRING(500),
+    },
+    website: {
+      type: Sequelize.STRING(500),
     },
     // Auditoria
     usu_insercion: {
@@ -42,5 +60,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("sucursales");
+  await queryInterface.dropTable("organizaciones");
 }

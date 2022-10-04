@@ -1,17 +1,54 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+
 "use strict";
 
+
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("sucursales", {
-    sucursal_id: {
+  await queryInterface.createTable("oportunidades", {
+    oportunidad_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(120),
+      allowNull: false,
+    },
+    campana_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de campana de la oportunidad.",
+      references: {
+        model: {
+          tableName: "campanas",
+        },
+        key: "campana_id",
+      },
+      allowNull: false,
+    },
+    usu_asignado_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de usuario asginado.",
+      references: {
+        model: {
+          tableName: "usuarios",
+        },
+        key: "usuario_id",
+      },
+      allowNull: false,
+    },
+    valor: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    descripcion: {
+      type: Sequelize.STRING(1000),
+    },
+    etapa: {
+      // eslint-disable-next-line max-len
+      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      comment: "etapas de una oportunidad",
       allowNull: false,
     },
     // Auditoria
@@ -42,5 +79,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("sucursales");
+  await queryInterface.dropTable("oportunidades");
 }
