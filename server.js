@@ -25,6 +25,8 @@ import contactos from "./app/routes/contactos.js";
 import casos from "./app/routes/casos.js";
 // Actividades
 import tareas from "./app/routes/tareas.js";
+// Telefonos
+import telefonos from "./app/routes/telefonos.js";
 
 const app = express();
 
@@ -78,6 +80,7 @@ oportunidades(app);
 contactos(app);
 casos(app);
 tareas(app);
+telefonos(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
