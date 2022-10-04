@@ -21,6 +21,8 @@ import tip_campanas from "./app/routes/tip_campanas.js";
 import organizaciones from "./app/routes/organizaciones.js";
 import oportunidades from "./app/routes/oportunidades.js";
 import contactos from "./app/routes/contactos.js";
+// Soporte
+import casos from "./app/routes/casos.js";
 
 const app = express();
 
@@ -72,6 +74,7 @@ tip_campanas(app);
 organizaciones(app);
 oportunidades(app);
 contactos(app);
+casos(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
