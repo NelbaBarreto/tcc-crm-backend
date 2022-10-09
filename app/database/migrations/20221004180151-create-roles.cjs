@@ -4,16 +4,19 @@
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("perfiles", {
-    perfil_id: {
+  await queryInterface.createTable("roles", {
+    rol_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
-      type: Sequelize.STRING(100),
+      type: Sequelize.STRING,
       allowNull: false,
+    },
+    descripcion: {
+      type: Sequelize.TEXT,
     },
     // Auditoria
     usu_insercion: {
@@ -43,5 +46,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("perfiles");
+  await queryInterface.dropTable("roles");
 }

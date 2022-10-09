@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    descripcion: DataTypes.STRING(1000),
+    descripcion: DataTypes.STRING,
     estado:
       // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),

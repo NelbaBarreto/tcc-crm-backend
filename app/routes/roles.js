@@ -1,9 +1,9 @@
 /* eslint-disable new-cap */
 import {Router} from "express";
 import {create, findAll, findOne, update, _delete, deleteAll}
-  from "../controllers/perfiles.js";
+  from "../controllers/roles.js";
 
-const RutasPerfiles = (app) => {
+const RutasRoles = (app) => {
   const router = Router();
 
   router.post("/", create);
@@ -13,7 +13,7 @@ const RutasPerfiles = (app) => {
   router.delete("/:id", _delete);
   router.delete("/", deleteAll);
 
-  app.use("/api/perfiles", router);
+  app.use("/api/roles", router);
 };
 
-export default RutasPerfiles;
+export default RutasRoles;

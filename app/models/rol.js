@@ -6,28 +6,32 @@
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Perfil extends Model {
+  class Rol extends Model {
     static associate(models) {}
   }
-  Perfil.init({
-    perfil_id: {
+  Rol.init({
+    rol_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
     nombre: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    usu_insercion: DataTypes.STRING,
-    usu_modificacion: DataTypes.STRING,
+    descripcion: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    usu_insercion: DataTypes.STRING(20),
+    usu_modificacion: DataTypes.STRING(20),
   }, {
     sequelize,
-    modelName: "perfil",
-    tableName: "perfiles",
+    modelName: "rol",
+    tableName: "roles",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Perfil;
+  return Rol;
 };

@@ -1,13 +1,13 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
 
-// Crear y guardar un nuevo perfil
+// Crear y guardar un nuevo rol
 const create = async (req, res) => {
-  const perfil = {...req.body};
+  const rol = {...req.body};
 
-  // Guardar el perfil
+  // Guardar el rol
   try {
-    const data = await db.perfil.create(perfil);
+    const data = await db.rol.create(rol);
 
     res.status(200).json({
       data,
@@ -15,15 +15,15 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar crear el perfil.",
+        error.message || "Ocurrió un error al intentar crear el rol.",
     });
   }
 };
 
-// Obtener todos los perfiles
+// Obtener todos los roles
 const findAll = async (_req, res) => {
   try {
-    const data = await db.perfil.findAll();
+    const data = await db.rol.findAll();
 
     res.status(200).json({
       data,
@@ -32,17 +32,17 @@ const findAll = async (_req, res) => {
     res.status(500).send({
       message:
         error.message ||
-        "Ocurrió un error al intentar obtener la lista de perfiles",
+        "Ocurrió un error al intentar obtener la lista de roles",
     });
   }
 };
 
-// Encontrar un perfil según su id
+// Encontrar un rol según su id
 const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.perfil.findByPk(id);
+    const data = await db.rol.findByPk(id);
 
     if (data) {
       res.status(200).json({
@@ -50,83 +50,83 @@ const findOne = async (req, res) => {
       });
     } else {
       res.status(404).send({
-        message: `No se pudo encontrar el perfil con el id=${id}`,
+        message: `No se pudo encontrar el rol con el id=${id}`,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error al obtener el perfil con id=" + id,
+      message: "Error al obtener el rol con id=" + id,
     });
   }
 };
 
-// Actualizar perfil según su id
+// Actualizar rol según su id
 const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await db.perfil.update(req.body, {
-      where: {perfil_id: id},
+    const data = await db.rol.update(req.body, {
+      where: {rol_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Perfil actualizado correctamente",
+        message: "Rol actualizado correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el perfil con id=" + id,
+        message: "No se pudo actualizar el rol con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error actualizando el perfil con id=" + id,
+      message: "Error actualizando el rol con id=" + id,
     });
   };
 };
 
-// Eliminar perfil según su id
+// Eliminar rol según su id
 const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.perfil.destroy({
-      where: {perfil_id: id},
+    const data = await db.rol.destroy({
+      where: {rol_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Perfil eliminado correctamente",
+        message: "Rol eliminado correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo eliminar el perfil con id=" + id,
+        message: "No se pudo eliminar el rol con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error eliminando el perfil con id=" + id,
+      message: "Error eliminando el rol con id=" + id,
     });
   }
 };
 
-// Borrar todos los perfiles
+// Borrar todos los roles
 const deleteAll = async (_req, res) => {
   try {
-    const data = db.perfil.destroy({
+    const data = db.rol.destroy({
       where: {},
       truncate: false,
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: `${data} perfiles fueron eliminados correctamente`,
+        message: `${data} roles fueron eliminados correctamente`,
       });
     }
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar eliminar los perfiles",
+        error.message || "Ocurrió un error al intentar eliminar los roles",
     });
   }
 };

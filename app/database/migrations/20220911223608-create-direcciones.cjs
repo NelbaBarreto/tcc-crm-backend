@@ -12,12 +12,12 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     calle_1: {
-      type: Sequelize.STRING(1000),
+      type: Sequelize.STRING,
       allowNull: false,
       comment: "Calle principal.",
     },
     calle_2: {
-      type: Sequelize.STRING(1000),
+      type: Sequelize.STRING,
       allowNull: true,
       comment: "Calle secundaria.",
     },

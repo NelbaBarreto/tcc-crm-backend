@@ -12,7 +12,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     nombre: {
-      type: Sequelize.STRING(1000),
+      type: Sequelize.STRING,
       allowNull: false,
       comment: "Nombre de la ciudad.",
     },

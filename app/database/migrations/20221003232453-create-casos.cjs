@@ -6,17 +6,20 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("casos", {
     caso_id: {
+      comment: "Identificador único del caso.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    nombre: {
-      type: Sequelize.STRING(120),
+    asunto: {
+      comment: "Título del caso.",
+      type: Sequelize.STRING,
       allowNull: false,
     },
     descripcion: {
-      type: Sequelize.STRING(120),
+      comment: "Descripción del caso.",
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     prioridad: {
@@ -38,7 +41,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     solucion: {
-      type: Sequelize.STRING(1000),
+      type: Sequelize.STRING,
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,

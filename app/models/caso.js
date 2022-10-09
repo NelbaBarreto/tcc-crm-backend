@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     nombre: DataTypes.STRING(120),
-    descripcion: DataTypes.STRING(1000),
+    descripcion: DataTypes.STRING,
     prioridad:
       // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Alta", "Media", "Baja"),
@@ -32,7 +32,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
-    solucion: DataTypes.STRING(1000),
+    solucion: DataTypes.STRING,
     usu_asignado_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

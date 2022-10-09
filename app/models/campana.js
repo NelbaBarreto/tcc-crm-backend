@@ -11,7 +11,7 @@ export default (sequelize, DataTypes) => {
     }
   }
   Campana.init({
-    nombre: Sequelize.STRING(1000),
+    nombre: Sequelize.STRING,
     campana_id: {
       allowNull: false,
       autoIncrement: true,

@@ -5,6 +5,7 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("profesores", {
     profesor_id: {
+      comment: "Identificador único del profesor.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,

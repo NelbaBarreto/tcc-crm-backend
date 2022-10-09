@@ -30,7 +30,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING(500),
       allowNull: false,
     },
-    descripcion: DataTypes.STRING(1000),
+    descripcion: DataTypes.STRING,
     website: DataTypes.STRING(500),
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,

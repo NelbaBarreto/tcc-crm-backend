@@ -5,12 +5,14 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("sucursales", {
     sucursal_id: {
+      comment: "Identificador único de la sucursal.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
+      comment: "Nombre de la sucursal.",
       type: Sequelize.STRING,
       allowNull: false,
     },

@@ -3,11 +3,7 @@ import {Router} from "express";
 import {create, findAll, findOne, update, _delete, deleteAll}
   from "../controllers/leads.js";
 
-<<<<<<< HEAD
 const RutasLeads = (app) => {
-=======
-const RutasPaises = (app) => {
->>>>>>> main
   const router = Router();
 
   router.post("/", create);
@@ -20,8 +16,4 @@ const RutasPaises = (app) => {
   app.use("/api/leads", router);
 };
 
-<<<<<<< HEAD
 export default RutasLeads;
-=======
-export default RutasPaises;
->>>>>>> main

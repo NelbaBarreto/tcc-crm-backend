@@ -5,19 +5,21 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("tip_campanas", {
     tipo_campana_id: {
+      comment: "Identificador único del tipo de campaña.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
-      type: Sequelize.STRING(1000),
+      comment: "Nombre del tipo de campaña.",
+      type: Sequelize.STRING,
       allowNull: false,
     },
     activo: {
       type: Sequelize.BOOLEAN,
-      comment: "Indica el estado del tipo campana.",
-      defaultValue: false,
+      comment: "Indica si el tipo de campaña está activo/inactivo.",
+      defaultValue: true,
       allowNull: false,
     },
     // Auditoria

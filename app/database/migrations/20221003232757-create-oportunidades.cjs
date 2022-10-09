@@ -43,7 +43,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     descripcion: {
-      type: Sequelize.STRING(1000),
+      type: Sequelize.STRING,
     },
     etapa: {
       // eslint-disable-next-line max-len

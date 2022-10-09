@@ -17,7 +17,7 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nombre: DataTypes.STRING(1000),
+    nombre: DataTypes.STRING,
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {

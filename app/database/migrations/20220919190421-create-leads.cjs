@@ -5,6 +5,7 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("leads", {
     lead_id: {
+      comment: "Identificador único del lead.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -12,7 +13,7 @@ export async function up(queryInterface, Sequelize) {
     },
     estado: {
       type: Sequelize.ENUM("activo", "inactivo", "contactado"),
-      comment: "Estado del lead",
+      comment: "Estado del lead.",
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,

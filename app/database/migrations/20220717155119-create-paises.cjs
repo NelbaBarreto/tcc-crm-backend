@@ -12,7 +12,7 @@ export async function up(queryInterface, Sequelize) {
       comment: "Identificador único del país.",
     },
     nombre: {
-      type: Sequelize.STRING(1000),
+      type: Sequelize.STRING,
       comment: "Nombre del país.",
       allowNull: false,
       unique: {
