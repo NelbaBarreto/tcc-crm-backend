@@ -1,32 +1,27 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("ciudades", {
-    ciudad_id: {
+  await queryInterface.createTable("roles", {
+    rol_id: {
+      comment: "Identificador único del rol.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      comment: "Identificador único de la ciudad.",
       type: Sequelize.INTEGER,
     },
     nombre: {
+      comment: "Nombre del rol.",
       type: Sequelize.STRING,
       allowNull: false,
-      comment: "Nombre de la ciudad.",
     },
-    pais_id: {
-      type: Sequelize.INTEGER,
-      comment: "Id del país al que pertenece la ciudad.",
-      references: {
-        model: {
-          tableName: "paises",
-        },
-        key: "pais_id",
-      },
-      allowNull: false,
+    descripcion: {
+      comment: "Descripción del rol.",
+      type: Sequelize.TEXT,
     },
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),
@@ -54,5 +49,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("ciudades");
+  await queryInterface.dropTable("roles");
 }

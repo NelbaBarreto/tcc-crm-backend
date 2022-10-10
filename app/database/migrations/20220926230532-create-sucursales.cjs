@@ -3,30 +3,20 @@
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("ciudades", {
-    ciudad_id: {
+  await queryInterface.createTable("sucursales", {
+    sucursal_id: {
+      comment: "Identificador único de la sucursal.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      comment: "Identificador único de la ciudad.",
       type: Sequelize.INTEGER,
     },
     nombre: {
+      comment: "Nombre de la sucursal.",
       type: Sequelize.STRING,
       allowNull: false,
-      comment: "Nombre de la ciudad.",
     },
-    pais_id: {
-      type: Sequelize.INTEGER,
-      comment: "Id del país al que pertenece la ciudad.",
-      references: {
-        model: {
-          tableName: "paises",
-        },
-        key: "pais_id",
-      },
-      allowNull: false,
-    },
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),
@@ -54,5 +44,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("ciudades");
+  await queryInterface.dropTable("sucursales");
 }

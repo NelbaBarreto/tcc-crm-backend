@@ -2,34 +2,35 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
 "use strict";
+
 import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Campana extends Model {
+  class Sucursal extends Model {
     static associate(models) {
 
     }
   }
-  Campana.init({
-    nombre: Sequelize.STRING,
-    campana_id: {
+  Sucursal.init({
+    sucursal_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-
-    fec_inicio: Sequelize.DATE,
-    fec_fin: Sequelize.DATE,
-
-    usu_insercion: Sequelize.STRING,
-    usu_modificacion: Sequelize.STRING,
+    nombre: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    
+    usu_insercion: DataTypes.STRING,
+    usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "campana",
-    tableName: "campanas",
+    modelName: "sucursal",
+    tableName: "sucursales",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Campana;
+  return Sucursal;
 };

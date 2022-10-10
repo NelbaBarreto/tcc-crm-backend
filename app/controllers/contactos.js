@@ -1,13 +1,13 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
 
-// Crear y guardar un nuevo lead
+// Crear y guardar un nuevo contacto
 const create = async (req, res) => {
-  const lead = {...req.body};
+  const contacto = {...req.body};
 
-  // Guardar el lead
+  // Guardar el contacto
   try {
-    const data = await db.lead.create(lead);
+    const data = await db.contacto.create(contacto);
 
     res.status(200).json({
       data,
@@ -15,15 +15,15 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar crear el lead.",
+        error.message || "Ocurrió un error al intentar crear el contacto.",
     });
   }
 };
 
-// Obtener todos los leads
+// Obtener todos los contactos
 const findAll = async (_req, res) => {
   try {
-    const data = await db.lead.findAll();
+    const data = await db.contacto.findAll();
 
     res.status(200).json({
       data,
@@ -32,17 +32,17 @@ const findAll = async (_req, res) => {
     res.status(500).send({
       message:
         error.message ||
-        "Ocurrió un error al intentar obtener la lista de leads",
+        "Ocurrió un error al intentar obtener la lista de contactos",
     });
   }
 };
 
-// Encontrar un lead según su id
+// Encontrar un contacto según su id
 const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.lead.findByPk(id);
+    const data = await db.contacto.findByPk(id);
 
     if (data) {
       res.status(200).json({
@@ -50,83 +50,83 @@ const findOne = async (req, res) => {
       });
     } else {
       res.status(404).send({
-        message: `No se pudo encontrar el lead con el id=${id}`,
+        message: `No se pudo encontrar el contacto con el id=${id}`,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error al obtener el lead con id=" + id,
+      message: "Error al obtener el contacto con id=" + id,
     });
   }
 };
 
-// Actualizar lead según su id
+// Actualizar contacto según su id
 const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await db.lead.update(req.body, {
-      where: {lead_id: id},
+    const data = await db.contacto.update(req.body, {
+      where: {contacto_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Lead actualizado correctamente",
+        message: "Contacto actualizado correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el lead con id=" + id,
+        message: "No se pudo actualizar el contacto con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error actualizando el lead con id=" + id,
+      message: "Error actualizando el contacto con id=" + id,
     });
   };
 };
 
-// Eliminar lead según su id
+// Eliminar contacto según su id
 const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.lead.destroy({
-      where: {lead_id: id},
+    const data = await db.contacto.destroy({
+      where: {contacto_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Lead eliminado correctamente",
+        message: "Contacto eliminado correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo eliminar el lead con id=" + id,
+        message: "No se pudo eliminar el contacto con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error eliminando lead con id=" + id,
+      message: "Error eliminando contacto con id=" + id,
     });
   }
 };
 
-// Borrar todos los leads
+// Borrar todos los contactos
 const deleteAll = async (_req, res) => {
   try {
-    const data = db.lead.destroy({
+    const data = db.contacto.destroy({
       where: {},
       truncate: false,
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: `${data} leads fueron eliminados correctamente`,
+        message: `${data} contactos fueron eliminados correctamente`,
       });
     }
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar eliminar los leads",
+        error.message || "Ocurrió un error al intentar eliminar los contactos",
     });
   }
 };

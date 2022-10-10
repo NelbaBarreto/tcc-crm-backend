@@ -1,32 +1,58 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("ciudades", {
-    ciudad_id: {
+  await queryInterface.createTable("oportunidades", {
+    oportunidad_id: {
+      comment: "Identificador único de la oportunidad.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      comment: "Identificador único de la ciudad.",
       type: Sequelize.INTEGER,
     },
     nombre: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(120),
       allowNull: false,
-      comment: "Nombre de la ciudad.",
     },
-    pais_id: {
+    campana_id: {
       type: Sequelize.INTEGER,
-      comment: "Id del país al que pertenece la ciudad.",
+      comment: "Id de campana de la oportunidad.",
       references: {
         model: {
-          tableName: "paises",
+          tableName: "campanas",
         },
-        key: "pais_id",
+        key: "campana_id",
       },
       allowNull: false,
     },
+    usu_asignado_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de usuario asginado.",
+      references: {
+        model: {
+          tableName: "usuarios",
+        },
+        key: "usuario_id",
+      },
+      allowNull: false,
+    },
+    valor: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    descripcion: {
+      comment: "Descripción de la oportunidad.",
+      type: Sequelize.TEXT,
+    },
+    etapa: {
+      // eslint-disable-next-line max-len
+      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      comment: "etapas de una oportunidad",
+      allowNull: false,
+    },
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),
@@ -54,5 +80,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("ciudades");
+  await queryInterface.dropTable("oportunidades");
 }

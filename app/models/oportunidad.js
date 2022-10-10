@@ -6,23 +6,35 @@
 import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Lead extends Model {
+  class Oportunidad extends Model {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
+      this.belongsTo(models.campana, {foreignKey: "campana_id", as: "campana"});
     }
   }
-  Lead.init({
-    lead_id: {
+  Oportunidad.init({
+    oportunidad_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    estado:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("activo", "inactivo", "contactado"),
+    nombre: {
+      type: DataTypes.STRING(120),
+      allowNull: false,
+    },
+    etapa:
+      // eslint-disable-next-line new-cap, max-len
+      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+    campana_id: {
+      type: DataTypes.INTEGER,
+      // allowNull: false,
+      references: {
+        model: "campana",
+        key: "campana_id",
+      },
+    },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -31,30 +43,19 @@ export default (sequelize, DataTypes) => {
         key: "usuario_id",
       },
     },
-    campana_id: {
+    valor: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    origen:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Correo", "llamada", "Red Social"),
-
-    persona_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "persona",
-        key: "persona_id",
-      },
-    },
+    descripcion: DataTypes.TEXT,
     usu_insercion: DataTypes.STRING(20),
     usu_modificacion: DataTypes.STRING(20),
   }, {
     sequelize,
-    modelName: "lead",
-    tableName: "leads",
+    modelName: "oportunidad",
+    tableName: "oportunidades",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Lead;
+  return Oportunidad;
 };

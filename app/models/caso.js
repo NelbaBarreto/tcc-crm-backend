@@ -6,23 +6,33 @@
 import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Lead extends Model {
+  class Caso extends Model {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
     }
   }
-  Lead.init({
-    lead_id: {
+  Caso.init({
+    caso_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
+    asunto: DataTypes.STRING,
+    descripcion: DataTypes.TEXT,
+    prioridad:
+      // eslint-disable-next-line new-cap, max-len
+      Sequelize.ENUM("Alta", "Media", "Baja"),
     estado:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("activo", "inactivo", "contactado"),
+      // eslint-disable-next-line new-cap, max-len
+      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+    tipo: DataTypes.INTEGER,
+    origen: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    solucion: DataTypes.STRING,
     usu_asignado_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -47,14 +57,14 @@ export default (sequelize, DataTypes) => {
         key: "persona_id",
       },
     },
-    usu_insercion: DataTypes.STRING(20),
-    usu_modificacion: DataTypes.STRING(20),
+    usu_insercion: DataTypes.STRING,
+    usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "lead",
-    tableName: "leads",
+    modelName: "caso",
+    tableName: "casos",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Lead;
+  return Caso;
 };

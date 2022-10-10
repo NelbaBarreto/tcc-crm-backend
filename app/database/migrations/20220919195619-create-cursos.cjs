@@ -5,12 +5,14 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("cursos", {
     curso_id: {
+      comment: "Identificador único del curso.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
+      comment: "Nombre del curso.",
       type: Sequelize.STRING,
     },
     usu_insercion: {

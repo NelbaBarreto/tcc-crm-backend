@@ -3,30 +3,60 @@
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("ciudades", {
-    ciudad_id: {
+  await queryInterface.createTable("tareas", {
+    tarea_id: {
+      comment: "Identificador único de la tarea.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      comment: "Identificador único de la ciudad.",
       type: Sequelize.INTEGER,
     },
-    nombre: {
+    asunto: {
+      comment: "Título de la tarea.",
       type: Sequelize.STRING,
       allowNull: false,
-      comment: "Nombre de la ciudad.",
     },
-    pais_id: {
+    descripcion: {
+      comment: "Descripción de la tarea.",
+      type: Sequelize.TEXT,
+    },
+    estado: {
+      // eslint-disable-next-line max-len
+      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      comment: "Estado del Caso",
+      allowNull: false,
+    },
+    prioridad: {
+      type: Sequelize.ENUM("Alta", "Media", "Baja"),
+      comment: "Prioridad de la tarea.",
+      allowNull: false,
+    },
+    actividad_id: {
+      comment: "Id de la actividad.",
       type: Sequelize.INTEGER,
-      comment: "Id del país al que pertenece la ciudad.",
+      allowNull: false,
+    },
+    fec_inicio: {
+      comment: "Fecha de inicio de la actividad.",
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    fec_fin: {
+      comment: "Fecha prevista de finalización de la actividad.",
+      type: Sequelize.DATE,
+    },
+    usu_asignado_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de usuario asignado.",
       references: {
         model: {
-          tableName: "paises",
+          tableName: "usuarios",
         },
-        key: "pais_id",
+        key: "usuario_id",
       },
       allowNull: false,
     },
+    // Auditoria
     usu_insercion: {
       // allowNull: false,
       type: Sequelize.STRING(20),
@@ -54,5 +84,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("ciudades");
+  await queryInterface.dropTable("tareas");
 }

@@ -11,8 +11,24 @@ import usuarios from "./app/routes/usuarios.js";
 import paises from "./app/routes/paises.js";
 import ciudades from "./app/routes/ciudades.js";
 import campanas from "./app/routes/campanas.js";
-import tip_campanas from "./app/routes/tip_campanas.js";
+import cursos from "./app/routes/cursos.js";
+import direcciones from "./app/routes/direcciones.js";
 import leads from "./app/routes/leads.js";
+import profesores from "./app/routes/profesores.js";
+import sucursales from "./app/routes/sucursales.js";
+import tip_campanas from "./app/routes/tip_campanas.js";
+// Ventas
+import organizaciones from "./app/routes/organizaciones.js";
+import oportunidades from "./app/routes/oportunidades.js";
+import contactos from "./app/routes/contactos.js";
+// Soporte
+import casos from "./app/routes/casos.js";
+// Actividades
+import tareas from "./app/routes/tareas.js";
+// Telefonos
+import telefonos from "./app/routes/telefonos.js";
+// Roles
+import roles from "./app/routes/roles.js";
 
 const app = express();
 
@@ -55,8 +71,19 @@ empleados(app);
 paises(app);
 ciudades(app);
 campanas(app);
-tip_campanas(app);
+cursos(app);
+direcciones(app);
 leads(app);
+profesores(app);
+sucursales(app);
+tip_campanas(app);
+organizaciones(app);
+oportunidades(app);
+contactos(app);
+casos(app);
+tareas(app);
+telefonos(app);
+roles(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

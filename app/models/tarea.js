@@ -6,23 +6,34 @@
 import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Lead extends Model {
+  class Tarea extends Model {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
     }
   }
-  Lead.init({
-    lead_id: {
+  Tarea.init({
+    tarea_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
+    asunto: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    descripcion: DataTypes.TEXT,
     estado:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("activo", "inactivo", "contactado"),
+      // eslint-disable-next-line new-cap, max-len
+      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+    prioridad:
+      // eslint-disable-next-line new-cap, max-len
+      Sequelize.ENUM("Alta", "Media", "Baja"),
+    actividad_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -31,30 +42,21 @@ export default (sequelize, DataTypes) => {
         key: "usuario_id",
       },
     },
-    campana_id: {
-      type: DataTypes.INTEGER,
+    fec_inicio: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
-    origen:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Correo", "llamada", "Red Social"),
-
-    persona_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "persona",
-        key: "persona_id",
-      },
+    fec_fin: {
+      type: DataTypes.DATE,
     },
-    usu_insercion: DataTypes.STRING(20),
-    usu_modificacion: DataTypes.STRING(20),
+    usu_insercion: DataTypes.STRING,
+    usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "lead",
-    tableName: "leads",
+    modelName: "tarea",
+    tableName: "tareas",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Lead;
+  return Tarea;
 };

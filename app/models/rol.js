@@ -6,26 +6,32 @@
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Curso extends Model {
-    static associate(models) {
-    }
+  class Rol extends Model {
+    static associate(models) {}
   }
-  Curso.init({
-    curso_id: {
+  Rol.init({
+    rol_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nombre: DataTypes.STRING,
-    usu_insercion: DataTypes.STRING,
-    usu_modificacion: DataTypes.STRING,
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    descripcion: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    usu_insercion: DataTypes.STRING(20),
+    usu_modificacion: DataTypes.STRING(20),
   }, {
     sequelize,
-    modelName: "curso",
-    tableName: "cursos",
+    modelName: "rol",
+    tableName: "roles",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Curso;
+  return Rol;
 };

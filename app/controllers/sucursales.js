@@ -1,13 +1,13 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
 
-// Crear y guardar un nuevo lead
+// Crear y guardar una nueva sucursal
 const create = async (req, res) => {
-  const lead = {...req.body};
+  const sucursal = {...req.body};
 
-  // Guardar el lead
+  // Guardar la sucursal
   try {
-    const data = await db.lead.create(lead);
+    const data = await db.sucursal.create(sucursal);
 
     res.status(200).json({
       data,
@@ -15,15 +15,15 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar crear el lead.",
+        error.message || "Ocurrió un error al intentar crear la sucursal.",
     });
   }
 };
 
-// Obtener todos los leads
+// Obtener todas las sucursales
 const findAll = async (_req, res) => {
   try {
-    const data = await db.lead.findAll();
+    const data = await db.sucursal.findAll();
 
     res.status(200).json({
       data,
@@ -32,17 +32,17 @@ const findAll = async (_req, res) => {
     res.status(500).send({
       message:
         error.message ||
-        "Ocurrió un error al intentar obtener la lista de leads",
+        "Ocurrió un error al intentar obtener la lista de sucursales",
     });
   }
 };
 
-// Encontrar un lead según su id
+// Encontrar una sucursal según su id
 const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.lead.findByPk(id);
+    const data = await db.sucursal.findByPk(id);
 
     if (data) {
       res.status(200).json({
@@ -50,83 +50,83 @@ const findOne = async (req, res) => {
       });
     } else {
       res.status(404).send({
-        message: `No se pudo encontrar el lead con el id=${id}`,
+        message: `No se pudo encontrar la sucursal con el id=${id}`,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error al obtener el lead con id=" + id,
+      message: "Error al obtener la sucursal con id=" + id,
     });
   }
 };
 
-// Actualizar lead según su id
+// Actualizar sucursal según su id
 const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await db.lead.update(req.body, {
-      where: {lead_id: id},
+    const data = await db.sucursal.update(req.body, {
+      where: {sucursal_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Lead actualizado correctamente",
+        message: "Sucursal actualizada correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el lead con id=" + id,
+        message: "No se pudo actualizar la sucursal con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error actualizando el lead con id=" + id,
+      message: "Error actualizando la sucursal con id=" + id,
     });
   };
 };
 
-// Eliminar lead según su id
+// Eliminar sucursal según su id
 const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.lead.destroy({
-      where: {lead_id: id},
+    const data = await db.sucursal.destroy({
+      where: {sucursal_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Lead eliminado correctamente",
+        message: "Sucursal eliminada correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo eliminar el lead con id=" + id,
+        message: "No se pudo eliminar la sucursal con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error eliminando lead con id=" + id,
+      message: "Error eliminando la sucursal con id=" + id,
     });
   }
 };
 
-// Borrar todos los leads
+// Borrar todas las sucursales
 const deleteAll = async (_req, res) => {
   try {
-    const data = db.lead.destroy({
+    const data = db.sucursal.destroy({
       where: {},
       truncate: false,
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: `${data} leads fueron eliminados correctamente`,
+        message: `${data} sucursales fueron eliminadas correctamente`,
       });
     }
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar eliminar los leads",
+        error.message || "Ocurrió un error al intentar eliminar las sucursales",
     });
   }
 };

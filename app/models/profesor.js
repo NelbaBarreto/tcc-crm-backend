@@ -3,38 +3,37 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import {Model} from "sequelize";
+import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Ciudad extends Model {
+  class Profesor extends Model {
     static associate(models) {
-      this.belongsTo(models.pais, {foreignKey: "pais_id", as: "pais"});
+      this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
     }
   }
-  Ciudad.init({
-    ciudad_id: {
+  Profesor.init({
+    profesor_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nombre: DataTypes.STRING,
-    usu_insercion: DataTypes.STRING,
-    usu_modificacion: DataTypes.STRING,
-    pais_id: {
+    persona_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "pais",
-        key: "pais_id",
+        model: "persona",
+        key: "persona_id",
       },
     },
+    usu_insercion: DataTypes.STRING,
+    usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "ciudad",
-    tableName: "ciudades",
+    modelName: "profesor",
+    tableName: "profesores",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Ciudad;
+  return Profesor;
 };

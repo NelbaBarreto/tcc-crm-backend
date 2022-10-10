@@ -7,7 +7,7 @@ export async function up(queryInterface, Sequelize) {
 
     campana_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de la campaña.",
+      comment: "Identificador único de la campaña.",
       references: {
         model: {
           tableName: "campanas",
