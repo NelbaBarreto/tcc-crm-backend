@@ -20,10 +20,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     asunto: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    descripcion: DataTypes.STRING,
+    descripcion: DataTypes.TEXT,
     estado:
       // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),

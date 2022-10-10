@@ -6,16 +6,19 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("roles", {
     rol_id: {
+      comment: "Identificador único del rol.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
+      comment: "Nombre del rol.",
       type: Sequelize.STRING,
       allowNull: false,
     },
     descripcion: {
+      comment: "Descripción del rol.",
       type: Sequelize.TEXT,
     },
     // Auditoria

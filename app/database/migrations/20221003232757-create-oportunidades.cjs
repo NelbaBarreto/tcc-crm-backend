@@ -3,10 +3,10 @@
 
 "use strict";
 
-
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("oportunidades", {
     oportunidad_id: {
+      comment: "Identificador único de la oportunidad.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -43,7 +43,8 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     descripcion: {
-      type: Sequelize.STRING,
+      comment: "Descripción de la oportunidad.",
+      type: Sequelize.TEXT,
     },
     etapa: {
       // eslint-disable-next-line max-len

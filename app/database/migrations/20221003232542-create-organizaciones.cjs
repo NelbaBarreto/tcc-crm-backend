@@ -6,6 +6,7 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("organizaciones", {
     organizacion_id: {
+      comment: "Identificador único de la organización.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -13,7 +14,7 @@ export async function up(queryInterface, Sequelize) {
     },
     persona_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de persona del organizaciones.",
+      comment: "Id de persona de la organización.",
       references: {
         model: {
           tableName: "personas",
@@ -22,15 +23,12 @@ export async function up(queryInterface, Sequelize) {
       },
       allowNull: false,
     },
-    raz_social: {
-      type: Sequelize.STRING(500),
-      allowNull: false,
-    },
     descripcion: {
-      type: Sequelize.STRING(500),
+      comment: "Descripción de la organización.",
+      type: Sequelize.TEXT,
     },
     website: {
-      type: Sequelize.STRING(500),
+      type: Sequelize.STRING,
     },
     // Auditoria
     usu_insercion: {

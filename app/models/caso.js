@@ -19,8 +19,8 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nombre: DataTypes.STRING(120),
-    descripcion: DataTypes.STRING,
+    asunto: DataTypes.STRING,
+    descripcion: DataTypes.TEXT,
     prioridad:
       // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Alta", "Media", "Baja"),

@@ -5,17 +5,20 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("tareas", {
     tarea_id: {
+      comment: "Identificador único de la tarea.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     asunto: {
-      type: Sequelize.STRING(255),
+      comment: "Título de la tarea.",
+      type: Sequelize.STRING,
       allowNull: false,
     },
     descripcion: {
-      type: Sequelize.STRING,
+      comment: "Descripción de la tarea.",
+      type: Sequelize.TEXT,
     },
     estado: {
       // eslint-disable-next-line max-len
@@ -25,23 +28,26 @@ export async function up(queryInterface, Sequelize) {
     },
     prioridad: {
       type: Sequelize.ENUM("Alta", "Media", "Baja"),
-      comment: "Estado del Caso",
+      comment: "Prioridad de la tarea.",
       allowNull: false,
     },
     actividad_id: {
+      comment: "Id de la actividad.",
       type: Sequelize.INTEGER,
       allowNull: false,
     },
     fec_inicio: {
+      comment: "Fecha de inicio de la actividad.",
       type: Sequelize.DATE,
       allowNull: false,
     },
     fec_fin: {
+      comment: "Fecha prevista de finalización de la actividad.",
       type: Sequelize.DATE,
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de usuario asginado.",
+      comment: "Id de usuario asignado.",
       references: {
         model: {
           tableName: "usuarios",

@@ -26,14 +26,10 @@ export default (sequelize, DataTypes) => {
         key: "persona_id",
       },
     },
-    raz_social: {
-      type: DataTypes.STRING(500),
-      allowNull: false,
-    },
-    descripcion: DataTypes.STRING,
-    website: DataTypes.STRING(500),
-    usu_insercion: DataTypes.STRING,
-    usu_modificacion: DataTypes.STRING,
+    descripcion: DataTypes.TEXT,
+    website: DataTypes.STRING,
+    usu_insercion: DataTypes.STRING(20),
+    usu_modificacion: DataTypes.STRING(20),
   }, {
     sequelize,
     modelName: "organizacion",

@@ -47,9 +47,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    descripcion: DataTypes.STRING,
-    usu_insercion: DataTypes.STRING,
-    usu_modificacion: DataTypes.STRING,
+    descripcion: DataTypes.TEXT,
+    usu_insercion: DataTypes.STRING(20),
+    usu_modificacion: DataTypes.STRING(20),
   }, {
     sequelize,
     modelName: "oportunidad",
