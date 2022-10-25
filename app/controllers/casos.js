@@ -60,6 +60,58 @@ const findOne = async (req, res) => {
   }
 };
 
+const getOrigenes = async (_req, res) => {
+  try {
+    const data = db.caso.origenes ? db.caso.origenes : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener orígenes.",
+    });
+  }
+};
+
+const getPrioridades = async (_req, res) => {
+  try {
+    const data = db.caso.prioridades ? db.caso.prioridades : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener prioridades.",
+    });
+  }
+};
+
+const getEstados = async (_req, res) => {
+  try {
+    const data = db.caso.estados ? db.caso.estados : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener estados.",
+    });
+  }
+};
+
+const getTipos = async (_req, res) => {
+  try {
+    const data = db.caso.tipos ? db.caso.tipos : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener tipos.",
+    });
+  }
+};
+
 // Actualizar caso según su id
 const update = async (req, res) => {
   const id = req.params.id;
@@ -131,4 +183,5 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, getPrioridades, getOrigenes, getEstados,
+  getTipos, update, _delete, deleteAll};

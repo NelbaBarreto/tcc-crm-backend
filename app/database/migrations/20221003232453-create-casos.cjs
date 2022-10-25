@@ -24,35 +24,39 @@ export async function up(queryInterface, Sequelize) {
     },
     prioridad: {
       type: Sequelize.ENUM("Alta", "Media", "Baja"),
-      comment: "Estado del Caso",
+      comment: "Prioridad del caso.",
       allowNull: false,
     },
     estado: {
-      // eslint-disable-next-line max-len
-      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
-      comment: "Estado del Caso",
+      type: Sequelize.ENUM("Nuevo", "Asignado", "En Proceso", "Cancelado",
+          "Finalizado"),
+      comment: "Estado del caso.",
       allowNull: false,
     },
     tipo: {
-      type: Sequelize.INTEGER,
+      comment: "Tipo de caso.",
+      type: Sequelize.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),
     },
     origen: {
-      type: Sequelize.INTEGER,
+      comment: "Origen del caso.",
+      type: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+          "Otro"),
       allowNull: false,
     },
     solucion: {
+      comment: "Descripción de como se solucionó el caso.",
       type: Sequelize.STRING,
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de usuario asginado.",
+      comment: "Id de usuario asignado.",
       references: {
         model: {
           tableName: "usuarios",
         },
         key: "usuario_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     // Auditoria
     usu_insercion: {
