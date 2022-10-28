@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
 import Sequelize, {Model} from "sequelize";
@@ -19,9 +20,8 @@ export default (sequelize) => {
     nombre: Sequelize.STRING,
     email: Sequelize.STRING,
     nro_documento: Sequelize.STRING,
-    tip_documento:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("CI", "RUC", "Cédula Extranjera", "Pasaporte"),
+    tip_documento: Sequelize.ENUM("CI", "RUC",
+        "Cédula Extranjera", "Pasaporte"),
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,
   }, {
@@ -30,5 +30,8 @@ export default (sequelize) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Persona.tip_documentos = Persona.getAttributes().tip_documento?.values;
+
   return Persona;
 };

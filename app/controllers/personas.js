@@ -125,4 +125,17 @@ const _delete = async (req, res) => {
 // Borrar todas las personas
 const deleteAll = async (_req, _res) => { };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+const getTipDocumentos = async (_req, res) => {
+  try {
+    const data = db.persona.tip_documentos ? db.persona.tip_documentos : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener tipos de documento.",
+    });
+  }
+};
+
+export {create, findAll, findOne, getTipDocumentos, update, _delete, deleteAll};
