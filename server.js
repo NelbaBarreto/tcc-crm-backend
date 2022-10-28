@@ -33,7 +33,7 @@ import roles from "./app/routes/roles.js";
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3001",
+  origin: "http://localhost:3000",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
