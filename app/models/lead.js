@@ -22,10 +22,11 @@ export default (sequelize, DataTypes) => {
     },
     estado:
       // eslint-disable-next-line new-cap
-      Sequelize.ENUM("activo", "inactivo", "contactado"),
+      Sequelize.ENUM("Nuevo", "Asignado", "En Proceso",
+          "Convertido", "Perdido"),
     usu_asignado_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "usuario",
         key: "usuario_id",
@@ -33,12 +34,10 @@ export default (sequelize, DataTypes) => {
     },
     campana_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
-    origen:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Correo", "llamada", "Red Social"),
-
+    origen: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+        "Evento", "Otro"),
     persona_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -56,5 +55,8 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Lead.estados = Lead.getAttributes().estado?.values;
+  Lead.origenes = Lead.getAttributes().origen?.values;
   return Lead;
 };

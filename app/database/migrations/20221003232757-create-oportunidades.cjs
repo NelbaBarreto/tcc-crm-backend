@@ -29,7 +29,7 @@ export async function up(queryInterface, Sequelize) {
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de usuario asginado.",
+      comment: "Id de usuario asignado.",
       references: {
         model: {
           tableName: "usuarios",

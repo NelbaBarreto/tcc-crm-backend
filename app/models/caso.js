@@ -3,7 +3,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Caso extends Model {
@@ -21,42 +21,21 @@ export default (sequelize, DataTypes) => {
     },
     asunto: DataTypes.STRING,
     descripcion: DataTypes.TEXT,
-    prioridad:
-      // eslint-disable-next-line new-cap, max-len
-      Sequelize.ENUM("Alta", "Media", "Baja"),
-    estado:
-      // eslint-disable-next-line new-cap, max-len
-      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
-    tipo: DataTypes.INTEGER,
-    origen: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
+    prioridad: DataTypes.ENUM("Alta", "Media", "Baja"),
+    estado: DataTypes.ENUM("Nuevo", "Asignado", "En Proceso", "Cancelado",
+        "Finalizado"),
+    tipo: DataTypes.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),
     solucion: DataTypes.STRING,
     usu_asignado_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "usuario",
         key: "usuario_id",
       },
     },
-    campana_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    origen:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Correo", "llamada", "Red Social"),
-
-    persona_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "persona",
-        key: "persona_id",
-      },
-    },
+    origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+        "Otro"),
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
@@ -66,5 +45,10 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Caso.estados = Caso.getAttributes().estado?.values;
+  Caso.origenes = Caso.getAttributes().origen?.values;
+  Caso.tipos = Caso.getAttributes().tipo?.values;
+  Caso.prioridades = Caso.getAttributes().prioridad?.values;
   return Caso;
 };

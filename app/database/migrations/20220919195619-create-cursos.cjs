@@ -14,6 +14,11 @@ export async function up(queryInterface, Sequelize) {
     nombre: {
       comment: "Nombre del curso.",
       type: Sequelize.STRING,
+      allowNull: false,
+    },
+    descripcion: {
+      comment: "Reseña del curso.",
+      type: Sequelize.TEXT,
     },
     usu_insercion: {
       // allowNull: false,

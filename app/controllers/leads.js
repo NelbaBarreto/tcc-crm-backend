@@ -60,6 +60,32 @@ const findOne = async (req, res) => {
   }
 };
 
+const getEstados = async (_req, res) => {
+  try {
+    const data = db.lead.estados ? db.lead.estados : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener estados.",
+    });
+  }
+};
+
+const getOrigenes = async (_req, res) => {
+  try {
+    const data = db.lead.origenes ? db.lead.origenes : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener orígenes.",
+    });
+  }
+};
+
 // Actualizar lead según su id
 const update = async (req, res) => {
   const id = req.params.id;
@@ -131,4 +157,5 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, getEstados, getOrigenes, update, _delete,
+  deleteAll};

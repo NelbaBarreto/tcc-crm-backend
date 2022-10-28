@@ -12,8 +12,10 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     estado: {
-      type: Sequelize.ENUM("activo", "inactivo", "contactado"),
+      type: Sequelize.ENUM("Nuevo", "Asignado", "En Proceso",
+          "Convertido", "Perdido"),
       comment: "Estado del lead.",
+      allowNull: false,
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
@@ -24,16 +26,18 @@ export async function up(queryInterface, Sequelize) {
         },
         key: "usuario_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     campana_id: {
       type: Sequelize.INTEGER,
       comment: "Id de campaña del lead.",
-      allowNull: false,
+      allowNull: true,
     },
     origen: {
-      type: Sequelize.ENUM("Correo", "llamada", "Red Social"),
-      comment: "Origen del lead",
+      type: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+          "Evento", "Otro"),
+      comment: "Origen del lead.",
+      allowNull: false,
     },
     persona_id: {
       type: Sequelize.INTEGER,

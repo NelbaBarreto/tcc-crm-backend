@@ -23,7 +23,10 @@ const create = async (req, res) => {
 // Obtener todos los casos
 const findAll = async (_req, res) => {
   try {
-    const data = await db.caso.findAll();
+    const data = await db.caso.findAll({
+      include:
+        [{model: db.usuario, as: "usuario"}],
+    });
 
     res.status(200).json({
       data,
@@ -42,7 +45,10 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.caso.findByPk(id);
+    const data = await db.caso.findByPk(id, {
+      include:
+        [{model: db.usuario, as: "usuario"}],
+    });
 
     if (data) {
       res.status(200).json({
@@ -56,6 +62,58 @@ const findOne = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message: "Error al obtener el caso con id=" + id,
+    });
+  }
+};
+
+const getOrigenes = async (_req, res) => {
+  try {
+    const data = db.caso.origenes ? db.caso.origenes : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener orígenes.",
+    });
+  }
+};
+
+const getPrioridades = async (_req, res) => {
+  try {
+    const data = db.caso.prioridades ? db.caso.prioridades : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener prioridades.",
+    });
+  }
+};
+
+const getEstados = async (_req, res) => {
+  try {
+    const data = db.caso.estados ? db.caso.estados : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener estados.",
+    });
+  }
+};
+
+const getTipos = async (_req, res) => {
+  try {
+    const data = db.caso.tipos ? db.caso.tipos : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener tipos.",
     });
   }
 };
@@ -131,4 +189,5 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, getPrioridades, getOrigenes, getEstados,
+  getTipos, update, _delete, deleteAll};
