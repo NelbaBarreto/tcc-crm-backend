@@ -29,6 +29,8 @@ import tareas from "./app/routes/tareas.js";
 import telefonos from "./app/routes/telefonos.js";
 // Roles
 import roles from "./app/routes/roles.js";
+// llamadas
+import llamadas from "./app/routes/llamadas.js";
 
 const app = express();
 
@@ -84,6 +86,7 @@ casos(app);
 tareas(app);
 telefonos(app);
 roles(app);
+llamadas(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

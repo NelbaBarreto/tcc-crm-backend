@@ -3,7 +3,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Profesor extends Model {
