@@ -9,8 +9,10 @@ export default (sequelize, DataTypes) => {
   class Lead extends Model {
     static associate(models) {
       this.belongsTo(models.usuario,
-          {foreignKey: "usu_asignado_id", as: "usuario"});
+          {foreignKey: "usu_asignado_id", as: "usu_asignado"});
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
+      this.belongsTo(models.curso, {foreignKey: "curso_id"});
+      this.belongsTo(models.campana, {foreignKey: "campana_id"});
     }
   }
   Lead.init({
@@ -35,6 +37,10 @@ export default (sequelize, DataTypes) => {
     campana_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    curso_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     origen: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
         "Evento", "Otro"),

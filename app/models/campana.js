@@ -7,7 +7,7 @@ import Sequelize, {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Campana extends Model {
     static associate(models) {
-
+      this.hasMany(models.lead, {foreignKey: "campana_id"});
     }
   }
   Campana.init({
