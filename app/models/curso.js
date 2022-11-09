@@ -8,6 +8,7 @@ import {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Curso extends Model {
     static associate(models) {
+      this.hasMany(models.lead, {foreignKey: "curso_id"});
     }
   }
   Curso.init({

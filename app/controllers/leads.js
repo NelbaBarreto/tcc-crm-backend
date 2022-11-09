@@ -3,11 +3,12 @@ import db from "../models/index.js";
 
 // Crear y guardar un nuevo lead
 const create = async (req, res) => {
-  const lead = {...req.body};
+  const lead = req.body;
 
   // Guardar el lead
   try {
-    const data = await db.lead.create(lead);
+    const data = await db.lead.create(lead, {include:
+      [{model: db.persona, as: "persona"}]});
 
     res.status(200).json({
       data,
@@ -23,7 +24,14 @@ const create = async (req, res) => {
 // Obtener todos los leads
 const findAll = async (_req, res) => {
   try {
-    const data = await db.lead.findAll();
+    const data = await db.lead.findAll({
+      include:
+        [{model: db.persona, as: "persona"},
+          {model: db.campana},
+          {model: db.usuario, as: "usu_asignado"},
+          {model: db.curso},
+        ],
+    });
 
     res.status(200).json({
       data,
