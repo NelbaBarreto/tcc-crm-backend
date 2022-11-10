@@ -45,10 +45,7 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.ciudad.findByPk(id, {
-      include:
-        [{model: db.pais, as: "pais"}],
-    });
+    const data = await db.ciudad.findByPk(id);
 
     if (data) {
       res.status(200).json({
