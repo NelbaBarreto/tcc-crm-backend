@@ -21,25 +21,21 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
       comment: "Calle secundaria.",
     },
-    referencia_id: {
+    persona_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de persona/sucursal a la que pertenece la dirección.",
+      comment: "Id de persona a la que pertenece la dirección.",
       references: {
         model: {
           tableName: "personas",
         },
-        key: "referencia_id",
+        key: "persona_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     cod_postal: {
       type: Sequelize.STRING(30),
       allowNull: true,
       comment: "Código postal de la dirección.",
-    },
-    tip_referencia: {
-      type: Sequelize.ENUM("persona", "sucursal"),
-      comment: "Tipo de referencia de la dirección",
     },
     tipo: {
       type: Sequelize.ENUM("laboral", "particular"),
@@ -50,11 +46,6 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
       comment: "Referencia a la dirección.",
     },
-    referencia_id: {
-      allowNull: false,
-      comment: "Id referencia de la dirección.",
-      type: Sequelize.INTEGER,
-    },
     ciudad_id: {
       type: Sequelize.INTEGER,
       comment: "Id de la ciudad al que pertenece la dirección.",
@@ -64,7 +55,7 @@ export async function up(queryInterface, Sequelize) {
         },
         key: "ciudad_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     principal: {
       type: Sequelize.BOOLEAN,

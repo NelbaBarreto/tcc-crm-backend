@@ -8,7 +8,8 @@ const create = async (req, res) => {
   // Guardar el lead
   try {
     const data = await db.lead.create(lead, {include:
-      [{model: db.persona, as: "persona"}]});
+      [{model: db.persona, as: "persona",
+        include: [{model: db.direccion, as: "direcciones"}]}]});
 
     res.status(200).json({
       data,
@@ -26,10 +27,11 @@ const findAll = async (_req, res) => {
   try {
     const data = await db.lead.findAll({
       include:
-        [{model: db.persona, as: "persona"},
-          {model: db.campana},
-          {model: db.usuario, as: "usu_asignado"},
-          {model: db.curso},
+        [{model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}]},
+        {model: db.campana},
+        {model: db.usuario, as: "usu_asignado"},
+        {model: db.curso},
         ],
     });
 
@@ -50,7 +52,15 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.lead.findByPk(id);
+    const data = await db.lead.findByPk(id, {
+      include:
+        [{model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}]},
+        {model: db.campana},
+        {model: db.usuario, as: "usu_asignado"},
+        {model: db.curso},
+        ],
+    });
 
     if (data) {
       res.status(200).json({

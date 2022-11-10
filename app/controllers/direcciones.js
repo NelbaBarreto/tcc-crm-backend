@@ -110,6 +110,19 @@ const _delete = async (req, res) => {
   }
 };
 
+const getTipos = async (_req, res) => {
+  try {
+    const data = db.direccion.tipos ? db.direccion.tipos : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener tipos.",
+    });
+  }
+};
+
 // Borrar todas las direcciones
 const deleteAll = async (_req, res) => {
   try {
@@ -132,4 +145,4 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, getTipos, update, _delete, deleteAll};
