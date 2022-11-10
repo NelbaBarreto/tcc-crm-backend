@@ -32,11 +32,11 @@ export default (sequelize, DataTypes) => {
       Sequelize.ENUM("Alta", "Media", "Baja"),
     actividad_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "usuario",
         key: "usuario_id",
@@ -58,5 +58,7 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+  Tarea.estados = Tarea.getAttributes().estado?.values;
+  Tarea.prioridades = Tarea.getAttributes().prioridad?.values;
   return Tarea;
 };

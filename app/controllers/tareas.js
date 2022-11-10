@@ -42,8 +42,10 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.tarea.findByPk(id);
-
+    const data = await db.tarea.findByPk(id, {
+      include:
+        [{model: db.usuario, as: "usuario"}],
+    });
     if (data) {
       res.status(200).json({
         data,
@@ -56,6 +58,32 @@ const findOne = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message: "Error al obtener la tarea con id=" + id,
+    });
+  }
+};
+
+const getPrioridades = async (_req, res) => {
+  try {
+    const data = db.tarea.prioridades ? db.tarea.prioridades : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener prioridades.",
+    });
+  }
+};
+
+const getEstados = async (_req, res) => {
+  try {
+    const data = db.tarea.estados ? db.tarea.estados : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener estados.",
     });
   }
 };
@@ -131,4 +159,6 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, update,
+  _delete, deleteAll, getPrioridades, getEstados};
+
