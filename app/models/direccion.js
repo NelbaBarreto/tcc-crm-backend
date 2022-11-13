@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.ciudad, {foreignKey: "ciudad_id", as: "ciudad"});
       this.belongsTo(models.persona, {foreignKey: "persona_id"});
+      this.belongsTo(models.sucursal, {foreignKey: "sucursal_id"});
     }
   }
   Direccion.init({
