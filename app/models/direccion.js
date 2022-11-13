@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
   class Direccion extends Model {
     static associate(models) {
       this.belongsTo(models.ciudad, {foreignKey: "ciudad_id", as: "ciudad"});
-      this.belongsTo(models.persona, {foreignKey: "referencia_id"});
+      this.belongsTo(models.persona, {foreignKey: "persona_id"});
     }
   }
   Direccion.init({
@@ -25,21 +25,28 @@ export default (sequelize, DataTypes) => {
     },
     persona_id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
       references: {
-        model: "persona",
-        key: "referencia_id",
+        model: {
+          tableName: "personas",
+        },
+        key: "persona_id",
       },
+      allowNull: true,
     },
     calle_1: Sequelize.STRING,
     calle_2: Sequelize.STRING,
-    descripcion: Sequelize.TEXT,
-    tip_referencia:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("persona", "sucursal"),
-    tipo:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("laboral", "particular"),
+    referencia: Sequelize.TEXT,
+    ciudad_id: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          tableName: "ciudades",
+        },
+        key: "ciudad_id",
+      },
+      allowNull: false,
+    },
+    tipo: Sequelize.ENUM("laboral", "particular"),
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,
   }, {
@@ -49,5 +56,7 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Direccion.tipos = Direccion.getAttributes().tipo?.values;
   return Direccion;
 };

@@ -1,6 +1,6 @@
 /* eslint-disable new-cap */
 import {Router} from "express";
-import {create, findAll, findOne, update, _delete, deleteAll}
+import {create, findAll, findOne, update, _delete, deleteAll, getTipos}
   from "../controllers/direcciones.js";
 
 const RutasDirecciones = (app) => {
@@ -8,6 +8,7 @@ const RutasDirecciones = (app) => {
 
   router.post("/", create);
   router.get("/", findAll);
+  router.get("/tipos", getTipos);
   router.get("/:id", findOne);
   router.put("/:id", update);
   router.delete("/:id", _delete);

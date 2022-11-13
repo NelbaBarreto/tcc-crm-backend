@@ -7,7 +7,8 @@ export default (sequelize) => {
   class Persona extends Model {
     static associate(models) {
       this.hasOne(models.empleado, {foreignKey: "persona_id"});
-      this.hasMany(models.direccion, {foreignKey: "referencia_id"});
+      this.hasMany(models.direccion,
+          {foreignKey: "persona_id", as: "direcciones"});
     }
   }
   Persona.init({
