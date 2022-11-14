@@ -35,7 +35,7 @@ import llamadas from "./app/routes/llamadas.js";
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3001",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
@@ -49,6 +49,7 @@ app.get("/", (_req, res) => {
 
 app.post("/login", async (req, res, next) => {
   const user = await Usuario.findOne({where: {email: req.body.email}});
+  const error = "Usuario o contraseña incorrecto.";
   if (user) {
     const password_valid =
       await Usuario.validPassword(req.body.password, user.password);
@@ -60,10 +61,10 @@ app.post("/login", async (req, res, next) => {
       process.env.SECRET);
       res.status(200).json({token: token});
     } else {
-      res.status(400).json({error: "Contraseña incorrecta"});
+      res.status(400).json({error});
     }
   } else {
-    res.status(404).json({error: "El usuario no existe"});
+    res.status(404).json({error});
   }
 });
 
