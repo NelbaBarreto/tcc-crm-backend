@@ -35,7 +35,7 @@ import llamadas from "./app/routes/llamadas.js";
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.ORIGIN || "http://localhost:3000",
 };
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json

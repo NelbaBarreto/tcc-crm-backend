@@ -85,6 +85,19 @@ const update = async (req, res) => {
   };
 };
 
+const getTipos = async (_req, res) => {
+  try {
+    const data = db.telefono.tipos ? db.telefono.tipos : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener tipos de teléfonos.",
+    });
+  }
+};
+
 // Eliminar telefono según su id
 const _delete = async (req, res) => {
   const {id} = req.params;
@@ -131,4 +144,4 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, getTipos, update, _delete, deleteAll};
