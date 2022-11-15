@@ -36,6 +36,7 @@ export default (sequelize, DataTypes) => {
     },
     calle_1: Sequelize.STRING,
     calle_2: Sequelize.STRING,
+    cod_postal: Sequelize.STRING,
     referencia: Sequelize.TEXT,
     ciudad_id: {
       type: Sequelize.INTEGER,

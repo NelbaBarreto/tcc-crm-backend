@@ -36,6 +36,5 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  Ciudad.nombres = Ciudad.getAttributes().nombre?.values;
   return Ciudad;
 };

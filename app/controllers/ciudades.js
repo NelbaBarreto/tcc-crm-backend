@@ -40,19 +40,6 @@ const findAll = async (_req, res) => {
   }
 };
 
-const getNombres = async (_req, res) => {
-  try {
-    const data = db.ciudad.nombres ? db.ciudad.nombres : [];
-    res.status(200).json({
-      data: data,
-    });
-  } catch (error) {
-    res.status(500).send({
-      message: "Error al obtener las ciudades.",
-    });
-  }
-};
-
 // Encontrar un ciudad según su id
 const findOne = async (req, res) => {
   const {id} = req.params;
@@ -150,4 +137,4 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll, getNombres};
+export {create, findAll, findOne, update, _delete, deleteAll};
