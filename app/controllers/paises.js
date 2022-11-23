@@ -86,7 +86,7 @@ const update = async (req, res) => {
 };
 
 // Eliminar pais según su id
-const _delete = async (req, res) => {
+const deletePais = async (req, res) => {
   const {id} = req.params;
 
   try {
@@ -131,4 +131,4 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+export {create, findAll, findOne, update, deletePais, deleteAll};

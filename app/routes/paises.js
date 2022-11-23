@@ -1,6 +1,6 @@
 /* eslint-disable new-cap */
 import {Router} from "express";
-import {create, findAll, findOne, update, _delete, deleteAll}
+import {create, findAll, findOne, update, deletePais, deleteAll}
   from "../controllers/paises.js";
 
 const RutasPaises = (app) => {
@@ -10,7 +10,7 @@ const RutasPaises = (app) => {
   router.get("/", findAll);
   router.get("/:id", findOne);
   router.put("/:id", update);
-  router.delete("/:id", _delete);
+  router.delete("/:id", deletePais);
   router.delete("/", deleteAll);
 
   app.use("/api/paises", router);
