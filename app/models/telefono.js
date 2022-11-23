@@ -7,7 +7,10 @@ import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Telefono extends Model {
-    static associate(models) {}
+    static associate(models) {
+      this.belongsTo(models.persona, {foreignKey: "persona_id"});
+      this.belongsTo(models.sucursal, {foreignKey: "sucursal_id"});
+    }
   }
   Telefono.init({
     telefono_id: {
@@ -16,25 +19,28 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    referencia_id: {
+    persona_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    sucursal_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    tipo:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Laboral", "Particular", "Familiar"),
+    tipo: Sequelize.ENUM("Móvil", "Casa", "Laboral", "Otro"),
     principal: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    interno: DataTypes.INTEGER,
     numero: {
       type: DataTypes.STRING(20),
       allowNull: false,
+      defaultValue: false,
     },
-    prefijo: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
+    comentario: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: false,
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
@@ -45,5 +51,7 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Telefono.tipos = Telefono.getAttributes().tipo?.values;
   return Telefono;
 };

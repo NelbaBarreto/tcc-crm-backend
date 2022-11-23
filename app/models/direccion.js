@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.ciudad, {foreignKey: "ciudad_id", as: "ciudad"});
       this.belongsTo(models.persona, {foreignKey: "persona_id"});
+      this.belongsTo(models.sucursal, {foreignKey: "sucursal_id"});
     }
   }
   Direccion.init({
@@ -35,6 +36,7 @@ export default (sequelize, DataTypes) => {
     },
     calle_1: Sequelize.STRING,
     calle_2: Sequelize.STRING,
+    cod_postal: Sequelize.STRING,
     referencia: Sequelize.TEXT,
     ciudad_id: {
       type: Sequelize.INTEGER,

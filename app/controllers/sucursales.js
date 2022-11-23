@@ -7,7 +7,10 @@ const create = async (req, res) => {
 
   // Guardar la sucursal
   try {
-    const data = await db.sucursal.create(sucursal);
+    const data = await db.sucursal.create(sucursal, {
+      include:
+        [{model: db.direccion}],
+    });
 
     res.status(200).json({
       data,
@@ -23,7 +26,12 @@ const create = async (req, res) => {
 // Obtener todas las sucursales
 const findAll = async (_req, res) => {
   try {
-    const data = await db.sucursal.findAll();
+    const data = await db.sucursal.findAll({
+      include:
+        [{model: db.direccion},
+          {model: db.pais},
+          {model: db.ciudad}],
+    });
 
     res.status(200).json({
       data,
@@ -42,7 +50,12 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.sucursal.findByPk(id);
+    const data = await db.sucursal.findByPk(id, {
+      include:
+        [{model: db.direccion},
+          {model: db.pais},
+          {model: db.ciudad}],
+    });
 
     if (data) {
       res.status(200).json({

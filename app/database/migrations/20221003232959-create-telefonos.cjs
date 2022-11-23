@@ -10,31 +10,50 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
+      comment: "Identificador único del teléfono."
     },
-    referencia_id: {
+    persona_id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
+      comment: "Id de persona a la que pertenece la dirección.",
+      references: {
+        model: {
+          tableName: "personas",
+        },
+        key: "persona_id",
+      },
+      allowNull: true,
+    },
+    sucursal_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de la sucursal a la que pertenece el teléfono.",
+      references: {
+        model: {
+          tableName: "sucursales",
+        },
+        key: "sucursal_id",
+      },
+      allowNull: true,
     },
     tipo: {
-      type: Sequelize.ENUM("Laboral", "Particular", "Familiar"),
-      comment: "Tipo de Telefono",
+      type: Sequelize.ENUM("Móvil", "Casa", "Laboral", "Otro"),
+      comment: "Tipo de teléfono.",
       allowNull: false,
     },
     principal: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-    },
-    interno: {
-      type: Sequelize.INTEGER,
+      comment: "Indica si el teléfono es o no el principal en el sistema.",
     },
     numero: {
       type: Sequelize.STRING(20),
       allowNull: false,
+      comment: "Número de teléfono."
     },
-    prefijo: {
-      type: Sequelize.STRING(10),
-      allowNull: false,
-    },
+    comentario: {
+      type: Sequelize.STRING(20),
+      allowNull: true,
+      comment: "Comentario adicional acerca del teléfono."
+    },    
     // Auditoria
     usu_insercion: {
       // allowNull: false,

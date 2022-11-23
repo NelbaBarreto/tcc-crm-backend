@@ -3,12 +3,15 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Sucursal extends Model {
     static associate(models) {
-
+      this.hasOne(models.direccion, {foreignKey: "sucursal_id"});
+      this.hasMany(models.telefono, {foreignKey: "telefono_id"});
+      this.belongsTo(models.pais, {foreignKey: "sucursal_id"});
+      this.belongsTo(models.ciudad, {foreignKey: "sucursal_id"});
     }
   }
   Sucursal.init({
@@ -20,9 +23,8 @@ export default (sequelize, DataTypes) => {
     },
     nombre: {
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
-    
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
