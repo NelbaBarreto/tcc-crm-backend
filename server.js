@@ -47,7 +47,7 @@ app.get("/", (_req, res) => {
   res.json({message: "Hello world!"});
 });
 
-app.post("/login", async (req, res, next) => {
+app.post("/login", async (req, res, _next) => {
   const user = await Usuario.findOne({where: {email: req.body.email}});
   const error = "Usuario o contraseña incorrecto.";
   if (user) {
@@ -59,7 +59,7 @@ app.post("/login", async (req, res, next) => {
         "email": user.email,
         "nombre": user.nombre},
       process.env.SECRET);
-      res.status(200).json({token: token});
+      res.status(200).json({userToken: token, user});
     } else {
       res.status(400).json({error});
     }
