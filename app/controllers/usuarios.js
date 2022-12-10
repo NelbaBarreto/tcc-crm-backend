@@ -147,7 +147,7 @@ const autenticarUsuario = async (req, res, next) => {
       const token = jwt.sign({"usuario_id": user.usuario_id,
         "nom_usuario": user.nom_usuario,
         "nombre": user.nombre}, process.env.SECRET);
-        res.status(200).json({token, user});
+      res.status(200).json({token, user});
     } else {
       res.status(400).json({error: "Contraseña incorrecta"});
     }
