@@ -46,9 +46,19 @@ export default (sequelize, DataTypes) => {
         },
         key: "ciudad_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
-    tipo: Sequelize.ENUM("laboral", "particular"),
+    sucursal_id: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          tableName: "sucursales",
+        },
+        key: "sucursal_id",
+      },
+      allowNull: true,
+    },
+    tipo: Sequelize.ENUM("Laboral", "Particular", "Otro"),
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,
   }, {

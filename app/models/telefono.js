@@ -25,12 +25,13 @@ export default (sequelize, DataTypes) => {
     },
     sucursal_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     tipo: Sequelize.ENUM("Móvil", "Casa", "Laboral", "Otro"),
     principal: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     numero: {
       type: DataTypes.STRING(20),
