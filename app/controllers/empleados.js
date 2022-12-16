@@ -51,7 +51,7 @@ const findOne = async (req, res) => {
     const data = await db.empleado.findByPk(id, {
       include:
         [{model: db.persona, as: "persona",
-          include: [{model: db.direccion, as: "direcciones"}, 
+          include: [{model: db.direccion, as: "direcciones"},
             {model: db.telefono, as: "telefonos"}]},
         {model: db.usuario}],
     });

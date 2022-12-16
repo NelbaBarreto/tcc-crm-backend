@@ -135,6 +135,9 @@ const deleteAll = async (_req, res) => {
 };
 
 const autenticarUsuario = async (req, res, next) => {
+  const error = "Se ha producido un problema al iniciar sesión." +
+  "Comprueba el nombre de usuario y la contraseña.";
+
   const user = req.body.nom_usuario ?
     await db.usuario.findOne({where: {nom_usuario: req.body.nom_usuario}}) :
     await db.usuario.findOne({where: {email: req.body.email}});
@@ -149,10 +152,10 @@ const autenticarUsuario = async (req, res, next) => {
         "nombre": user.nombre}, process.env.SECRET);
       res.status(200).json({token, user});
     } else {
-      res.status(400).json({error: "Contraseña incorrecta"});
+      res.status(400).json({error});
     }
   } else {
-    res.status(404).json({error: "El usuario no existe"});
+    res.status(404).json({error});
   }
 };
 
