@@ -132,4 +132,39 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+// const getTotalSales = async (_req, res) => {
+//   try {
+//     const data = db.oportunidad.destroy({
+//       where: {},
+//       truncate: false,
+//     });
+
+//     if (data == 1) {
+//       res.status(200).json({
+//         message: `${data} oportunidades fueron eliminadas correctamente`,
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).send({
+//       message:
+//         // eslint-disable-next-line max-len
+//         error.message ||
+// "Ocurrió un error al intentar eliminar las oportunidades",
+//     });
+//   }
+// };
+
+const getEtapas = async (_req, res) => {
+  try {
+    const data = db.oportunidad.etapas ? db.oportunidad.etapas : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener etapas.",
+    });
+  }
+};
+
+export {create, findAll, findOne, update, getEtapas, _delete, deleteAll};

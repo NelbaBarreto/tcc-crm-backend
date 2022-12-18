@@ -16,14 +16,14 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING(120),
       allowNull: false,
     },
-    campana_id: {
+    lead_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de campana de la oportunidad.",
+      comment: "Id de lead de la oportunidad.",
       references: {
         model: {
-          tableName: "campanas",
+          tableName: "leads",
         },
-        key: "campana_id",
+        key: "lead_id",
       },
       allowNull: false,
     },
@@ -49,7 +49,7 @@ export async function up(queryInterface, Sequelize) {
     etapa: {
       // eslint-disable-next-line max-len
       type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
-      comment: "etapas de una oportunidad",
+      comment: "Etapas de una oportunidad.",
       allowNull: false,
     },
     // Auditoria
