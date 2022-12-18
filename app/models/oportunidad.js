@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.belongsTo(models.campana, {foreignKey: "campana_id", as: "campana"});
+      this.belongsTo(models.lead, {foreignKey: "lead_id", as: "lead"});
     }
   }
   Oportunidad.init({
@@ -27,12 +27,12 @@ export default (sequelize, DataTypes) => {
     etapa:
       // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
-    campana_id: {
+    lead_id: {
       type: DataTypes.INTEGER,
       // allowNull: false,
       references: {
-        model: "campana",
-        key: "campana_id",
+        model: "lead",
+        key: "lead_id",
       },
     },
     usu_asignado_id: {
@@ -57,5 +57,8 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Oportunidad.etapas = Oportunidad.getAttributes().etapa?.values;
+
   return Oportunidad;
 };
