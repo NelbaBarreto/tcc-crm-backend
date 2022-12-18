@@ -9,7 +9,8 @@ const create = async (req, res) => {
   try {
     const data = await db.lead.create(lead, {include:
       [{model: db.persona, as: "persona",
-        include: [{model: db.direccion, as: "direcciones"}]}]});
+        include: [{model: db.direccion, as: "direcciones"},
+          {model: db.telefono, as: "telefonos"}]}]});
 
     res.status(200).json({
       data,

@@ -10,7 +10,7 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
-      comment: "Identificador único del teléfono."
+      comment: "Identificador único del teléfono.",
     },
     persona_id: {
       type: Sequelize.INTEGER,
@@ -42,18 +42,19 @@ export async function up(queryInterface, Sequelize) {
     principal: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
       comment: "Indica si el teléfono es o no el principal en el sistema.",
     },
     numero: {
       type: Sequelize.STRING(20),
       allowNull: false,
-      comment: "Número de teléfono."
+      comment: "Número de teléfono.",
     },
     comentario: {
       type: Sequelize.STRING(20),
       allowNull: true,
-      comment: "Comentario adicional acerca del teléfono."
-    },    
+      comment: "Comentario adicional acerca del teléfono.",
+    },
     // Auditoria
     usu_insercion: {
       // allowNull: false,

@@ -1,16 +1,16 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
-import Sequelize, { Model } from "sequelize";
+import Sequelize, {Model} from "sequelize";
 
 export default (sequelize) => {
   class Persona extends Model {
     static associate(models) {
-      this.hasOne(models.empleado, { foreignKey: "persona_id" });
+      this.hasOne(models.empleado, {foreignKey: "persona_id"});
       this.hasMany(models.direccion,
-        { foreignKey: "persona_id", as: "direcciones" });
+          {foreignKey: "persona_id", as: "direcciones"});
       this.hasMany(models.telefono,
-        { foreignKey: "persona_id", as: "telefonos" });
+          {foreignKey: "persona_id", as: "telefonos"});
     }
   }
   Persona.init({
@@ -24,7 +24,7 @@ export default (sequelize) => {
     email: Sequelize.STRING,
     nro_documento: Sequelize.STRING,
     tip_documento: Sequelize.ENUM("CI", "RUC",
-      "Cédula Extranjera", "Pasaporte"),
+        "Cédula Extranjera", "Pasaporte"),
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,
   }, {

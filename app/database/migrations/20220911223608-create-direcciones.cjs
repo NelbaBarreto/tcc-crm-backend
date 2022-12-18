@@ -38,7 +38,7 @@ export async function up(queryInterface, Sequelize) {
       comment: "Código postal de la dirección.",
     },
     tipo: {
-      type: Sequelize.ENUM("laboral", "particular"),
+      type: Sequelize.ENUM("Laboral", "Particular", "Otro"),
       comment: "Tipo de dirección",
     },
     referencia: {

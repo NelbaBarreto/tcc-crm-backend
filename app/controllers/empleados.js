@@ -3,14 +3,14 @@ import db from "../models/index.js";
 
 // Crear y guardar un nuevo empleado
 const create = async (req, res) => {
-  const empleado = {...req.body};
+  const empleado = req.body;
 
   // Guardar el empleado
   try {
-    const data = await db.empleado.create(empleado, {
-      include:
-        [{model: db.persona}, {model: db.usuario}],
-    });
+    const data = await db.empleado.create(empleado, {include:
+      [{model: db.persona, as: "persona",
+        include: [{model: db.direccion, as: "direcciones"},
+          {model: db.telefono, as: "telefonos"}]}]});
 
     res.status(200).json({
       data,
@@ -50,7 +50,10 @@ const findOne = async (req, res) => {
   try {
     const data = await db.empleado.findByPk(id, {
       include:
-        [{model: db.persona}, {model: db.usuario}],
+        [{model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}]},
+        {model: db.usuario}],
     });
 
     if (data) {
