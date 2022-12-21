@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>NUEVO USUARIO</title>
+</head>
+
+<body>
+  <ul style="list-style: none;">
+    <li><b>Nombre:</b> {{usuario.nombre}}</li>
+  </ul>
+  <span style="color: red;">
+    <b>Le recomendamos cambiar su contraseña la primera vez que se autentique en el sistema.</b>
+  </span>
+  <table style="width:70%" cellpadding="5" cellspacing="0">
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">ID</td>
+      <td>{{notification.ID}}</td>
+    </tr>
+    <tr>
+      <td style="width:30%;font-weight:bold;">ESQUEMA</td>
+      <td>{{notification.ESQUEMA}}</td>
+    </tr>
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">PROCESO</td>
+      <td>{{notification.PROCESO}}</td>
+    </tr>
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">ESTADO</td>
+      <td>{{notification.ESTADO}}</td>
+    </tr>
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">TABLA</td>
+      <td>{{notification.TABLA}}</td>
+    </tr>
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">FECHA DESDE</td>
+      <td>{{notification.FECHA_DESDE}}</td>
+    </tr> 
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">FECHA HASTA</td>
+      <td>{{notification.FECHA_HASTA}}</td>
+    </tr>  
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">CANTIDAD DE REGISTROS</td>
+      <td>{{notification.CANT_REGISTROS}}</td>
+    </tr>   
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">DESCRIPCIÓN</td>
+      <td>{{notification.DESCRIPCION}}</td>
+    </tr> 
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">FECHA T</td>
+      <td>{{notification.FECHA_T}}</td>
+    </tr>   
+    <tr style="border-bottom: 1px solid black;">
+      <td style="width:30%;font-weight:bold;">TIEMPO DE EJECUCIÓN</td>
+      <td>{{notification.TIEMPO_EJECUCION}}</td>
+    </tr>                  
+  </table>
+</body>
+
+</html>

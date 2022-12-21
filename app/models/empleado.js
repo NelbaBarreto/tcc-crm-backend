@@ -20,6 +20,10 @@ export default (sequelize) => {
       type: Sequelize.BOOLEAN,
       allowNull: false,
     },
+    cargo: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     persona_id: {
       type: Sequelize.INTEGER,
       allowNull: false,

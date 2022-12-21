@@ -15,12 +15,6 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
       unique: true,
     },
-    activo: {
-      type: Sequelize.BOOLEAN,
-      comment: "Indica si el usuario está activo o inactivo en el sistema.",
-      defaultValue: true,
-      allowNull: false,
-    },
     password: {
       type: Sequelize.STRING,
       allowNull: true,
