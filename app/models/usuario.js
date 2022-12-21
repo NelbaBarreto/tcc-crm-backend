@@ -1,6 +1,10 @@
 /* eslint-disable require-jsdoc */
 import Sequelize, {Model} from "sequelize";
 import bcrypt from "bcrypt";
+import {createTransport} from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
+import path from "path";
+import "dotenv/config.js";
 
 export default (sequelize) => {
   class Usuario extends Model {
@@ -44,6 +48,7 @@ export default (sequelize) => {
           password += chars.substring(randomNumber, randomNumber +1);
         }
         if (password) {
+          Usuario.sendMail(usuario, password);
           const salt = await bcrypt.genSaltSync(10);
           usuario.password = bcrypt.hashSync(password, salt);
         }
@@ -66,7 +71,7 @@ export default (sequelize) => {
     return await bcrypt.compareSync(password, hash);
   };
 
-  Usuario.sendMail = async (usuario) => {
+  Usuario.sendMail = async (usuario, password) => {
     async function sendMail() {
       console.log("Sending mails...");
       const transporter = createTransport({
@@ -92,11 +97,13 @@ export default (sequelize) => {
       // send mail with defined transport object
       const info = await transporter.sendMail({
         from: "barretonelba@gmail.com",
-        to: usuario.email,
-        subject: "Cuenta de Usuario Creada",
+        // to: usuario.email,
+        to: "mendezale495@gmail.com",
+        subject: "Nueva Cuenta de Usuario Creada",
         template: "email",
         context: {
           usuario,
+          password,
         },
       });
 
