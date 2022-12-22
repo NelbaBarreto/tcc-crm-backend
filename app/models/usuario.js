@@ -42,16 +42,20 @@ export default (sequelize) => {
         // eslint-disable-next-line max-len
         const chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const passwordLength = 12;
-        let password;
+        let password = "";
         for (let i = 0; i <= passwordLength; i++) {
           const randomNumber = Math.floor(Math.random() * chars.length);
           password += chars.substring(randomNumber, randomNumber +1);
         }
         if (password) {
-          Usuario.sendMail(usuario, password);
           const salt = await bcrypt.genSaltSync(10);
           usuario.password = bcrypt.hashSync(password, salt);
         }
+      },
+      afterCreate: async (usuario) => {
+        const usuarioJson = await Usuario.findByPk(usuario.usuario_id,
+            {include: {all: true, nested: true}});          
+       // Usuario.sendMail(usuarioJson?.toJSON(), 123);
       },
       beforeUpdate: async (usuario) => {
         if (usuario.password) {
