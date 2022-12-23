@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>NUEVO USUARIO</title>
+</head>
+
+<body>
+  <ul style="list-style: none;">
+    <li><b>Nombre:</b> {{usuario.empleado?.persona?.nombre}}</li>
+    <li><b>Número de Documento:</b> {{usuario.empleado?.persona?.nro_documento}}</li>    
+    <li><b>Usuario:</b> {{usuario.nom_usuario}}</li>
+    <li><b>Contraseña:</b> {{password}}</li>
+  </ul>
+  <span style="color: red;">
+    <b>Le recomendamos cambiar su contraseña la primera vez que se autentique en el sistema.</b>
+  </span>
+</body>
+
+</html>

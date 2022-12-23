@@ -120,11 +120,9 @@ const getTipos = async (_req, res) => {
 
 // Actualizar caso según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.caso.update(req.body, {
-      where: {caso_id: id},
+    const data = await db.caso.update(req.body.caso, {
+      where: {caso_id: req.body.id},
     });
 
     if (data == 1) {

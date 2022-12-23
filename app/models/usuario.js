@@ -1,6 +1,10 @@
 /* eslint-disable require-jsdoc */
 import Sequelize, {Model} from "sequelize";
 import bcrypt from "bcrypt";
+import {createTransport} from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
+import path from "path";
+import "dotenv/config.js";
 
 export default (sequelize) => {
   class Usuario extends Model {
@@ -21,10 +25,6 @@ export default (sequelize) => {
       allowNull: false,
       unique: true,
     },
-    activo: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-    },
     password: {
       type: Sequelize.STRING,
       allowNull: true,
@@ -39,10 +39,23 @@ export default (sequelize) => {
     updatedAt: "fec_modificacion",
     hooks: {
       beforeCreate: async (usuario) => {
-        if (usuario.password) {
-          const salt = await bcrypt.genSaltSync(10);
-          usuario.password = bcrypt.hashSync(usuario.password, salt);
+        // eslint-disable-next-line max-len
+        const chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const passwordLength = 12;
+        let password = "";
+        for (let i = 0; i <= passwordLength; i++) {
+          const randomNumber = Math.floor(Math.random() * chars.length);
+          password += chars.substring(randomNumber, randomNumber +1);
         }
+        if (password) {
+          const salt = await bcrypt.genSaltSync(10);
+          usuario.password = bcrypt.hashSync(password, salt);
+        }
+      },
+      afterCreate: async (usuario) => {
+        const usuarioJson = await Usuario.findByPk(usuario.usuario_id,
+            {include: {all: true, nested: true}});          
+       // Usuario.sendMail(usuarioJson?.toJSON(), 123);
       },
       beforeUpdate: async (usuario) => {
         if (usuario.password) {
@@ -60,6 +73,48 @@ export default (sequelize) => {
 
   Usuario.validPassword = async (password, hash) => {
     return await bcrypt.compareSync(password, hash);
+  };
+
+  Usuario.sendMail = async (usuario, password) => {
+    async function sendMail() {
+      console.log("Sending mails...");
+      const transporter = createTransport({
+        service: "gmail",
+        auth: {
+          user: "barretonelba@gmail.com",
+          pass: process.env.MAIL_PASS,
+        },
+      });
+
+      // point to the template folder
+      const handlebarOptions = {
+        viewEngine: {
+          partialsDir: path.resolve("./views/"),
+          defaultLayout: false,
+        },
+        viewPath: path.resolve("./views/"),
+      };
+
+      // use a template file with nodemailer
+      transporter.use("compile", hbs(handlebarOptions));
+
+      // send mail with defined transport object
+      const info = await transporter.sendMail({
+        from: "barretonelba@gmail.com",
+        // to: usuario.email,
+        to: "mendezale495@gmail.com",
+        subject: "Nueva Cuenta de Usuario Creada",
+        template: "email",
+        context: {
+          usuario,
+          password,
+        },
+      });
+
+      console.log({data: `Message sent ${info.messageId}`});
+    }
+
+    sendMail();
   };
 
   return Usuario;

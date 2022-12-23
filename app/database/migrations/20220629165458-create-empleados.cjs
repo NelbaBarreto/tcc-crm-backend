@@ -37,8 +37,13 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: false,
       allowNull: false,
     },
+    cargo: {
+      comment: "Cargo que ocupa el empleado.",
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -57,7 +62,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },

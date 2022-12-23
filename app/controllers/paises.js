@@ -4,7 +4,6 @@ import db from "../models/index.js";
 // Crear y guardar un nuevo país
 const create = async (req, res) => {
   const pais = {...req.body};
-
   // Guardar el pais
   try {
     const data = await db.pais.create(pais);

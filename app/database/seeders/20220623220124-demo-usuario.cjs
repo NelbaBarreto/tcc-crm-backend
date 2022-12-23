@@ -6,12 +6,16 @@ const up = async (queryInterface, _Sequelize) => {
     password: "123456",
     fec_insercion: new Date(),
     fec_modificacion: new Date(),
+    usu_insercion: "nbarreto",
+    usu_modificacion: "nbarreto",
   }, {
     nom_usuario: "dtaboada",
     email: "rkto737@gmail.com",
     password: "123456",
     fec_insercion: new Date(),
     fec_modificacion: new Date(),
+    usu_insercion: "nbarreto",
+    usu_modificacion: "nbarreto",
   }], {});
 };
 

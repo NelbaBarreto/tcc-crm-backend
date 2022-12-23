@@ -15,12 +15,6 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
       unique: true,
     },
-    activo: {
-      type: Sequelize.BOOLEAN,
-      comment: "Indica si el usuario está activo o inactivo en el sistema.",
-      defaultValue: true,
-      allowNull: false,
-    },
     password: {
       type: Sequelize.STRING,
       allowNull: true,
@@ -44,7 +38,7 @@ export async function up(queryInterface, Sequelize) {
       },
     },
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -63,7 +57,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },
