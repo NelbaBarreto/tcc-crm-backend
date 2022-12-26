@@ -7,6 +7,7 @@ import path from "path";
 import "dotenv/config.js";
 
 export default (sequelize) => {
+  let auxPassword;
   class Usuario extends Model {
     static associate(models) {
       this.hasOne(models.empleado, {foreignKey: "empleado_id"});
@@ -42,20 +43,19 @@ export default (sequelize) => {
         // eslint-disable-next-line max-len
         const chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const passwordLength = 12;
-        let password = "";
+        auxPassword = "";
         for (let i = 0; i <= passwordLength; i++) {
           const randomNumber = Math.floor(Math.random() * chars.length);
-          password += chars.substring(randomNumber, randomNumber +1);
+          auxPassword += chars.substring(randomNumber, randomNumber +1);
         }
-        if (password) {
+        if (auxPassword) {
           const salt = await bcrypt.genSaltSync(10);
-          usuario.password = bcrypt.hashSync(password, salt);
+          usuario.password = bcrypt.hashSync(auxPassword, salt);
         }
       },
       afterCreate: async (usuario) => {
-        const usuarioJson = await Usuario.findByPk(usuario.usuario_id,
-            {include: {all: true, nested: true}});          
-       // Usuario.sendMail(usuarioJson?.toJSON(), 123);
+        Usuario.sendMail(usuario?.toJSON(), auxPassword);
+        auxPassword = "";
       },
       beforeUpdate: async (usuario) => {
         if (usuario.password) {
