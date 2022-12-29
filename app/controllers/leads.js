@@ -176,5 +176,27 @@ const deleteAll = async (_req, res) => {
   }
 };
 
+const generarTokenEncuesta = async (req, res) => {
+  try {
+    if (req.body.lead_id) {
+      let payload = {
+        lead: req.body.lead,
+        oportunidad: req.body.oportunidad,
+      }
+    } else {
+      res.status(403).send({
+        data: undefined,
+        message: "No Token"
+      });
+    }
+
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar generar el token",
+    });
+  }
+};
+
 export {create, findAll, findOne, getEstados, getOrigenes, update, _delete,
   deleteAll};
