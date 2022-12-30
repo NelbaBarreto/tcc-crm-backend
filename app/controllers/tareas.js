@@ -23,7 +23,10 @@ const create = async (req, res) => {
 // Obtener todas las tareas
 const findAll = async (_req, res) => {
   try {
-    const data = await db.tarea.findAll();
+    const data = await db.tarea.findAll({
+      include:
+        [{model: db.usuario, as: "usuario"}],
+    });
 
     res.status(200).json({
       data,
@@ -90,11 +93,9 @@ const getEstados = async (_req, res) => {
 
 // Actualizar tarea según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.tarea.update(req.body, {
-      where: {tarea_id: id},
+    const data = await db.tarea.update(req.body.tarea, {
+      where: {tarea_id: req.body.id},
     });
 
     if (data == 1) {

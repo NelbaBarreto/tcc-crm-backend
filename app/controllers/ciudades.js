@@ -68,11 +68,9 @@ const findOne = async (req, res) => {
 
 // Actualizar ciudad según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.ciudad.update(req.body, {
-      where: {ciudad_id: id},
+    const data = await db.ciudad.update(req.body.ciudad, {
+      where: {ciudad_id: req.body.id},
     });
 
     if (data == 1) {

@@ -30,13 +30,8 @@ export default (sequelize, DataTypes) => {
     prioridad:
       // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Alta", "Media", "Baja"),
-    actividad_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       references: {
         model: "usuario",
         key: "usuario_id",

@@ -62,11 +62,9 @@ const findOne = async (req, res) => {
 
 // Actualizar campaña según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.campana.update(req.body, {
-      where: {campana_id: id},
+    const data = await db.campana.update(req.body.campana, {
+      where: {campana_id: req.body.id},
     });
 
     if (data == 1) {

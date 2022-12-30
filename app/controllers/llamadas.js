@@ -88,11 +88,9 @@ const getTipos = async (_req, res) => {
 
 // Actualizar llamada según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.llamada.update(req.body, {
-      where: {llamada_id: id},
+    const data = await db.llamada.update(req.body.llamada, {
+      where: {llamada_id: req.body.id},
     });
 
     if (data == 1) {

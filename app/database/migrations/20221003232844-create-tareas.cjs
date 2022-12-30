@@ -31,11 +31,6 @@ export async function up(queryInterface, Sequelize) {
       comment: "Prioridad de la tarea.",
       allowNull: false,
     },
-    actividad_id: {
-      comment: "Id de la actividad.",
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
     fec_inicio: {
       comment: "Fecha de inicio de la actividad.",
       type: Sequelize.DATE,
@@ -54,7 +49,7 @@ export async function up(queryInterface, Sequelize) {
         },
         key: "usuario_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     // Auditoria
     usu_insercion: {
