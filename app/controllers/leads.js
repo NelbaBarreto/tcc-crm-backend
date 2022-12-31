@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
+import jwt from "jsonwebtoken";
 
 // Crear y guardar un nuevo lead
 const create = async (req, res) => {
@@ -183,6 +184,8 @@ const generarTokenEncuesta = async (req, res) => {
         lead: req.body.lead,
         oportunidad: req.body.oportunidad,
       }
+
+      let token = jwt.encode(payload, secret);
     } else {
       res.status(403).send({
         data: undefined,
@@ -198,5 +201,5 @@ const generarTokenEncuesta = async (req, res) => {
   }
 };
 
-export {create, findAll, findOne, getEstados, getOrigenes, update, _delete,
-  deleteAll};
+export {create, findAll, findOne, getEstados, getOrigenes, update, _delete, 
+  generarTokenEncuesta, deleteAll};
