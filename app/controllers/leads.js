@@ -179,23 +179,26 @@ const deleteAll = async (_req, res) => {
 
 const generarTokenEncuesta = async (req, res) => {
   try {
-    if (req.body.lead) {
-      const payload = {
-        lead: req.body.lead,
-        oportunidad: req.body.oportunidad,
-      };
+    // if (req.body.lead) {
+    const lead = req.params.lead;
+    const oportunidad = req.params.oportunidad;
 
-      const token = jwt.encode(payload, secret);
+    const payload = {
+      lead,
+      oportunidad,
+    };
 
-      res.status(200).send({
-        token,
-      });
-    } else {
-      res.status(403).send({
-        data: undefined,
-        message: "No Token",
-      });
-    }
+    const token = jwt.sign(payload, process.env.SECRET, {expiresIn: "2d"});
+
+    res.status(200).send({
+      token,
+    });
+    // } else {
+    //   res.status(403).send({
+    //     data: undefined,
+    //     message: "No Token",
+    //   });
+    // }
   } catch (error) {
     res.status(500).send({
       message:

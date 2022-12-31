@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 import {Router} from "express";
 import {create, findAll, findOne, getEstados, getOrigenes, update,
-  _delete, deleteAll}
+  _delete, generarTokenEncuesta, deleteAll}
   from "../controllers/leads.js";
 
 const RutasLeads = (app) => {
@@ -9,6 +9,7 @@ const RutasLeads = (app) => {
 
   router.post("/", create);
   router.get("/", findAll);
+  router.get("/generarTokenEncuesta/:lead/:oportunidad", generarTokenEncuesta);
   router.get("/estados", getEstados);
   router.get("/origenes", getOrigenes);
   router.get("/:id", findOne);
