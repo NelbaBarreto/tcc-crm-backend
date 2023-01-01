@@ -45,8 +45,9 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await Usuario.findByPk(id);
-
+    const data = await Usuario.findByPk(id, {include:
+      [{model: db.empleado}]});
+    console.log(data);
     if (data) {
       res.status(200).json({
         data,
@@ -138,24 +139,28 @@ const autenticarUsuario = async (req, res, next) => {
   const error = "Se ha producido un problema al iniciar sesión." +
   "Comprueba el nombre de usuario y la contraseña.";
 
-  const user = req.body.nom_usuario ?
+  try {
+    const user = req.body.nom_usuario ?
     await db.usuario.findOne({where: {nom_usuario: req.body.nom_usuario}}) :
     await db.usuario.findOne({where: {email: req.body.email}});
 
-  if (user) {
-    const password_valid = req.body.nom_usuario ?
+    if (user) {
+      const password_valid = req.body.nom_usuario ?
       await db.usuario.validPassword(req.body.password, user.password) : true;
 
-    if (password_valid) {
-      const token = jwt.sign({"usuario_id": user.usuario_id,
-        "nom_usuario": user.nom_usuario,
-        "nombre": user.nombre}, process.env.SECRET);
-      res.status(200).json({token, user});
+      if (password_valid) {
+        const token = jwt.sign({"usuario_id": user.usuario_id,
+          "nom_usuario": user.nom_usuario,
+          "nombre": user.nombre}, process.env.SECRET);
+        res.status(200).json({token, user});
+      } else {
+        res.status(400).json({error});
+      }
     } else {
-      res.status(400).json({error});
+      res.status(404).json({error});
     }
-  } else {
-    res.status(404).json({error});
+  } catch (error) {
+    res.status(500).json({error});
   }
 };
 
