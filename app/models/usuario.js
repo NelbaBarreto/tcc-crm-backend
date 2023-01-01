@@ -102,7 +102,7 @@ export default (sequelize) => {
       const info = await transporter.sendMail({
         from: "barretonelba@gmail.com",
         // to: usuario.email,
-        to: process.env.MAIL,
+        to: "rkto737@gmail.com",
         subject: "Nueva Cuenta de Usuario Creada",
         template: "email",
         context: {
