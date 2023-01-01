@@ -65,8 +65,8 @@ const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await db.curso.update(req.body, {
-      where: {curso_id: id},
+    const data = await db.curso.update(req.body.curso, {
+      where: {curso_id: req.body.id},
     });
 
     if (data == 1) {
