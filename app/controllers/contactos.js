@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
+import jwt from "jsonwebtoken";
 
 // Crear y guardar un nuevo contacto
 const create = async (req, res) => {
@@ -131,4 +132,28 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update, _delete, deleteAll};
+const generarTokenEncuesta = async (req, res) => {
+  try {
+    const contacto = req.params.contacto;
+    const oportunidad = req.params.oportunidad;
+
+    const payload = {
+      contacto,
+      oportunidad,
+    };
+
+    const token = jwt.sign(payload, process.env.SECRET, {expiresIn: "2d"});
+
+    res.status(200).send({
+      token,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar generar el token",
+    });
+  }
+};
+
+export {create, findAll, findOne, update, generarTokenEncuesta,
+  _delete, deleteAll};

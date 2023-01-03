@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 import {Router} from "express";
-import {create, findAll, findOne, update, _delete, deleteAll}
+import {create, findAll, findOne, update,
+  generarTokenEncuesta, _delete, deleteAll}
   from "../controllers/contactos.js";
 
 const RutasContactos = (app) => {
@@ -8,6 +9,8 @@ const RutasContactos = (app) => {
 
   router.post("/", create);
   router.get("/", findAll);
+  router.get("/generarTokenEncuesta/:contacto/:oportunidad",
+      generarTokenEncuesta);
   router.get("/:id", findOne);
   router.put("/:id", update);
   router.delete("/:id", _delete);
