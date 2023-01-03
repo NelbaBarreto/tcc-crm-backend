@@ -155,5 +155,28 @@ const generarTokenEncuesta = async (req, res) => {
   }
 };
 
+const validarTokenEncuesta = async (req, res) => {
+  try {
+    const contacto = req.params.contacto;
+    const oportunidad = req.params.oportunidad;
+
+    const payload = {
+      contacto,
+      oportunidad,
+    };
+
+    const token = jwt.sign(payload, process.env.SECRET, {expiresIn: "2d"});
+
+    res.status(200).send({
+      token,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar validar el token",
+    });
+  }
+};
+
 export {create, findAll, findOne, update, generarTokenEncuesta,
   _delete, deleteAll};
