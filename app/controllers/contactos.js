@@ -179,4 +179,4 @@ const validarTokenEncuesta = async (req, res) => {
 };
 
 export {create, findAll, findOne, update, generarTokenEncuesta,
-  _delete, deleteAll};
+  validarTokenEncuesta, _delete, deleteAll};
