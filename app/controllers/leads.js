@@ -7,10 +7,14 @@ const create = async (req, res) => {
 
   // Guardar el lead
   try {
-    const data = await db.lead.create(lead, {include:
-      [{model: db.persona, as: "persona",
-        include: [{model: db.direccion, as: "direcciones"},
-          {model: db.telefono, as: "telefonos"}]}]});
+    const data = await db.lead.create(lead, {
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}],
+        }],
+    });
 
     res.status(200).json({
       data,
@@ -28,8 +32,10 @@ const findAll = async (_req, res) => {
   try {
     const data = await db.lead.findAll({
       include:
-        [{model: db.persona, as: "persona",
-          include: [{model: db.direccion, as: "direcciones"}]},
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
         {model: db.campana},
         {model: db.usuario, as: "usu_asignado"},
         {model: db.curso},
@@ -55,8 +61,10 @@ const findOne = async (req, res) => {
   try {
     const data = await db.lead.findByPk(id, {
       include:
-        [{model: db.persona, as: "persona",
-          include: [{model: db.direccion, as: "direcciones"}]},
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
         {model: db.campana},
         {model: db.usuario, as: "usu_asignado"},
         {model: db.curso},
@@ -176,27 +184,6 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-const generarTokenEncuesta = async (req, res) => {
-  try {
-    if (req.body.lead_id) {
-      let payload = {
-        lead: req.body.lead,
-        oportunidad: req.body.oportunidad,
-      }
-    } else {
-      res.status(403).send({
-        data: undefined,
-        message: "No Token"
-      });
-    }
-
-  } catch (error) {
-    res.status(500).send({
-      message:
-        error.message || "Ocurrió un error al intentar generar el token",
-    });
-  }
+export {
+  create, findAll, findOne, getEstados, getOrigenes, update, _delete, deleteAll,
 };
-
-export {create, findAll, findOne, getEstados, getOrigenes, update, _delete,
-  deleteAll};
