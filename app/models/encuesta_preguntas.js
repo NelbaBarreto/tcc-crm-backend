@@ -3,7 +3,9 @@ import Sequelize, {Model} from "sequelize";
 
 export default (sequelize) => {
   class Encuesta_Pregunta extends Model {
-    static associate(_models) {
+    static associate(models) {
+      this.hasMany(models.encuesta_pregunta_opcion,
+          {foreignKey: "pregunta_id", as: "pregunta"});
     }
   }
   Encuesta_Pregunta.init({
