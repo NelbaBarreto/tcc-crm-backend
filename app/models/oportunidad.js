@@ -11,6 +11,7 @@ export default (sequelize, DataTypes) => {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
       this.belongsTo(models.lead, {foreignKey: "lead_id", as: "lead"});
+      this.hasOne(models.encuesta_respuesta, {foreignKey: "oportunidad_id"});
     }
   }
   Oportunidad.init({

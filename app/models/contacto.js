@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
   class Contacto extends Model {
     static associate(models) {
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
+      this.hasOne(models.encuesta_respuesta, {foreignKey: "oportunidad_id"});
     }
   }
   Contacto.init({
