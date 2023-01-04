@@ -6,7 +6,7 @@ export default (sequelize) => {
   class Encuesta_Pregunta_Opcion extends Model {
     static associate(models) {
       this.belongsTo(models.encuesta_pregunta,
-          {foreignKey: "pregunta_id", as: "pregunta"});
+          {foreignKey: "pregunta_id"});
     }
   }
   Encuesta_Pregunta_Opcion.init({
@@ -27,19 +27,16 @@ export default (sequelize) => {
       allowNull: false,
     },
     etiqueta: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.STRING,
     },
     valor: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.INTEGER,
-    },
-    componente: {
-      allowNull: false,
-      type: Sequelize.ENUM("RadioButton", "TextArea"),
     },
   }, {
     sequelize,
+    tableName: "encuesta_pregunta_opciones",
     modelName: "encuesta_pregunta_opcion",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",

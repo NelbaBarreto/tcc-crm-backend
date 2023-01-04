@@ -1,9 +1,6 @@
 import express from "express";
 import "dotenv/config.js";
-import jwt from "jsonwebtoken";
 import cors from "cors";
-
-const Usuario = "./app/models/Usuario.js";
 
 import personas from "./app/routes/personas.js";
 import empleados from "./app/routes/empleados.js";
@@ -29,8 +26,10 @@ import tareas from "./app/routes/tareas.js";
 import telefonos from "./app/routes/telefonos.js";
 // Roles
 import roles from "./app/routes/roles.js";
-// llamadas
+// Llamadas
 import llamadas from "./app/routes/llamadas.js";
+// Encuesta
+import preguntas from "./app/routes/encuesta/preguntas.js";
 
 const app = express();
 
@@ -45,27 +44,6 @@ app.use(express.urlencoded({extended: true}));
 // simple route
 app.get("/", (_req, res) => {
   res.json({message: "Hello world!"});
-});
-
-app.post("/login", async (req, res, _next) => {
-  const user = await Usuario.findOne({where: {email: req.body.email}});
-  const error = "Usuario o contraseña incorrecto.";
-  if (user) {
-    const password_valid =
-      await Usuario.validPassword(req.body.password, user.password);
-
-    if (password_valid) {
-      token = jwt.sign({"id": user.id,
-        "email": user.email,
-        "nombre": user.nombre},
-      process.env.SECRET);
-      res.status(200).json({userToken: token, user});
-    } else {
-      res.status(400).json({error});
-    }
-  } else {
-    res.status(404).json({error});
-  }
 });
 
 personas(app);
@@ -88,6 +66,7 @@ tareas(app);
 telefonos(app);
 roles(app);
 llamadas(app);
+preguntas(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

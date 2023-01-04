@@ -23,19 +23,14 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     etiqueta: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.STRING,
       comment: "Etiqueta de la opción.",
     },
     valor: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.INTEGER,
       comment: "Valor de la opción.",
-    },
-    componente: {
-      allowNull: false,
-      type: Sequelize.ENUM("RadioButton", "TextArea"),
-      comment: "Tipo de componente que se debe mostrar para cargar el valor.",
     },
     createdAt: {
       allowNull: false,

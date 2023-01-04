@@ -15,6 +15,11 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
       comment: "Pregunta a mostrarse en la encuesta de satisfacción.",
     },
+    obligatorio: {
+      defaultValue: false,
+      comment: "Indica si es obligatorio responder la pregunta.",
+      type: Sequelize.BOOLEAN,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
