@@ -16,16 +16,27 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING(120),
       allowNull: false,
     },
-    lead_id: {
+    campana_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de lead de la oportunidad.",
+      comment: "Campaña por la cual se consiguió la oportunidad.",
       references: {
         model: {
-          tableName: "leads",
+          tableName: "campanas",
         },
-        key: "lead_id",
+        key: "campana_id",
       },
+      allowNull: true,
+    },
+    contacto_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id del contacto asociado a la oportunidad.",
       allowNull: false,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
@@ -36,9 +47,10 @@ export async function up(queryInterface, Sequelize) {
         },
         key: "usuario_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     valor: {
+      comment: "Valor estimado de la oportunidad.",
       type: Sequelize.INTEGER,
       allowNull: false,
     },
@@ -47,14 +59,13 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.TEXT,
     },
     etapa: {
-      // eslint-disable-next-line max-len
-      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      type: Sequelize.ENUM("Abierto", "Ganado", "Perdido"),
       comment: "Etapas de una oportunidad.",
       allowNull: false,
     },
-    // Auditoria
+    // Auditoría
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -73,7 +84,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },

@@ -23,7 +23,6 @@ export default (sequelize, DataTypes) => {
     },
     fec_inicio: DataTypes.DATE,
     fec_fin: DataTypes.DATE,
-
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {

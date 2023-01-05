@@ -3,7 +3,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Oportunidad extends Model {
@@ -25,20 +25,32 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING(120),
       allowNull: false,
     },
-    etapa:
-      // eslint-disable-next-line new-cap, max-len
-      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
-    lead_id: {
+    etapa: {
+      type: DataTypes.ENUM("Abierto", "Ganado", "Perdido"),
+    },
+    campana_id: {
       type: DataTypes.INTEGER,
-      // allowNull: false,
+      allowNull: true,
       references: {
-        model: "lead",
-        key: "lead_id",
+        model: {
+          tableName: "campanas",
+        },
+        key: "campana_id",
+      },
+    },
+    contacto_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
       },
     },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "usuario",
         key: "usuario_id",

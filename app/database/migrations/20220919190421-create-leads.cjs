@@ -31,7 +31,13 @@ export async function up(queryInterface, Sequelize) {
     },
     campana_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de campaña del lead.",
+      comment: "Campaña por la cual se consiguió el lead.",
+      references: {
+        model: {
+          tableName: "campanas",
+        },
+        key: "campana_id",
+      },
       allowNull: true,
     },
     origen: {
