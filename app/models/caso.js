@@ -22,8 +22,10 @@ export default (sequelize, DataTypes) => {
     asunto: DataTypes.STRING,
     descripcion: DataTypes.TEXT,
     prioridad: DataTypes.ENUM("Alta", "Media", "Baja"),
-    estado: DataTypes.ENUM("Nuevo", "Asignado", "En Proceso", "Cancelado",
-        "Finalizado"),
+    estado: {
+      type: DataTypes.ENUM("Pendiente", "En Proceso", "Cancelado",
+          "Finalizado"),
+    },
     tipo: DataTypes.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),
     solucion: DataTypes.STRING,
     usu_asignado_id: {

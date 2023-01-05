@@ -8,24 +8,29 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      comment: "Identificador único de la campana.",
+      comment: "Identificador único de la campaña.",
       type: Sequelize.INTEGER,
     },
     nombre: {
       type: Sequelize.STRING,
+      comment: "Nombre de la campaña.",
       allowNull: false,
+    },
+    descripcion: {
+      type: Sequelize.TEXT,
+      comment: "Descripción de la campaña.",
     },
     fec_inicio: {
       allowNull: false,
       type: Sequelize.DATE,
       field: "fec_inicio",
-      comment: "Fecha de inicio de la campana.",
+      comment: "Fecha de inicio de la campaña.",
     },
     fec_fin: {
       allowNull: false,
       type: Sequelize.DATE,
       field: "fec_fin",
-      comment: "Fecha del fin de la campana.",
+      comment: "Fecha del fin de la campaña.",
     },
     // Auditoria
     usu_insercion: {

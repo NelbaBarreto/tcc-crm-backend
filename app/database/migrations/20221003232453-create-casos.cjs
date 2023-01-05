@@ -28,7 +28,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     estado: {
-      type: Sequelize.ENUM("Nuevo", "Asignado", "En Proceso", "Cancelado",
+      type: Sequelize.ENUM("Pendiente", "En Proceso", "Cancelado",
           "Finalizado"),
       comment: "Estado del caso.",
       allowNull: false,

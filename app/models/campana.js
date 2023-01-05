@@ -2,7 +2,7 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
 "use strict";
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Campana extends Model {
@@ -11,19 +11,21 @@ export default (sequelize, DataTypes) => {
     }
   }
   Campana.init({
-    nombre: Sequelize.STRING,
+    nombre: DataTypes.STRING,
     campana_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
+    descripcion: {
+      type: DataTypes.TEXT,
+    },
+    fec_inicio: DataTypes.DATE,
+    fec_fin: DataTypes.DATE,
 
-    fec_inicio: Sequelize.DATE,
-    fec_fin: Sequelize.DATE,
-
-    usu_insercion: Sequelize.STRING,
-    usu_modificacion: Sequelize.STRING,
+    usu_insercion: DataTypes.STRING,
+    usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
     modelName: "campana",

@@ -23,10 +23,11 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    estado:
-      // eslint-disable-next-line new-cap
-      Sequelize.ENUM("Nuevo", "Asignado", "En Proceso",
-          "Convertido", "Perdido"),
+    estado: {
+      type: DataTypes.ENUM("Pendiente", "En Proceso", "Convertido",
+          "Perdido", "Anulado"),
+      defaultValue: "Pendiente",
+    },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
