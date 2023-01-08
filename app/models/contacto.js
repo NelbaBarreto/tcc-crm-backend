@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
   class Contacto extends Model {
     static associate(models) {
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
+      this.belongsTo(models.organizacion, {foreignKey: "organizacion_id"});
       this.hasOne(models.encuesta_respuesta, {foreignKey: "oportunidad_id"});
     }
   }
@@ -27,6 +28,18 @@ export default (sequelize, DataTypes) => {
         key: "persona_id",
       },
     },
+    organizacion_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "organizaciones",
+        },
+        key: "organizacion_id",
+      },
+      allowNull: true,
+    },
+    origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+        "Evento", "Otro"),
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
@@ -36,5 +49,8 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
+
+  Contacto.origenes = Contacto.getAttributes().origen?.values;
+
   return Contacto;
 };
