@@ -9,6 +9,8 @@ export default (sequelize, DataTypes) => {
   class Organizacion extends Model {
     static associate(models) {
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
+      this.hasMany(models.contacto, {foreignKey: "contacto_id",
+        as: "contactos"});
     }
   }
   Organizacion.init({
