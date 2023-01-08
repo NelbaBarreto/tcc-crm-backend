@@ -26,8 +26,7 @@ const findAll = async (_req, res) => {
     const data = await db.oportunidad.findAll({
       include:
         [{model: db.usuario, as: "usuario"},
-          {model: db.lead, as: "lead", include:
-          [{model: db.persona, as: "persona"}]}],
+          {model: db.curso}],
     });
 
     res.status(200).json({

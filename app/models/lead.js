@@ -3,7 +3,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Lead extends Model {
@@ -41,9 +41,15 @@ export default (sequelize, DataTypes) => {
     },
     curso_id: {
       type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "cursos",
+        },
+        key: "curso_id",
+      },
       allowNull: false,
     },
-    origen: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+    origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
         "Evento", "Otro"),
     persona_id: {
       type: DataTypes.INTEGER,

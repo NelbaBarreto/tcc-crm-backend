@@ -58,11 +58,6 @@ export async function up(queryInterface, Sequelize) {
       },
       allowNull: false,
     },
-    curso_id: {
-      type: Sequelize.INTEGER,
-      comment: "Id del curso del lead.",
-      allowNull: false,
-    },
     // Auditoria
     usu_insercion: {
       allowNull: false,
