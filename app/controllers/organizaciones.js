@@ -30,7 +30,14 @@ const create = async (req, res) => {
 // Obtener todos las organizaciones
 const findAll = async (_req, res) => {
   try {
-    const data = await db.organizacion.findAll();
+    const data = await db.organizacion.findAll({
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
+        ],
+    });
 
     res.status(200).json({
       data,
