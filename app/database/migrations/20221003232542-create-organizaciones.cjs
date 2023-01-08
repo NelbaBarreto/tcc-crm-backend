@@ -25,14 +25,16 @@ export async function up(queryInterface, Sequelize) {
     },
     descripcion: {
       comment: "Descripción de la organización.",
+      allowNull: true,
       type: Sequelize.TEXT,
     },
     website: {
       type: Sequelize.STRING,
+      allowNull: true,
     },
     // Auditoria
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -51,7 +53,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },

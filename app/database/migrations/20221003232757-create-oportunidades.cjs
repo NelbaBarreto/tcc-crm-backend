@@ -38,6 +38,17 @@ export async function up(queryInterface, Sequelize) {
         key: "contacto_id",
       },
     },
+    curso_id: {
+      type: Sequelize.INTEGER,
+      comment: "Curso en el cual está interesado el contacto.",
+      allowNull: false,
+      references: {
+        model: {
+          tableName: "cursos",
+        },
+        key: "curso_id",
+      },
+    },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
       comment: "Id de usuario asignado.",

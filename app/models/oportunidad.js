@@ -10,8 +10,10 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.belongsTo(models.lead, {foreignKey: "lead_id", as: "lead"});
+      this.belongsTo(models.campana, {foreignKey: "campana_id"});
       this.hasOne(models.encuesta_respuesta, {foreignKey: "oportunidad_id"});
+      this.belongsTo(models.contacto, {foreignKey: "contacto_id"});
+      this.belongsTo(models.curso, {foreignKey: "curso_id"});
     }
   }
   Oportunidad.init({
@@ -46,6 +48,16 @@ export default (sequelize, DataTypes) => {
           tableName: "contactos",
         },
         key: "contacto_id",
+      },
+    },
+    curso_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: {
+          tableName: "cursos",
+        },
+        key: "curso_id",
       },
     },
     usu_asignado_id: {
