@@ -10,7 +10,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.belongsTo(models.lead, {foreignKey: "lead_id", as: "lead"});
+      this.belongsTo(models.campana,
+          {foreignKey: "campana_id"});
       this.hasOne(models.encuesta_respuesta, {foreignKey: "oportunidad_id"});
     }
   }

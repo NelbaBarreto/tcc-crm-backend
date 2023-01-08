@@ -45,6 +45,7 @@ export async function up(queryInterface, Sequelize) {
           "Evento", "Otro"),
       comment: "Origen del lead.",
       allowNull: false,
+      defaultValue: "Otro",
     },
     persona_id: {
       type: Sequelize.INTEGER,
@@ -64,7 +65,7 @@ export async function up(queryInterface, Sequelize) {
     },
     // Auditoria
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -83,7 +84,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },
