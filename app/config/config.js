@@ -11,8 +11,8 @@ const database =
     host: HOST,
     dialect: dialect,
     dialectOptions: {
-      ssl: true,
-      native: true,
+      ssl: process.env.DATABASE_URL ? true : false,
+      native: process.env.DATABASE_URL ? true : false,
     },
   },
   test: {
