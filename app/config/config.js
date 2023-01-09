@@ -10,6 +10,10 @@ const database =
     database: DB,
     host: HOST,
     dialect: dialect,
+    dialectOptions: {
+      ssl: true,
+      native: true,
+    },
   },
   test: {
     username: "postgres",
