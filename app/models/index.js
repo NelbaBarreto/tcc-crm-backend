@@ -9,7 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const db = {};
-const sequelize = process.env.ENVIRONMENT === "PRODUCTION" ? new Sequelize(database.production) : new Sequelize(database.development);
+const sequelize = process.env.ENVIRONMENT === "PRODUCTION" ?
+new Sequelize(database.production) : new Sequelize(database.development);
 
 const files = readdirSync(__dirname)
     .filter(

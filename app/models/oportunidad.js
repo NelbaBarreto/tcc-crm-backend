@@ -81,6 +81,13 @@ export default (sequelize, DataTypes) => {
     tableName: "oportunidades",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
+    hooks: {
+      afterSave: async (oportunidad) => {
+        if (oportunidad.estado === "Ganado") {
+          console.log(oportunidad.oportunidad_id);
+        }
+      },
+    },
   });
 
   Oportunidad.etapas = Oportunidad.getAttributes().etapa?.values;
