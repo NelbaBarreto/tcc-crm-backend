@@ -2,6 +2,11 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
 "use strict";
+import {createTransport} from "nodemailer";
+import hbs from "nodemailer-express-handlebars";
+import path from "path";
+import "dotenv/config.js";
+
 
 import {Model} from "sequelize";
 
@@ -82,15 +87,56 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
     hooks: {
-      afterSave: async (oportunidad) => {
-        if (oportunidad.estado === "Ganado") {
-          console.log(oportunidad.oportunidad_id);
-        }
+      afterSave: (instance, _options) => {
+        if (instance.etapa === "Ganado") {
+          Oportunidad.sendMail(instance);
+        };
       },
     },
   });
 
   Oportunidad.etapas = Oportunidad.getAttributes().etapa?.values;
+
+  Oportunidad.sendMail = async (oportunidad) => {
+    async function sendMail() {
+      console.log("Sending mails...");
+      const transporter = createTransport({
+        service: "gmail",
+        auth: {
+          user: "barretonelba@gmail.com",
+          pass: process.env.MAIL_PASS,
+        },
+      });
+
+      // point to the template folder
+      const handlebarOptions = {
+        viewEngine: {
+          partialsDir: path.resolve("./views/"),
+          defaultLayout: false,
+        },
+        viewPath: path.resolve("./views/"),
+      };
+
+      // use a template file with nodemailer
+      transporter.use("compile", hbs(handlebarOptions));
+
+      // send mail with defined transport object
+      const info = await transporter.sendMail({
+        from: "barretonelba@gmail.com",
+        // to: usuario.email,
+        to: process.env.MAIL,
+        subject: "Nueva Cuenta de Usuario Creada",
+        template: "encuesta",
+        context: {
+          oportunidad,
+        },
+      });
+
+      console.log({data: `Message sent ${info.messageId}`});
+    }
+
+    sendMail();
+  };
 
   return Oportunidad;
 };
