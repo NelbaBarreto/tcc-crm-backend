@@ -12,10 +12,9 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     estado: {
-      type: Sequelize.ENUM("Pendiente", "En Proceso", "Convertido", "Perdido",
-          "Anulado"),
+      type: Sequelize.ENUM("Pendiente", "En Proceso", "Convertido", "Perdido"),
       comment: "Estado del lead.",
-      defaultValue: "Pendiente",
+      // defaultValue: "Pendiente",
       allowNull: false,
     },
     usu_asignado_id: {
