@@ -10,6 +10,10 @@ const database =
     database: DB,
     host: HOST,
     dialect: dialect,
+    dialectOptions: {
+      ssl: process.env.DATABASE_URL ? true : false,
+      native: process.env.DATABASE_URL ? true : false,
+    },
   },
   test: {
     username: "postgres",
@@ -19,11 +23,11 @@ const database =
     dialect: "postgresql",
   },
   production: {
-    username: "postgres",
-    password: null,
-    database: "database_production",
-    host: "127.0.0.1",
-    dialect: "postgresql",
+    username: USUARIO,
+    password: PASS,
+    database: DB,
+    host: HOST,
+    dialect: dialect,
   },
 };
 

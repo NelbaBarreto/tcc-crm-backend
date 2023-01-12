@@ -3,7 +3,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Lead extends Model {
@@ -13,7 +13,6 @@ export default (sequelize, DataTypes) => {
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
       this.belongsTo(models.curso, {foreignKey: "curso_id"});
       this.belongsTo(models.campana, {foreignKey: "campana_id"});
-      this.hasOne(models.oportunidad, {foreignKey: "lead_id"});
     }
   }
   Lead.init({
@@ -41,9 +40,15 @@ export default (sequelize, DataTypes) => {
     },
     curso_id: {
       type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "cursos",
+        },
+        key: "curso_id",
+      },
       allowNull: false,
     },
-    origen: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+    origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
         "Evento", "Otro"),
     persona_id: {
       type: DataTypes.INTEGER,

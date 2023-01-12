@@ -7,7 +7,14 @@ const create = async (req, res) => {
 
   // Guardar la organizacion
   try {
-    const data = await db.organizacion.create(organizacion);
+    const data = await db.organizacion.create(organizacion, {
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}],
+        }],
+    });
 
     res.status(200).json({
       data,
@@ -15,7 +22,7 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar crear la organizacion.",
+        error.message || "Ocurrió un error al intentar crear la organización.",
     });
   }
 };
@@ -23,7 +30,14 @@ const create = async (req, res) => {
 // Obtener todos las organizaciones
 const findAll = async (_req, res) => {
   try {
-    const data = await db.organizacion.findAll();
+    const data = await db.organizacion.findAll({
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
+        ],
+    });
 
     res.status(200).json({
       data,

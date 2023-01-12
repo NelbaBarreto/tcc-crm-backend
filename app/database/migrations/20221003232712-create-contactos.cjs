@@ -6,6 +6,7 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable("contactos", {
     contacto_id: {
+      comment: "Identificador único del contacto.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -22,9 +23,27 @@ export async function up(queryInterface, Sequelize) {
       },
       allowNull: false,
     },
+    organizacion_id: {
+      type: Sequelize.INTEGER,
+      comment: "Id de la organización a la que pertenece el contacto.",
+      references: {
+        model: {
+          tableName: "organizaciones",
+        },
+        key: "organizacion_id",
+      },
+      allowNull: true,
+    },
+    origen: {
+      type: Sequelize.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
+          "Evento", "Otro"),
+      comment: "Origen del lead.",
+      allowNull: false,
+      defaultValue: "Otro",
+    },
     // Auditoria
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -43,7 +62,7 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },

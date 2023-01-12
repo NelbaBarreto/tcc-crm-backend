@@ -4,11 +4,18 @@ import jwt from "jsonwebtoken";
 
 // Crear y guardar un nuevo contacto
 const create = async (req, res) => {
-  const contacto = {...req.body};
+  const contacto = req.body;
 
   // Guardar el contacto
   try {
-    const data = await db.contacto.create(contacto);
+    const data = await db.contacto.create(contacto, {
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}],
+        }],
+    });
 
     res.status(200).json({
       data,
@@ -20,11 +27,21 @@ const create = async (req, res) => {
     });
   }
 };
-
 // Obtener todos los contactos
 const findAll = async (_req, res) => {
   try {
-    const data = await db.contacto.findAll();
+    const data = await db.contacto.findAll({
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
+        {
+          model: db.organizacion,
+          include: [{model: db.persona, as: "persona"}],
+        },
+        ],
+    });
 
     res.status(200).json({
       data,
@@ -33,7 +50,7 @@ const findAll = async (_req, res) => {
     res.status(500).send({
       message:
         error.message ||
-        "Ocurrió un error al intentar obtener la lista de contactos",
+        "Ocurrió un error al intentar obtener la lista de leads",
     });
   }
 };
@@ -178,5 +195,19 @@ const validarTokenEncuesta = async (req, res) => {
   }
 };
 
+
+const getOrigenes = async (_req, res) => {
+  try {
+    const data = db.contacto.origenes ? db.contacto.origenes : [];
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error al obtener orígenes.",
+    });
+  }
+};
+
 export {create, findAll, findOne, update, generarTokenEncuesta,
-  validarTokenEncuesta, _delete, deleteAll};
+  validarTokenEncuesta, getOrigenes, _delete, deleteAll};
