@@ -125,7 +125,7 @@ export default (sequelize, DataTypes) => {
         from: "barretonelba@gmail.com",
         // to: usuario.email,
         to: process.env.MAIL,
-        subject: "Nueva Cuenta de Usuario Creada",
+        subject: "Encuesta de Satisfacción",
         template: "encuesta",
         context: {
           oportunidad,
