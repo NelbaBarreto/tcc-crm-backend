@@ -23,9 +23,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     estado: {
-      type: DataTypes.ENUM("Pendiente", "En Proceso", "Convertido",
-          "Perdido", "Anulado"),
-      defaultValue: "Pendiente",
+      type: DataTypes.ENUM("Pendiente", "En Proceso", "Convertido", "Perdido"),
+      // defaultValue: "Pendiente",
     },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
