@@ -5,6 +5,7 @@
 import {createTransport} from "nodemailer";
 import hbs from "nodemailer-express-handlebars";
 import path from "path";
+import jwt from "jsonwebtoken";
 import "dotenv/config.js";
 
 
@@ -97,8 +98,27 @@ export default (sequelize, DataTypes) => {
 
   Oportunidad.etapas = Oportunidad.getAttributes().etapa?.values;
 
-  Oportunidad.sendMail = async (oportunidad) => {
-    async function sendMail() {
+  Oportunidad.sendMail = async (instance) => {
+    const generarTokenEncuesta = async (contacto_id, oportunidad_id) => {
+      const payload = {
+        contacto_id,
+        oportunidad_id,
+      };
+
+      const token = jwt.sign(payload, process.env.SECRET, {expiresIn: "2d"});
+
+      return token;
+    };
+
+    const token =
+      await generarTokenEncuesta(instance.oportunidad_id, instance.contacto_id);
+    const contacto =
+    await sequelize.models.contacto.findByPk(instance.contacto_id, {
+      include:
+        [{model: sequelize.models.persona, as: "persona"}],
+    });
+
+    const sendMail = async () => {
       console.log("Sending mails...");
       const transporter = createTransport({
         service: "gmail",
@@ -128,12 +148,13 @@ export default (sequelize, DataTypes) => {
         subject: "Encuesta de Satisfacción",
         template: "encuesta",
         context: {
-          oportunidad,
+          nombre: contacto.persona?.nombre,
+          url: `https://kuaasys.com/encuesta/${token}`,
         },
       });
 
       console.log({data: `Message sent ${info.messageId}`});
-    }
+    };
 
     sendMail();
   };
