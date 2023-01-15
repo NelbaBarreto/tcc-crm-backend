@@ -46,7 +46,17 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.oportunidad.findByPk(id);
+    const data = await db.oportunidad.findByPk(id, {
+      include:
+        [{
+          model: db.contacto, as: "contacto",
+          include: [{model: db.persona, as: "persona"}],
+        },
+        {model: db.usuario, as: "usuario"},
+        {model: db.curso},
+        {model: db.campana},
+        ],
+    });
 
     if (data) {
       res.status(200).json({
@@ -66,25 +76,24 @@ const findOne = async (req, res) => {
 
 // Actualizar oportunidad según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.oportunidad.update(req.body, {
-      where: {oportunidad_id: id},
+    const data = await db.oportunidad.update(req.body.oportunidad, {
+      where: {oportunidad_id: req.body.id},
+      individualHooks: true,
     });
-
     if (data == 1) {
       res.status(200).json({
         message: "Oportunidad actualizada correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar la oportunidad con id=" + id,
+        message: "No se pudo actualizar la oportunidad con id=" + req.body.id,
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).send({
-      message: "Error actualizando la oportunidad con id=" + id,
+      message: "Error actualizando la oportunidad con id=" + req.body.id,
     });
   };
 };
