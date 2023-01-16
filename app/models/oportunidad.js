@@ -78,6 +78,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    encuesta: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
     descripcion: DataTypes.TEXT,
     usu_insercion: DataTypes.STRING(20),
     usu_modificacion: DataTypes.STRING(20),
@@ -149,7 +153,7 @@ export default (sequelize, DataTypes) => {
         template: "encuesta",
         context: {
           nombre: contacto.persona?.nombre,
-          url: `https://kuaasys.com/encuesta/${token}`,
+          url: `${process.env.ORIGIN}/encuesta/${token}`,
         },
       });
 
