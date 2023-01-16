@@ -6,6 +6,8 @@ export default (sequelize) => {
     static associate(models) {
       this.belongsTo(models.oportunidad, {foreignKey: "oportunidad_id"});
       this.belongsTo(models.contacto, {foreignKey: "contacto_id"});
+      this.hasMany(models.encuesta_pregunta_respuesta,
+          {foreignKey: "respuesta_id", as: "respuestas"});
     }
   }
   EncuestaRespuesta.init({
@@ -42,6 +44,7 @@ export default (sequelize) => {
   }, {
     sequelize,
     modelName: "encuesta_respuesta",
+    tableName: "encuesta_respuestas",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });

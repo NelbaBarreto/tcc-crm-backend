@@ -31,6 +31,7 @@ import roles from "./app/routes/roles.js";
 import llamadas from "./app/routes/llamadas.js";
 // Encuesta
 import preguntas from "./app/routes/encuesta/preguntas.js";
+import encuesta from "./app/routes/encuesta/index.js";
 
 const app = express();
 
@@ -69,6 +70,7 @@ telefonos(app);
 roles(app);
 llamadas(app);
 preguntas(app);
+encuesta(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

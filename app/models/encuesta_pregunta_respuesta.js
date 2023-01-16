@@ -7,6 +7,8 @@ export default (sequelize) => {
     static associate(models) {
       this.belongsTo(models.encuesta_pregunta,
           {foreignKey: "pregunta_id", as: "pregunta"});
+      this.belongsTo(models.encuesta_respuesta,
+          {foreignKey: "respuesta_id", as: "respuestas"});
     }
   }
   EncuestaPreguntaRespuesta.init({
@@ -36,13 +38,14 @@ export default (sequelize) => {
       },
       allowNull: false,
     },
-    respuesta: {
+    valor: {
       allowNull: false,
-      type: Sequelize.INTEGER,
+      type: Sequelize.TEXT,
     },
   }, {
     sequelize,
     modelName: "encuesta_pregunta_respuesta",
+    tableName: "encuesta_pregunta_respuestas",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
