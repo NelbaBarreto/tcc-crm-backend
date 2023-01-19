@@ -4,20 +4,20 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.addColumn(
       "direcciones", // table name
-      "sucursal_id", // new field name
+      "sede_id", // new field name
       {
         type: Sequelize.INTEGER,
-        comment: "Id de la sucursal al que pertenece la dirección.",
+        comment: "Id de la sede al que pertenece la dirección.",
         references: {
           model: {
-            tableName: "sucursales",
+            tableName: "sedes",
           },
-          key: "sucursal_id",
+          key: "sede_id",
         },
         allowNull: true,
       });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.removeColumn("direcciones", "sucursal_id");
+  await queryInterface.removeColumn("direcciones", "sede_id");
 }
 

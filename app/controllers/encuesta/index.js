@@ -17,14 +17,13 @@ const validarToken = async (req, res) => {
       message = "El enlace que seguiste expiró.";
     } else {
       expiracion = false;
-    }
-
-    // Verificar que la encuesta aún no haya sido respondida
-    const oportunidad =
-     await db.oportunidad.findByPk(data.oportunidad_id);
-    if (oportunidad.encuesta) {
-      respondido = true;
-      message = "Esta encuesta ya fue completada anteriormente.";
+      // Verificar que la encuesta aún no haya sido respondida
+      const oportunidad =
+        await db.oportunidad.findByPk(data.oportunidad_id);
+      if (oportunidad.encuesta) {
+        respondido = true;
+        message = "Esta encuesta ya fue completada anteriormente.";
+      }
     }
 
     res.status(200).json({
