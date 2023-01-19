@@ -23,14 +23,14 @@ export async function up(queryInterface, Sequelize) {
       },
       allowNull: true,
     },
-    sucursal_id: {
+    sede_id: {
       type: Sequelize.INTEGER,
-      comment: "Id de la sucursal a la que pertenece el teléfono.",
+      comment: "Id de la sede a la que pertenece el teléfono.",
       references: {
         model: {
-          tableName: "sucursales",
+          tableName: "sedes",
         },
-        key: "sucursal_id",
+        key: "sede_id",
       },
       allowNull: true,
     },

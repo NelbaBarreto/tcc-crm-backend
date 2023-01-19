@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
   class Telefono extends Model {
     static associate(models) {
       this.belongsTo(models.persona, {foreignKey: "persona_id"});
-      this.belongsTo(models.sucursal, {foreignKey: "sucursal_id"});
+      this.belongsTo(models.sede, {foreignKey: "sede_id"});
     }
   }
   Telefono.init({
@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    sucursal_id: {
+    sede_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },

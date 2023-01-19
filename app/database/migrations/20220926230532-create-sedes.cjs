@@ -3,22 +3,22 @@
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("sucursales", {
-    sucursal_id: {
-      comment: "Identificador único de la sucursal.",
+  await queryInterface.createTable("sedes", {
+    sede_id: {
+      comment: "Identificador único de la sede.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
     nombre: {
-      comment: "Nombre de la sucursal.",
+      comment: "Nombre de la sede.",
       type: Sequelize.STRING,
       allowNull: false,
     },
     // Auditoria
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
@@ -37,12 +37,12 @@ export async function up(queryInterface, Sequelize) {
       defaultValue: Date.now(),
     },
     usu_modificacion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que modificó el registro por última vez.",
     },
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("sucursales");
+  await queryInterface.dropTable("sedes");
 }

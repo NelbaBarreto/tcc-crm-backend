@@ -13,7 +13,7 @@ import direcciones from "./app/routes/direcciones.js";
 import leads from "./app/routes/leads.js";
 import dashboard from "./app/routes/dashboard.js";
 import profesores from "./app/routes/profesores.js";
-import sucursales from "./app/routes/sucursales.js";
+import sedes from "./app/routes/sedes.js";
 import tip_campanas from "./app/routes/tip_campanas.js";
 // Ventas
 import organizaciones from "./app/routes/organizaciones.js";
@@ -59,7 +59,7 @@ cursos(app);
 direcciones(app);
 leads(app);
 profesores(app);
-sucursales(app);
+sedes(app);
 tip_campanas(app);
 organizaciones(app);
 oportunidades(app);

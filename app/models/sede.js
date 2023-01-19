@@ -6,14 +6,14 @@
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
-  class Sucursal extends Model {
+  class Sede extends Model {
     static associate(models) {
-      this.hasOne(models.direccion, {foreignKey: "sucursal_id"});
+      this.hasOne(models.direccion, {foreignKey: "sede_id"});
       this.hasMany(models.telefono, {foreignKey: "telefono_id"});
     }
   }
-  Sucursal.init({
-    sucursal_id: {
+  Sede.init({
+    sede_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -27,10 +27,10 @@ export default (sequelize, DataTypes) => {
     usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: "sucursal",
-    tableName: "sucursales",
+    modelName: "sede",
+    tableName: "sedes",
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  return Sucursal;
+  return Sede;
 };

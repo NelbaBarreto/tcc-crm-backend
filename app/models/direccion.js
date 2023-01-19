@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.ciudad, {foreignKey: "ciudad_id", as: "ciudad"});
       this.belongsTo(models.persona, {foreignKey: "persona_id"});
-      this.belongsTo(models.sucursal, {foreignKey: "sucursal_id"});
+      this.belongsTo(models.sede, {foreignKey: "sede_id"});
     }
   }
   Direccion.init({
@@ -48,13 +48,13 @@ export default (sequelize, DataTypes) => {
       },
       allowNull: true,
     },
-    sucursal_id: {
+    sede_id: {
       type: Sequelize.INTEGER,
       references: {
         model: {
-          tableName: "sucursales",
+          tableName: "sedes",
         },
-        key: "sucursal_id",
+        key: "sede_id",
       },
       allowNull: true,
     },

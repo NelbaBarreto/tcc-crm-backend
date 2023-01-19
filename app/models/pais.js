@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
   class Pais extends Model {
     static associate(models) {
       this.hasMany(models.ciudad, {foreignKey: "pais_id"});
-      this.belongsTo(models.sucursal, {foreignKey: "pais_id", as: "pais"});
+      this.belongsTo(models.sede, {foreignKey: "pais_id", as: "pais"});
     }
   }
   Pais.init({

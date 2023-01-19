@@ -1,13 +1,13 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
 
-// Crear y guardar una nueva sucursal
+// Crear y guardar una nueva sede
 const create = async (req, res) => {
-  const sucursal = {...req.body};
+  const sede = {...req.body};
 
-  // Guardar la sucursal
+  // Guardar la sede
   try {
-    const data = await db.sucursal.create(sucursal, {
+    const data = await db.sede.create(sede, {
       include:
         [{model: db.direccion}],
     });
@@ -18,15 +18,15 @@ const create = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar crear la sucursal.",
+        error.message || "Ocurrió un error al intentar crear la sede.",
     });
   }
 };
 
-// Obtener todas las sucursales
+// Obtener todas las sedes
 const findAll = async (_req, res) => {
   try {
-    const data = await db.sucursal.findAll({
+    const data = await db.sede.findAll({
       include:
         [{model: db.direccion,
           include: [{model: db.ciudad, as: "ciudad",
@@ -40,17 +40,17 @@ const findAll = async (_req, res) => {
     res.status(500).send({
       message:
         error.message ||
-        "Ocurrió un error al intentar obtener la lista de sucursales",
+        "Ocurrió un error al intentar obtener la lista de sedes",
     });
   }
 };
 
-// Encontrar una sucursal según su id
+// Encontrar una sede según su id
 const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.sucursal.findByPk(id, {
+    const data = await db.sede.findByPk(id, {
       include:
       [{model: db.direccion,
         include: [{model: db.ciudad, as: "ciudad",
@@ -63,83 +63,83 @@ const findOne = async (req, res) => {
       });
     } else {
       res.status(404).send({
-        message: `No se pudo encontrar la sucursal con el id=${id}`,
+        message: `No se pudo encontrar la sede con el id=${id}`,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error al obtener la sucursal con id=" + id,
+      message: "Error al obtener la sede con id=" + id,
     });
   }
 };
 
-// Actualizar sucursal según su id
+// Actualizar sede según su id
 const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const data = await db.sucursal.update(req.body, {
-      where: {sucursal_id: id},
+    const data = await db.sede.update(req.body, {
+      where: {sede_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Sucursal actualizada correctamente",
+        message: "Sede actualizada correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar la sucursal con id=" + id,
+        message: "No se pudo actualizar la sede con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error actualizando la sucursal con id=" + id,
+      message: "Error actualizando la sede con id=" + id,
     });
   };
 };
 
-// Eliminar sucursal según su id
+// Eliminar sede según su id
 const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.sucursal.destroy({
-      where: {sucursal_id: id},
+    const data = await db.sede.destroy({
+      where: {sede_id: id},
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Sucursal eliminada correctamente",
+        message: "Sede eliminada correctamente",
       });
     } else {
       res.status(200).json({
-        message: "No se pudo eliminar la sucursal con id=" + id,
+        message: "No se pudo eliminar la sede con id=" + id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error eliminando la sucursal con id=" + id,
+      message: "Error eliminando la sede con id=" + id,
     });
   }
 };
 
-// Borrar todas las sucursales
+// Borrar todas las sedes
 const deleteAll = async (_req, res) => {
   try {
-    const data = db.sucursal.destroy({
+    const data = db.sede.destroy({
       where: {},
       truncate: false,
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: `${data} sucursales fueron eliminadas correctamente`,
+        message: `${data} sedes fueron eliminadas correctamente`,
       });
     }
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar eliminar las sucursales",
+        error.message || "Ocurrió un error al intentar eliminar las sedes",
     });
   }
 };

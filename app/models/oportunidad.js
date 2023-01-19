@@ -93,7 +93,7 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
     hooks: {
       afterSave: (instance, _options) => {
-        if (instance.etapa === "Ganado") {
+        if (instance.etapa === "Ganado" && !encuesta) {
           Oportunidad.sendMail(instance);
         };
       },
