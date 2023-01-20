@@ -3,64 +3,47 @@
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("ciclo_aulas", {
-    aula_id: {
-      comment: "Identificador único del aula.",
+  await queryInterface.createTable("ciclo_profesores", {
+    ciclo_profesor_id: {
+      comment: "Identificador único del registro.",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    hor_inicio: {
-      comment: "Hora de inicio de la clase.",
-      type: Sequelize.TIME,
-      allowNull: false,
-    },
-    hor_fin: {
-      comment: "Hora de fin de la clase.",
-      type: Sequelize.TIME,
-      allowNull: false,
-    },
-    dias: {
-      comment: "Días en los que se desarrollan las clases.",
-      type: Sequelize.ARRAY(Sequelize.TEXT),
-    },
-    cupo_total: {
-      comment: "Cantidad tope de alumnos.",
+    profesor_id: {
       type: Sequelize.INTEGER,
-    },
-    sede_id: {
-      type: Sequelize.INTEGER,
-      comment: "Sede en la que está ubicada el aula.",
+      comment: "Profesor encargado del aula.",
       references: {
         model: {
-          tableName: "sedes",
+          tableName: "profesores",
         },
-        key: "sede_id",
+        key: "profesor_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     ciclo_id: {
       type: Sequelize.INTEGER,
-      comment: "Ciclo para el cual va a ser utilizado el aula.",
+      comment: "Ciclo al que pertenecen el aula y profesor.",
       references: {
         model: {
           tableName: "curso_ciclos",
         },
         key: "ciclo_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
-    curso_id: {
+    aula_id: {
       type: Sequelize.INTEGER,
-      comment: "Id del curso al que pertenece el ciclo.",
+      comment: "Identificador único del aula en la que" +
+      "se desarrollarán las clases.",
       references: {
         model: {
-          tableName: "cursos",
+          tableName: "ciclo_aulas",
         },
-        key: "curso_id",
+        key: "aula_id",
       },
-      allowNull: false,
+      allowNull: true,
     },
     updatedAt: {
       allowNull: false,
@@ -77,5 +60,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, _Sequelize) {
-  await queryInterface.dropTable("ciclo_aulas");
+  await queryInterface.dropTable("ciclo_profesores");
 }
