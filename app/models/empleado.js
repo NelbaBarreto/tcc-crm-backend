@@ -19,6 +19,7 @@ export default (sequelize) => {
     activo: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     cargo: {
       type: Sequelize.STRING,

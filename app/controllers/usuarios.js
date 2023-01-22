@@ -46,8 +46,17 @@ const findOne = async (req, res) => {
 
   try {
     const data = await Usuario.findByPk(id, {include:
-      [{model: db.empleado}]});
-    console.log(data);
+      [{model: db.empleado}],
+    attributes: [
+      "usuario_id",
+      "nom_usuario",
+      "email",
+      "usu_insercion",
+      "usu_modificacion",
+      "fec_insercion",
+      "fec_modificacion",
+    ]});
+
     if (data) {
       res.status(200).json({
         data,

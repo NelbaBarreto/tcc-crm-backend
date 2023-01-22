@@ -53,6 +53,8 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
   });
 
-  Telefono.tipos = Telefono.getAttributes().tipo?.values;
+  Telefono.tipos = Telefono.getAttributes().tipo?.values.map((tipo) =>
+    ({value: tipo, label: tipo}));
+
   return Telefono;
 };

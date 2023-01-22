@@ -50,7 +50,8 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
   });
 
-  Contacto.origenes = Contacto.getAttributes().origen?.values;
+  Contacto.origenes = Contacto.getAttributes().origen?.values.map((origen) =>
+    ({value: origen, label: origen}));
 
   return Contacto;
 };

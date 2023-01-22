@@ -53,7 +53,11 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  Tarea.estados = Tarea.getAttributes().estado?.values;
-  Tarea.prioridades = Tarea.getAttributes().prioridad?.values;
+
+  Tarea.estados = Tarea.getAttributes().estado?.values.map((estado) =>
+    ({value: estado, label: estado})); ;
+
+  Tarea.prioridades = Tarea.getAttributes().prioridad?.values.map((prioridad) =>
+    ({value: prioridad, label: prioridad})); ;
   return Tarea;
 };

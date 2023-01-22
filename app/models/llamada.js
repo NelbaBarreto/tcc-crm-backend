@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
@@ -22,10 +23,8 @@ export default (sequelize, DataTypes) => {
     },
     descripcion: DataTypes.TEXT,
     estado:
-      // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
     tipo:
-      // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Entrante", "Saliente"),
     fec_inicio: {
       type: DataTypes.DATE,
@@ -40,7 +39,10 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
-  Llamada.estados = Llamada.getAttributes().estado?.values;
-  Llamada.tipos = Llamada.getAttributes().tipo?.values;
+  Llamada.estados = Llamada.getAttributes().estado?.values.map((estado) =>
+    ({value: estado, label: estado}));
+
+  Llamada.tipos = Llamada.getAttributes().tipo?.values.map((tipo) =>
+    ({value: tipo, label: tipo}));
   return Llamada;
 };

@@ -48,9 +48,16 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
   });
 
-  Caso.estados = Caso.getAttributes().estado?.values;
-  Caso.origenes = Caso.getAttributes().origen?.values;
-  Caso.tipos = Caso.getAttributes().tipo?.values;
-  Caso.prioridades = Caso.getAttributes().prioridad?.values;
+  Caso.estados = Caso.getAttributes().estado?.values.map((estado) =>
+    ({value: estado, label: estado}));
+
+  Caso.origenes = Caso.getAttributes().origen?.values.map((origen) =>
+    ({value: origen, label: origen}));
+
+  Caso.tipos = Caso.getAttributes().tipo?.values.map((tipo) =>
+    ({value: tipo, label: tipo}));
+
+  Caso.prioridades = Caso.getAttributes().prioridad?.values.map((prioridad) =>
+    ({value: prioridad, label: prioridad}));
   return Caso;
 };
