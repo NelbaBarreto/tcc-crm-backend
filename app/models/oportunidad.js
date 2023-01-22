@@ -33,8 +33,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING(120),
       allowNull: false,
     },
-    etapa: {
-      type: DataTypes.ENUM("Abierto", "Ganado", "Perdido"),
+    estado: {
+      type: DataTypes.ENUM("Abierto", "Ganado", "Perdido", "Anulado"),
     },
     campana_id: {
       type: DataTypes.INTEGER,
@@ -93,14 +93,16 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
     hooks: {
       afterSave: (instance, _options) => {
-        if (instance.etapa === "Ganado" && !encuesta) {
+        if (instance.estado === "Ganado" && !encuesta) {
           Oportunidad.sendMail(instance);
         };
       },
     },
   });
 
-  Oportunidad.etapas = Oportunidad.getAttributes().etapa?.values;
+  Oportunidad.estados =
+    Oportunidad.getAttributes().estado.values.map((estado) =>
+      ({value: estado, label: estado}));
 
   Oportunidad.sendMail = async (instance) => {
     const generarTokenEncuesta = async (contacto_id, oportunidad_id) => {

@@ -145,17 +145,17 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-const getEtapas = async (_req, res) => {
+const getEstados = async (_req, res) => {
   try {
-    const data = db.oportunidad.etapas ? db.oportunidad.etapas : [];
+    const data = db.oportunidad.estados ? db.oportunidad.estados : [];
     res.status(200).json({
       data: data,
     });
   } catch (error) {
     res.status(500).send({
-      message: "Error al obtener etapas.",
+      message: "Error al obtener estados.",
     });
   }
 };
 
-export {create, findAll, findOne, update, getEtapas, _delete, deleteAll};
+export {create, findAll, findOne, update, getEstados, _delete, deleteAll};

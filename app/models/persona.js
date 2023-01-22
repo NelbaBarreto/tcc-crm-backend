@@ -34,7 +34,9 @@ export default (sequelize) => {
     updatedAt: "fec_modificacion",
   });
 
-  Persona.tip_documentos = Persona.getAttributes().tip_documento?.values;
+  Persona.tip_documentos =
+  Persona.getAttributes().tip_documento?.values.map((tip_documento) =>
+    ({value: tip_documento, label: tip_documento}));
 
   return Persona;
 };

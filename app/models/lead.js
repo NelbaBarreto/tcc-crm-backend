@@ -68,7 +68,10 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
   });
 
-  Lead.estados = Lead.getAttributes().estado?.values;
-  Lead.origenes = Lead.getAttributes().origen?.values;
+  Lead.estados = Lead.getAttributes().estado?.values.map((estado) =>
+    ({value: estado, label: estado}));
+
+  Lead.origenes = Lead.getAttributes().origen?.values.map((origen) =>
+    ({value: origen, label: origen})); ;
   return Lead;
 };

@@ -63,7 +63,8 @@ const findOne = async (req, res) => {
       include:
         [{
           model: db.persona, as: "persona",
-          include: [{model: db.direccion, as: "direcciones"}],
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}],
         },
         {model: db.campana},
         {model: db.usuario, as: "usu_asignado"},
@@ -115,11 +116,15 @@ const getOrigenes = async (_req, res) => {
 
 // Actualizar lead según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.lead.update(req.body, {
-      where: {lead_id: id},
+    const data = await db.lead.update(req.body.lead, {
+      where: {lead_id: req.body.id},
+      include:
+          [{
+            model: db.persona, as: "persona",
+            include: [{model: db.direccion, as: "direcciones"},
+              {model: db.telefono, as: "telefonos"}],
+          }],
     });
 
     if (data == 1) {

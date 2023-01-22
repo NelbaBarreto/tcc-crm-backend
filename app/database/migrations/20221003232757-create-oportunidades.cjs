@@ -69,8 +69,8 @@ export async function up(queryInterface, Sequelize) {
       comment: "Descripción de la oportunidad.",
       type: Sequelize.TEXT,
     },
-    etapa: {
-      type: Sequelize.ENUM("Abierto", "Ganado", "Perdido"),
+    estado: {
+      type: Sequelize.ENUM("Activo", "Ganado", "Perdido", "Anulado"),
       comment: "Etapas de una oportunidad.",
       allowNull: false,
     },

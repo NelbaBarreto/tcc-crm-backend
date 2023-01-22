@@ -69,6 +69,8 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
   });
 
-  Direccion.tipos = Direccion.getAttributes().tipo?.values;
+  Direccion.tipos = Direccion.getAttributes().tipo?.values.map((tipo) =>
+    ({value: tipo, label: tipo}));
+
   return Direccion;
 };
