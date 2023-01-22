@@ -7,7 +7,14 @@ const create = async (req, res) => {
 
   // Guardar el profesor
   try {
-    const data = await db.profesor.create(profesor);
+    const data = await db.profesor.create(profesor, {
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}],
+        }],
+    });
 
     res.status(200).json({
       data,
@@ -23,7 +30,14 @@ const create = async (req, res) => {
 // Obtener todos los profesores
 const findAll = async (_req, res) => {
   try {
-    const data = await db.profesor.findAll();
+    const data = await db.profesor.findAll({
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
+        ],
+    });
 
     res.status(200).json({
       data,
@@ -42,7 +56,14 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.profesor.findByPk(id);
+    const data = await db.profesor.findByPk(id, {
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"}],
+        },
+        ],
+    });
 
     if (data) {
       res.status(200).json({
@@ -90,10 +111,20 @@ const _delete = async (req, res) => {
   const {id} = req.params;
 
   try {
+    const profesor = await db.profesor.findByPk(id);
+    const persona_id = profesor.persona_id;
+    await db.direccion.destroy({
+      where: {persona_id: persona_id},
+    });
+    await db.telefono.destroy({
+      where: {persona_id: persona_id},
+    });
     const data = await db.profesor.destroy({
       where: {profesor_id: id},
     });
-
+    await db.persona.destroy({
+      where: {persona_id: persona_id},
+    });
     if (data == 1) {
       res.status(200).json({
         message: "Profesor eliminado correctamente",
@@ -104,6 +135,7 @@ const _delete = async (req, res) => {
       });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send({
       message: "Error eliminando al profesor con id=" + id,
     });
