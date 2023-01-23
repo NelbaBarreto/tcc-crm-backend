@@ -70,7 +70,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.TEXT,
     },
     estado: {
-      type: Sequelize.ENUM("Activo", "Ganado", "Perdido", "Anulado"),
+      type: Sequelize.ENUM("Abierto", "Ganado", "Perdido", "Anulado"),
       comment: "Etapas de una oportunidad.",
       allowNull: false,
     },

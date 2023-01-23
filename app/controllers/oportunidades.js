@@ -91,9 +91,10 @@ const update = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).send({
       message: "Error actualizando la oportunidad con id=" + req.body.id,
+      error,
     });
   };
 };

@@ -8,7 +8,7 @@ import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Llamada extends Model {
-    static associate(models) {}
+    static associate(models) { }
   }
   Llamada.init({
     llamada_id: {
@@ -22,8 +22,10 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     descripcion: DataTypes.TEXT,
-    estado:
-      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+    estado: {
+      type: DataTypes.ENUM("Pendiente", "En Proceso", "Cancelado",
+          "Finalizado"),
+    },
     tipo:
       Sequelize.ENUM("Entrante", "Saliente"),
     fec_inicio: {

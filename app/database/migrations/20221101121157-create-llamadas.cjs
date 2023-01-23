@@ -17,8 +17,8 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     estado: {
-      // eslint-disable-next-line max-len
-      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      type: DataTypes.ENUM("Pendiente", "En Proceso", "Cancelado",
+          "Finalizado"),
       comment: "Estado de la llamada",
       allowNull: false,
     },
