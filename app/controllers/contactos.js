@@ -49,7 +49,7 @@ const findAll = async (_req, res) => {
     res.status(500).send({
       message:
         error.message ||
-        "Ocurrió un error al intentar obtener la lista de leads",
+        "Ocurrió un error al intentar obtener la lista de contactos",
     });
   }
 };
@@ -87,11 +87,15 @@ const findOne = async (req, res) => {
 
 // Actualizar contacto según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.contacto.update(req.body, {
-      where: {contacto_id: id},
+    const data = await db.contacto.update(req.body.contacto, {
+      where: {contacto_id: req.body.id},
+      include:
+          [{
+            model: db.persona, as: "persona",
+            include: [{model: db.direccion, as: "direcciones"},
+              {model: db.telefono, as: "telefonos"}],
+          }],
     });
 
     if (data == 1) {
