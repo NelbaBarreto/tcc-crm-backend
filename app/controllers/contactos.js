@@ -59,7 +59,15 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.contacto.findByPk(id);
+    const data = await db.contacto.findByPk(id, {
+      include:
+        [{
+          model: db.persona, as: "persona",
+          include: [{model: db.direccion, as: "direcciones"},
+            {model: db.telefono, as: "telefonos"}],
+        }, {model: db.organizacion,
+          include: [{model: db.persona, as: "persona"}]}],
+    });
 
     if (data) {
       res.status(200).json({
@@ -185,5 +193,7 @@ const getOrigenes = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, update,
-  validarTokenEncuesta, getOrigenes, _delete, deleteAll};
+export {
+  create, findAll, findOne, update,
+  validarTokenEncuesta, getOrigenes, _delete, deleteAll,
+};
