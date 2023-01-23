@@ -82,16 +82,20 @@ const findOne = async (req, res) => {
 
 // Actualizar organizacion según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.organizacion.update(req.body, {
-      where: {organizacion_id: id},
+    const data = await db.organizacion.update(req.body.organizacion, {
+      where: {organizacion_id: req.body.id},
+      include:
+          [{
+            model: db.persona, as: "persona",
+            include: [{model: db.direccion, as: "direcciones"},
+              {model: db.telefono, as: "telefonos"}],
+          }],
     });
 
     if (data == 1) {
       res.status(200).json({
-        message: "Organizacion actualizado correctamente",
+        message: "Organización actualizada correctamente",
       });
     } else {
       res.status(200).json({
