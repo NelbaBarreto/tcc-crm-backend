@@ -93,7 +93,7 @@ export default (sequelize, DataTypes) => {
     updatedAt: "fec_modificacion",
     hooks: {
       afterSave: (instance, _options) => {
-        if (instance.estado === "Ganado" && !encuesta) {
+        if (instance.estado === "Ganado" && !instance.encuesta) {
           Oportunidad.sendMail(instance);
         };
       },
@@ -154,7 +154,7 @@ export default (sequelize, DataTypes) => {
         subject: "Encuesta de Satisfacción",
         template: "encuesta",
         context: {
-          nombre: contacto.persona?.nombre,
+          nombre: contacto.persona?.nombre.split(" ")[0],
           url: `${process.env.ORIGIN}/encuesta/${token}`,
         },
       });
