@@ -1,17 +1,24 @@
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
-import {QueryTypes} from "sequelize";
+import {QueryTypes, Op} from "sequelize";
 
-// Crear y guardar un nuevo caso
-const casosPorEstado = async (req, res) => {
-  // Guardar el caso
+// Casos
+const casosActivosPorPrioridad = async (_req, res) => {
   try {
-    const data = await db.sequelize.query(
-        "SELECT count(1) as total, estado FROM CASOS GROUP BY ESTADO",
-        {
-          type: QueryTypes.SELECT,
-        },
-    );
+    const data = await db.caso.findAll({
+      attributes: [
+        "prioridad",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("prioridad")), "total"],
+      ],
+      group: "prioridad",
+      where: {
+        estado: {[Op.in]: ["Pendiente", "En Proceso"]},
+      },
+      order: [
+        ["prioridad", "ASC"],
+      ],
+    });
 
     res.status(200).json({
       data,
@@ -19,8 +26,78 @@ const casosPorEstado = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-                // eslint-disable-next-line max-len
-                error.message || "Ocurrió un error al intentar seleccionar el caso.",
+        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+    });
+  }
+};
+
+// Crear y guardar un nuevo caso
+const casosPorEstado = async (_req, res) => {
+  // Guardar el caso
+  try {
+    const data = await db.caso.findAll({
+      attributes: [
+        "estado",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("estado")), "total"],
+      ],
+      group: "estado",
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+    });
+  }
+};
+
+const casosPorTipo = async (_req, res) => {
+  try {
+    const data = await db.caso.findAll({
+      attributes: [
+        "tipo",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("tipo")), "total"],
+      ],
+      group: "tipo",
+      order: [
+        ["tipo", "ASC"],
+      ],
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+    });
+  }
+};
+
+const casosPorOrigen = async (_req, res) => {
+  try {
+    const data = await db.caso.findAll({
+      attributes: [
+        "origen",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("origen")), "total"],
+      ],
+      group: "origen",
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar seleccionar el caso.",
     });
   }
 };
@@ -41,8 +118,8 @@ const leadsPorEstado = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-                // eslint-disable-next-line max-len
-                error.message || "Ocurrió un error al intentar seleccionar el lead.",
+        // eslint-disable-next-line max-len
+        error.message || "Ocurrió un error al intentar seleccionar el lead.",
     });
   }
 };
@@ -63,33 +140,11 @@ const llamadasPorEstado = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-                // eslint-disable-next-line max-len
-                error.message || "Ocurrió un error al intentar seleccionar la llamada.",
+        error.message || "Ocurrió un error al intentar seleccionar la llamada.",
     });
   }
 };
 
-// listar llamadas segun estado
-const casosPorPrioridad = async (req, res) => {
-  try {
-    const data = await db.sequelize.query(
-        "SELECT count(1) as total, PRIORIDAD FROM CASOS GROUP BY PRIORIDAD",
-        {
-          type: QueryTypes.SELECT,
-        },
-    );
-
-    res.status(200).json({
-      data,
-    });
-  } catch (error) {
-    res.status(500).send({
-      message:
-                // eslint-disable-next-line max-len
-                error.message || "Ocurrió un error al intentar seleccionar el caso segun prioridad.",
-    });
-  }
-};
-
-export {casosPorEstado, leadsPorEstado, llamadasPorEstado, casosPorPrioridad};
+export {casosPorEstado, leadsPorEstado, llamadasPorEstado,
+  casosActivosPorPrioridad, casosPorTipo, casosPorOrigen};
 
