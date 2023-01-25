@@ -145,6 +145,29 @@ const llamadasPorEstado = async (req, res) => {
   }
 };
 
+const csat = async (_req, res) => {
+  // Guardar el caso
+  try {
+    const data = await db.caso.findAll({
+      attributes: [
+        "estado",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("estado")), "total"],
+      ],
+      group: "estado",
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+    });
+  }
+};
+
 export {casosPorEstado, leadsPorEstado, llamadasPorEstado,
   casosActivosPorPrioridad, casosPorTipo, casosPorOrigen};
 

@@ -34,7 +34,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     valor: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.TEXT,
       comment: "Valor de la respuesta.",
     },
