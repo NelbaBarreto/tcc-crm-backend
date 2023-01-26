@@ -1,5 +1,6 @@
 /* eslint-disable new-cap */
 /* eslint-disable require-jsdoc */
+
 "use strict";
 
 export async function up(queryInterface, Sequelize) {
@@ -21,8 +22,8 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.TEXT,
     },
     estado: {
-      // eslint-disable-next-line max-len
-      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      type: Sequelize.ENUM("Pendiente", "Asignado", "En curso",
+          "Cancelado", "Finalizado"),
       comment: "Estado del Caso",
       allowNull: false,
     },
@@ -50,6 +51,14 @@ export async function up(queryInterface, Sequelize) {
         key: "usuario_id",
       },
       allowNull: true,
+    },
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: Sequelize.INTEGER,
+    },
+    lead_id: {
+      comment: "Id del lead para el caso.",
+      type: Sequelize.INTEGER,
     },
     // Auditoria
     usu_insercion: {

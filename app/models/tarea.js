@@ -10,6 +10,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
+      this.hasMany(models.contacto, {foreignKey: "contacto_id"});
+      this.hasMany(models.lead, {foreignKey: "lead_id"});
     }
   }
   Tarea.init({
@@ -44,6 +46,8 @@ export default (sequelize, DataTypes) => {
     fec_fin: {
       type: DataTypes.DATE,
     },
+    contacto_id: DataTypes.INTEGER,
+    lead_id: DataTypes.INTEGER,
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {

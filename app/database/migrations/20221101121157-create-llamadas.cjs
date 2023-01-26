@@ -32,6 +32,14 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DATE,
       allowNull: false,
     },
+    contacto_id: {
+      comment: "Id de contacto para la llamada.",
+      type: Sequelize.INTEGER,
+    },
+    lead_id: {
+      comment: "Id del lead para la llamada.",
+      type: Sequelize.INTEGER,
+    },
     descripcion: {
       comment: "Descripción de la llamada.",
       type: Sequelize.TEXT,

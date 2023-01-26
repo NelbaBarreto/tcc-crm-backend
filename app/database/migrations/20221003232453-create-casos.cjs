@@ -47,6 +47,14 @@ export async function up(queryInterface, Sequelize) {
       comment: "Descripción de como se solucionó el caso.",
       type: Sequelize.STRING,
     },
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: Sequelize.INTEGER,
+    },
+    lead_id: {
+      comment: "Id del lead para el caso.",
+      type: Sequelize.INTEGER,
+    },
     usu_asignado_id: {
       type: Sequelize.INTEGER,
       comment: "Id de usuario asignado.",
