@@ -40,6 +40,10 @@ export default (sequelize) => {
     },
     valor: {
       allowNull: true,
+      type: Sequelize.INTEGER,
+    },
+    valor_texto: {
+      allowNull: true,
       type: Sequelize.TEXT,
     },
   }, {

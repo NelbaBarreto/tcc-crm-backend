@@ -1,8 +1,8 @@
+/* eslint-disable prefer-const */
 /* eslint-disable require-jsdoc */
 import db from "../models/index.js";
 import {QueryTypes, Op} from "sequelize";
 
-// Casos
 const casosActivosPorPrioridad = async (_req, res) => {
   try {
     const data = await db.caso.findAll({
@@ -13,7 +13,7 @@ const casosActivosPorPrioridad = async (_req, res) => {
       ],
       group: "prioridad",
       where: {
-        estado: {[Op.in]: ["Pendiente", "En Proceso"]},
+        estado: {[Op.in]: ["Pendiente", "En Curso"]},
       },
       order: [
         ["prioridad", "ASC"],
@@ -26,14 +26,12 @@ const casosActivosPorPrioridad = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+        error.message || "Ocurrió un error al intentar obtener los datos.",
     });
   }
 };
 
-// Crear y guardar un nuevo caso
 const casosPorEstado = async (_req, res) => {
-  // Guardar el caso
   try {
     const data = await db.caso.findAll({
       attributes: [
@@ -50,7 +48,7 @@ const casosPorEstado = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+        error.message || "Ocurrió un error al intentar obtener los datos.",
     });
   }
 };
@@ -75,7 +73,7 @@ const casosPorTipo = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+        error.message || "Ocurrió un error al intentar obtener los datos.",
     });
   }
 };
@@ -97,7 +95,7 @@ const casosPorOrigen = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+        error.message || "Ocurrió un error al intentar obtener los datos.",
     });
   }
 };
@@ -125,30 +123,9 @@ const leadsPorEstado = async (req, res) => {
 };
 
 // listar llamadas segun estado
-const llamadasPorEstado = async (req, res) => {
+const llamadasPorEstado = async (_req, res) => {
   try {
-    const data = await db.sequelize.query(
-        "SELECT count(1) as total, estado FROM llamadas GROUP BY ESTADO",
-        {
-          type: QueryTypes.SELECT,
-        },
-    );
-
-    res.status(200).json({
-      data,
-    });
-  } catch (error) {
-    res.status(500).send({
-      message:
-        error.message || "Ocurrió un error al intentar seleccionar la llamada.",
-    });
-  }
-};
-
-const csat = async (_req, res) => {
-  // Guardar el caso
-  try {
-    const data = await db.caso.findAll({
+    const data = await db.llamada.findAll({
       attributes: [
         "estado",
         [db.sequelize.fn("COUNT",
@@ -163,11 +140,102 @@ const csat = async (_req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        error.message || "Ocurrió un error al intentar seleccionar el caso.",
+        error.message || "Ocurrió un error al intentar obtener los datos.",
     });
   }
 };
 
-export {casosPorEstado, leadsPorEstado, llamadasPorEstado,
-  casosActivosPorPrioridad, casosPorTipo, casosPorOrigen};
+const tareasPorEstado = async (_req, res) => {
+  try {
+    const data = await db.tarea.findAll({
+      attributes: [
+        "estado",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("estado")), "total"],
+      ],
+      group: "estado",
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar obtener los datos.",
+    });
+  }
+};
+
+const tareasActivasPorPrioridad = async (_req, res) => {
+  try {
+    const data = await db.tarea.findAll({
+      attributes: [
+        "prioridad",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("prioridad")), "total"],
+      ],
+      group: "prioridad",
+      where: {
+        estado: {[Op.in]: ["Pendiente", "En Curso"]},
+      },
+      order: [
+        ["prioridad", "ASC"],
+      ],
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar obtener los datos.",
+    });
+  }
+};
+
+const leadsPorOrigen = async (_req, res) => {
+  try {
+    let data = [];
+
+    const dataset_1 = await db.lead.findAll({
+      attributes: [
+        "origen",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("origen")), "total"],
+      ],
+      group: "origen",
+    });
+    data.push(dataset_1);
+
+    const dataset_2 = await db.lead.findAll({
+      attributes: [
+        "origen",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("origen")), "total"],
+      ],
+      group: "origen",
+      where: {
+        estado: "Convertido",
+      },
+    });
+    data.push(dataset_2);
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar obtener los datos.",
+    });
+  }
+};
+
+export {
+  casosPorEstado, leadsPorEstado, llamadasPorEstado,
+  casosActivosPorPrioridad, casosPorTipo, casosPorOrigen, tareasPorEstado,
+  tareasActivasPorPrioridad, leadsPorOrigen,
+};
 

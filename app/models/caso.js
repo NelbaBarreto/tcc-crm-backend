@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
     descripcion: DataTypes.TEXT,
     prioridad: DataTypes.ENUM("Alta", "Media", "Baja"),
     estado: {
-      type: DataTypes.ENUM("Pendiente", "En Proceso", "Cancelado",
+      type: DataTypes.ENUM("Pendiente", "En Curso", "Cancelado",
           "Finalizado"),
     },
     tipo: DataTypes.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),

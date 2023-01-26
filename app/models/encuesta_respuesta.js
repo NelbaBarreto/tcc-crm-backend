@@ -37,10 +37,6 @@ export default (sequelize) => {
       },
       allowNull: false,
     },
-    json: {
-      allowNull: false,
-      type: Sequelize.JSON,
-    },
   }, {
     sequelize,
     modelName: "encuesta_respuesta",

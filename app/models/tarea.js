@@ -25,10 +25,8 @@ export default (sequelize, DataTypes) => {
     },
     descripcion: DataTypes.TEXT,
     estado:
-      // eslint-disable-next-line new-cap, max-len
-      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      Sequelize.ENUM("Pendiente", "En Curso", "Cancelado", "Finalizado"),
     prioridad:
-      // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Alta", "Media", "Baja"),
     usu_asignado_id: {
       type: DataTypes.INTEGER,

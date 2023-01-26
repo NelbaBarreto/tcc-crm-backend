@@ -35,8 +35,13 @@ export async function up(queryInterface, Sequelize) {
     },
     valor: {
       allowNull: true,
+      comment: "Valor de la respuesta del cliente (Un número del 1 al 5).",
+      type: Sequelize.INTEGER,
+    },
+    valor_texto: {
+      allowNull: true,
+      comment: "Valor del comentario adicional del cliente.",
       type: Sequelize.TEXT,
-      comment: "Valor de la respuesta.",
     },
     createdAt: {
       allowNull: false,

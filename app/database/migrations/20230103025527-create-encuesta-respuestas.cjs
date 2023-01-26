@@ -32,12 +32,6 @@ export async function up(queryInterface, Sequelize) {
       },
       allowNull: false,
     },
-    json: {
-      allowNull: false,
-      type: Sequelize.JSON,
-      comment: "Almacena el valor de las preguntas y respuestas" +
-      "al momento del envío.",
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
