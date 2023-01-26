@@ -10,8 +10,6 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.lead, {foreignKey: "curso_id"});
       this.hasMany(models.oportunidad, {foreignKey: "curso_id"});
-      this.hasMany(models.contacto, {foreignKey: "contacto_id"});
-      this.hasMany(models.lead, {foreignKey: "lead_id"});
     }
   }
   Curso.init({
@@ -28,8 +26,6 @@ export default (sequelize, DataTypes) => {
     descripcion: {
       type: DataTypes.TEXT,
     },
-    contacto_id: DataTypes.INTEGER,
-    lead_id: DataTypes.INTEGER,
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
