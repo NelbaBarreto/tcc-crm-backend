@@ -28,62 +28,12 @@ const up = async (queryInterface, _Sequelize) => {
           etiqueta: "Muy Satisfecho",
           valor: 5,
         },
-        {
-          pregunta_id: 2,
-          etiqueta: "Nada Probable",
-          valor: 1,
-        },
-        {
-          pregunta_id: 2,
-          etiqueta: "Poco Probable",
-          valor: 2,
-        },
-        {
-          pregunta_id: 2,
-          etiqueta: "Neutral",
-          valor: 3,
-        },
-        {
-          pregunta_id: 2,
-          etiqueta: "Probable",
-          valor: 4,
-        },
-        {
-          pregunta_id: 2,
-          etiqueta: "Muy Probable",
-          valor: 5,
-        },
-        {
-          pregunta_id: 3,
-          etiqueta: "Definitivamente No",
-          valor: 1,
-        },
-        {
-          pregunta_id: 3,
-          etiqueta: "Probablemente No",
-          valor: 2,
-        },
-        {
-          pregunta_id: 3,
-          etiqueta: "No Estoy Seguro",
-          valor: 3,
-        },
-        {
-          pregunta_id: 3,
-          etiqueta: "Probablemente",
-          valor: 4,
-        },
-        {
-          pregunta_id: 3,
-          etiqueta: "Definitivamente",
-          valor: 5,
-        },
       ], {});
 };
 
 const down = async (queryInterface, _Sequelize) => {
   await queryInterface.bulkDelete("encuesta_pregunta_opciones",
-      {pregunta_id: [1, 2, 3, 4]}, {});
+      {pregunta_id: [1]}, {});
 };
 
 export {up, down};
