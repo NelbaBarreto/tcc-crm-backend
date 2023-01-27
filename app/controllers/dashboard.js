@@ -103,12 +103,14 @@ const casosPorOrigen = async (_req, res) => {
 // listar leads segun estado
 const leadsPorEstado = async (req, res) => {
   try {
-    const data = await db.sequelize.query(
-        "SELECT count(1) as total, estado FROM leads GROUP BY ESTADO",
-        {
-          type: QueryTypes.SELECT,
-        },
-    );
+    const data = await db.lead.findAll({
+      attributes: [
+        "estado",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("estado")), "total"],
+      ],
+      group: "estado",
+    });
 
     res.status(200).json({
       data,
@@ -116,8 +118,7 @@ const leadsPorEstado = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       message:
-        // eslint-disable-next-line max-len
-        error.message || "Ocurrió un error al intentar seleccionar el lead.",
+        error.message || "Ocurrió un error al intentar obtener los datos.",
     });
   }
 };
