@@ -10,6 +10,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
+      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
+      this.hasOne(models.lead, {foreignKey: "lead_id"});
     }
   }
   Caso.init({
@@ -36,8 +38,31 @@ export default (sequelize, DataTypes) => {
         key: "usuario_id",
       },
     },
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
+    },
+    lead_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
+    },
     origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
         "Otro"),
+    contacto_id: DataTypes.INTEGER,
+    lead_id: DataTypes.INTEGER,
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {

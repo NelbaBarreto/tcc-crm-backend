@@ -8,7 +8,10 @@ import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Llamada extends Model {
-    static associate(models) { }
+    static associate(models) {
+      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
+      this.hasOne(models.lead, {foreignKey: "lead_id"});
+    }
   }
   Llamada.init({
     llamada_id: {
@@ -30,6 +33,27 @@ export default (sequelize, DataTypes) => {
     fec_inicio: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
+    },
+    lead_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,

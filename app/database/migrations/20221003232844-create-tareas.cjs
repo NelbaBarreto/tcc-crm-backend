@@ -30,6 +30,28 @@ export async function up(queryInterface, Sequelize) {
       comment: "Prioridad de la tarea.",
       allowNull: false,
     },
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
+    },
+    lead_id: {
+      comment: "Id del lead para el caso.",
+      type: Sequelize.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
+    },
     fec_inicio: {
       comment: "Fecha de inicio de la actividad.",
       type: Sequelize.DATE,
