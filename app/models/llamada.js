@@ -9,8 +9,8 @@ import Sequelize, {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Llamada extends Model {
     static associate(models) {
-      this.hasMany(models.contacto, {foreignKey: "lead_id"});
-      this.hasMany(models.lead, {foreignKey: "lead_id"});
+      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
+      this.hasOne(models.lead, {foreignKey: "lead_id"});
     }
   }
   Llamada.init({
@@ -26,8 +26,7 @@ export default (sequelize, DataTypes) => {
     },
     descripcion: DataTypes.TEXT,
     estado: {
-      type: DataTypes.ENUM("Pendiente", "En Proceso", "Cancelado",
-          "Finalizado"),
+      type: DataTypes.ENUM("Pendiente", "Finalizado", "Cancelado"),
     },
     tipo:
       Sequelize.ENUM("Entrante", "Saliente"),
@@ -35,8 +34,27 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    contacto_id: DataTypes.INTEGER,
-    lead_id: DataTypes.INTEGER,
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
+    },
+    lead_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
+    },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {

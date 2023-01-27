@@ -28,7 +28,7 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
     },
     estado: {
-      type: Sequelize.ENUM("Pendiente", "En Proceso", "Cancelado",
+      type: Sequelize.ENUM("Pendiente", "En Curso", "Cancelado",
           "Finalizado"),
       comment: "Estado del caso.",
       allowNull: false,
@@ -50,10 +50,24 @@ export async function up(queryInterface, Sequelize) {
     contacto_id: {
       comment: "Id de contacto para el caso.",
       type: Sequelize.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
     },
     lead_id: {
       comment: "Id del lead para el caso.",
       type: Sequelize.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,

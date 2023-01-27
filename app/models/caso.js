@@ -10,8 +10,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.hasMany(models.contacto, {foreignKey: "contacto_id"});
-      this.hasMany(models.lead, {foreignKey: "lead_id"});
+      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
+      this.hasOne(models.lead, {foreignKey: "lead_id"});
     }
   }
   Caso.init({
@@ -25,7 +25,7 @@ export default (sequelize, DataTypes) => {
     descripcion: DataTypes.TEXT,
     prioridad: DataTypes.ENUM("Alta", "Media", "Baja"),
     estado: {
-      type: DataTypes.ENUM("Pendiente", "En Proceso", "Cancelado",
+      type: DataTypes.ENUM("Pendiente", "En Curso", "Cancelado",
           "Finalizado"),
     },
     tipo: DataTypes.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),
@@ -37,6 +37,27 @@ export default (sequelize, DataTypes) => {
         model: "usuario",
         key: "usuario_id",
       },
+    },
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
+    },
+    lead_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
     },
     origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
         "Otro"),

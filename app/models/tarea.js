@@ -10,8 +10,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.hasMany(models.contacto, {foreignKey: "contacto_id"});
-      this.hasMany(models.lead, {foreignKey: "lead_id"});
+      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
+      this.hasOne(models.lead, {foreignKey: "lead_id"});
     }
   }
   Tarea.init({
@@ -27,10 +27,8 @@ export default (sequelize, DataTypes) => {
     },
     descripcion: DataTypes.TEXT,
     estado:
-      // eslint-disable-next-line new-cap, max-len
-      Sequelize.ENUM("Pendiente", "Asignado", "En curso", "Cancelado", "Finalizado"),
+      Sequelize.ENUM("Pendiente", "En Curso", "Cancelado", "Finalizado"),
     prioridad:
-      // eslint-disable-next-line new-cap, max-len
       Sequelize.ENUM("Alta", "Media", "Baja"),
     usu_asignado_id: {
       type: DataTypes.INTEGER,
@@ -39,15 +37,34 @@ export default (sequelize, DataTypes) => {
         key: "usuario_id",
       },
     },
-    fec_inicio: {
-      type: DataTypes.DATE,
+    contacto_id: {
+      comment: "Id de contacto para el caso.",
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "contactos",
+        },
+        key: "contacto_id",
+      },
+      allowNull: true,
+    },
+    lead_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "leads",
+        },
+        key: "lead_id",
+      },
+      allowNull: true,
+    },
+    fec: {
+      type: Data_inicioTypes.DATE,
       allowNull: false,
     },
     fec_fin: {
       type: DataTypes.DATE,
     },
-    contacto_id: DataTypes.INTEGER,
-    lead_id: DataTypes.INTEGER,
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
