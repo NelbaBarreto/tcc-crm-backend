@@ -5,8 +5,6 @@ import cors from "cors";
 import personas from "./app/routes/personas.js";
 import empleados from "./app/routes/empleados.js";
 import usuarios from "./app/routes/usuarios.js";
-import paises from "./app/routes/paises.js";
-import ciudades from "./app/routes/ciudades.js";
 import campanas from "./app/routes/campanas.js";
 import cursos from "./app/routes/cursos.js";
 import direcciones from "./app/routes/direcciones.js";
@@ -14,7 +12,6 @@ import leads from "./app/routes/leads.js";
 import dashboard from "./app/routes/dashboard.js";
 import profesores from "./app/routes/profesores.js";
 import sedes from "./app/routes/sedes.js";
-import tip_campanas from "./app/routes/tip_campanas.js";
 // Ventas
 import organizaciones from "./app/routes/organizaciones.js";
 import oportunidades from "./app/routes/oportunidades.js";
@@ -25,8 +22,6 @@ import casos from "./app/routes/casos.js";
 import tareas from "./app/routes/tareas.js";
 // Telefonos
 import telefonos from "./app/routes/telefonos.js";
-// Roles
-import roles from "./app/routes/roles.js";
 // Llamadas
 import llamadas from "./app/routes/llamadas.js";
 // Encuesta
@@ -51,23 +46,19 @@ app.get("/", (_req, res) => {
 personas(app);
 usuarios(app);
 empleados(app);
-paises(app);
 dashboard(app);
-ciudades(app);
 campanas(app);
 cursos(app);
 direcciones(app);
 leads(app);
 profesores(app);
 sedes(app);
-tip_campanas(app);
 organizaciones(app);
 oportunidades(app);
 contactos(app);
 casos(app);
 tareas(app);
 telefonos(app);
-roles(app);
 llamadas(app);
 preguntas(app);
 encuesta(app);
