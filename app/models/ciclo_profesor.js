@@ -10,8 +10,6 @@ export default (sequelize, Sequelize) => {
           {foreignKey: "profesor_id"});
       this.belongsTo(models.curso_ciclo,
           {foreignKey: "ciclo_id"});
-      this.belongsTo(models.ciclo_aula,
-          {foreignKey: "aula_id"});
     }
   }
   Ciclo_Profesor.init({
@@ -38,16 +36,6 @@ export default (sequelize, Sequelize) => {
           tableName: "curso_ciclos",
         },
         key: "ciclo_id",
-      },
-      allowNull: true,
-    },
-    aula_id: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: {
-          tableName: "ciclo_aulas",
-        },
-        key: "aula_id",
       },
       allowNull: true,
     },

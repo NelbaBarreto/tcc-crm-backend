@@ -58,8 +58,8 @@ export default (sequelize, DataTypes) => {
       },
       allowNull: true,
     },
-    fec: {
-      type: Data_inicioTypes.DATE,
+    fec_inicio: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
     fec_fin: {

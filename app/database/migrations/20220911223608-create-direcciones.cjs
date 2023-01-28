@@ -41,11 +41,6 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.ENUM("Laboral", "Particular", "Otro"),
       comment: "Tipo de dirección",
     },
-    referencia: {
-      type: Sequelize.TEXT,
-      allowNull: true,
-      comment: "Referencia a la dirección.",
-    },
     ciudad_id: {
       type: Sequelize.INTEGER,
       comment: "Id de la ciudad al que pertenece la dirección.",
@@ -65,7 +60,7 @@ export async function up(queryInterface, Sequelize) {
     },
     // Auditoria
     usu_insercion: {
-      // allowNull: false,
+      allowNull: false,
       type: Sequelize.STRING(20),
       comment: "Nombre del usuario que insertó el registro.",
     },
