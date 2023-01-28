@@ -234,9 +234,71 @@ const leadsPorOrigen = async (_req, res) => {
   }
 };
 
+const respuestasPorValor = async (_req, res) => {
+  try {
+    const data = await db.sequelize.query(
+        `SELECT count(1) total, o.etiqueta
+          FROM encuesta_pregunta_respuestas r
+        INNER JOIN encuesta_pregunta_opciones o ON o.pregunta_id = r.pregunta_id
+            AND o.valor = r.valor
+          GROUP BY o.etiqueta`,
+        {
+          type: QueryTypes.SELECT,
+        },
+    );
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        // eslint-disable-next-line max-len
+        error.message || "Ocurrió un error al intentar seleccionar el lead.",
+    });
+  }
+};
+
+const csat = async (_req, res) => {
+  try {
+    const data = await db.sequelize.query(
+        `WITH r AS (
+          SELECT
+            SUM(
+              CASE WHEN valor IN (4, 5) THEN 1 ELSE 0 END
+            ) total_satisfechos,
+            COUNT(1) total_respuestas
+          FROM
+            encuesta_pregunta_respuestas
+          WHERE
+            pregunta_id = 1
+        )
+        SELECT
+          CASE WHEN r.total_respuestas > 0 THEN (
+            r.total_satisfechos :: FLOAT / r.total_respuestas
+          ) * 100 ELSE 0 END csat
+        FROM
+          r`,
+        {
+          type: QueryTypes.SELECT,
+        },
+    );
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        // eslint-disable-next-line max-len
+        error.message || "Ocurrió un error al intentar seleccionar el lead.",
+    });
+  }
+};
+
 export {
   casosPorEstado, leadsPorEstado, llamadasPorEstado,
   casosActivosPorPrioridad, casosPorTipo, casosPorOrigen, tareasPorEstado,
-  tareasActivasPorPrioridad, leadsPorOrigen,
+  tareasActivasPorPrioridad, leadsPorOrigen, respuestasPorValor, csat,
 };
 

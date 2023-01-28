@@ -3,7 +3,7 @@ import {Router} from "express";
 import {
   casosPorEstado, leadsPorEstado, llamadasPorEstado,
   casosActivosPorPrioridad, casosPorTipo, casosPorOrigen, tareasPorEstado,
-  tareasActivasPorPrioridad, leadsPorOrigen,
+  tareasActivasPorPrioridad, leadsPorOrigen, respuestasPorValor, csat,
 }
   from "../controllers/dashboard.js";
 
@@ -19,6 +19,8 @@ const RutasDashboard = (app) => {
   router.get("/casosActivosPorPrioridad", casosActivosPorPrioridad);
   router.get("/tareasActivasPorPrioridad", tareasActivasPorPrioridad);
   router.get("/leadsPorOrigen", leadsPorOrigen);
+  router.get("/respuestasPorValor", respuestasPorValor);
+  router.get("/csat", csat);
 
   app.use("/api/dashboard", router);
 };
