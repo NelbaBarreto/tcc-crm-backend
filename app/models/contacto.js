@@ -11,6 +11,9 @@ export default (sequelize, DataTypes) => {
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
       this.belongsTo(models.organizacion, {foreignKey: "organizacion_id"});
       this.hasMany(models.encuesta_respuesta, {foreignKey: "contacto_id"});
+      this.hasMany(models.tarea, {foreignKey: "contacto_id"});
+      this.hasMany(models.llamada, {foreignKey: "contacto_id"});
+      this.hasMany(models.caso, {foreignKey: "contacto_id"});
     }
   }
   Contacto.init({

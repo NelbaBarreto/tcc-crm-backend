@@ -21,9 +21,39 @@ const create = async (req, res) => {
 };
 
 // Obtener todas las llamadas
-const findAll = async (_req, res) => {
+const findAll = async (req, res) => {
+  let data;
   try {
-    const data = await db.llamada.findAll();
+    if (req.query?.lead_id) {
+      data = await db.llamada.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        where: {
+          lead_id: req.query.lead_id,
+        },
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
+    } else {
+      data = await db.llamada.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
+    }
 
     res.status(200).json({
       data,
@@ -42,17 +72,14 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.llamada.findByPk(id/* {
+    const data = await db.llamada.findByPk(id, {
       include:
-        [{
-          model: db.contacto, as: "contacto",
-          include: [{model: db.persona, as: "persona"}],
-        }, {
-          model: db.lead, as: "lead",
-          include: [{model: db.persona, as: "persona"}],
-        },
+        [
+          {model: db.usuario, as: "usuario"},
+          {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+          {model: db.contacto, include: [{model: db.persona, as: "persona"}]},
         ],
-    }*/);
+    });
 
     if (data) {
       res.status(200).json({

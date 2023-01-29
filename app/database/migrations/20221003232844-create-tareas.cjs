@@ -55,11 +55,12 @@ export async function up(queryInterface, Sequelize) {
     fec_inicio: {
       comment: "Fecha de inicio de la actividad.",
       type: Sequelize.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     fec_fin: {
       comment: "Fecha prevista de finalización de la actividad.",
       type: Sequelize.DATE,
+      allowNull: true,
     },
     usu_asignado_id: {
       type: Sequelize.INTEGER,

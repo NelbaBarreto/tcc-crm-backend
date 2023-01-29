@@ -40,6 +40,9 @@ const findAll = async (_req, res) => {
         {model: db.usuario, as: "usu_asignado"},
         {model: db.curso},
         ],
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
     });
 
     res.status(200).json({
