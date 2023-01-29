@@ -9,8 +9,8 @@ import Sequelize, {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Llamada extends Model {
     static associate(models) {
-      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
-      this.hasOne(models.lead, {foreignKey: "lead_id"});
+      this.belongsTo(models.contacto, {foreignKey: "contacto_id"});
+      this.belongsTo(models.lead, {foreignKey: "lead_id"});
     }
   }
   Llamada.init({

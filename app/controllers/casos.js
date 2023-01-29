@@ -21,12 +21,29 @@ const create = async (req, res) => {
 };
 
 // Obtener todos los casos
-const findAll = async (_req, res) => {
+const findAll = async (req, res) => {
+  let data;
   try {
-    const data = await db.caso.findAll({
-      include:
-        [{model: db.usuario, as: "usuario"}],
-    });
+    if (req.query?.lead_id) {
+      data = await db.caso.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {model: db.contacto, include:
+              [{model: db.persona, as: "persona"}]}],
+        where: {
+          lead_id: req.query.lead_id,
+        },
+      });
+    } else {
+      data = await db.caso.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {model: db.contacto, include:
+              [{model: db.persona, as: "persona"}]}],
+      });
+    }
 
     res.status(200).json({
       data,
@@ -47,7 +64,12 @@ const findOne = async (req, res) => {
   try {
     const data = await db.caso.findByPk(id, {
       include:
-        [{model: db.usuario, as: "usuario"}],
+        [{
+          model: db.usuario, as: "usuario",
+        },
+        {model: db.lead},
+        {model: db.contacto},
+        ],
     });
 
     if (data) {
@@ -187,5 +209,7 @@ const deleteAll = async (_req, res) => {
   }
 };
 
-export {create, findAll, findOne, getPrioridades, getOrigenes, getEstados,
-  getTipos, update, _delete, deleteAll};
+export {
+  create, findAll, findOne, getPrioridades, getOrigenes, getEstados,
+  getTipos, update, _delete, deleteAll,
+};

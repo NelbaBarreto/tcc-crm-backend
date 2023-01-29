@@ -13,6 +13,9 @@ export default (sequelize, DataTypes) => {
       this.belongsTo(models.persona, {foreignKey: "persona_id", as: "persona"});
       this.belongsTo(models.curso, {foreignKey: "curso_id"});
       this.belongsTo(models.campana, {foreignKey: "campana_id"});
+      this.hasMany(models.tarea, {foreignKey: "lead_id"});
+      this.hasMany(models.llamada, {foreignKey: "lead_id"});
+      this.hasMany(models.caso, {foreignKey: "lead_id"});
     }
   }
   Lead.init({

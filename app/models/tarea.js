@@ -10,8 +10,8 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.usuario,
           {foreignKey: "usu_asignado_id", as: "usuario"});
-      this.hasOne(models.contacto, {foreignKey: "contacto_id"});
-      this.hasOne(models.lead, {foreignKey: "lead_id"});
+      this.belongsTo(models.contacto, {foreignKey: "contacto_id"});
+      this.belongsTo(models.lead, {foreignKey: "lead_id"});
     }
   }
   Tarea.init({
