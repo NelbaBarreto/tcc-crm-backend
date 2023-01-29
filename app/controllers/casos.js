@@ -29,19 +29,29 @@ const findAll = async (req, res) => {
         include:
           [{model: db.usuario, as: "usuario"},
             {model: db.lead, include: [{model: db.persona, as: "persona"}]},
-            {model: db.contacto, include:
-              [{model: db.persona, as: "persona"}]}],
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
         where: {
           lead_id: req.query.lead_id,
         },
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
       });
     } else {
       data = await db.caso.findAll({
         include:
           [{model: db.usuario, as: "usuario"},
             {model: db.lead, include: [{model: db.persona, as: "persona"}]},
-            {model: db.contacto, include:
-              [{model: db.persona, as: "persona"}]}],
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
       });
     }
 
@@ -64,11 +74,10 @@ const findOne = async (req, res) => {
   try {
     const data = await db.caso.findByPk(id, {
       include:
-        [{
-          model: db.usuario, as: "usuario",
-        },
-        {model: db.lead, include: [{model: db.persona, as: "persona"}]},
-        {model: db.contacto, include: [{model: db.persona, as: "persona"}]},
+        [
+          {model: db.usuario, as: "usuario"},
+          {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+          {model: db.contacto, include: [{model: db.persona, as: "persona"}]},
         ],
     });
 

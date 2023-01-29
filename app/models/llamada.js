@@ -9,6 +9,8 @@ import Sequelize, {Model} from "sequelize";
 export default (sequelize, DataTypes) => {
   class Llamada extends Model {
     static associate(models) {
+      this.belongsTo(models.usuario,
+          {foreignKey: "usu_asignado_id", as: "usuario"});
       this.belongsTo(models.contacto, {foreignKey: "contacto_id"});
       this.belongsTo(models.lead, {foreignKey: "lead_id"});
     }
@@ -54,6 +56,14 @@ export default (sequelize, DataTypes) => {
         key: "lead_id",
       },
       allowNull: true,
+    },
+    usu_asignado_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "usuario",
+        key: "usuario_id",
+      },
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
