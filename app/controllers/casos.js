@@ -67,8 +67,8 @@ const findOne = async (req, res) => {
         [{
           model: db.usuario, as: "usuario",
         },
-        {model: db.lead},
-        {model: db.contacto},
+        {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+        {model: db.contacto, include: [{model: db.persona, as: "persona"}]},
         ],
     });
 
