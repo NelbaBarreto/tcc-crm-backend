@@ -21,12 +21,39 @@ const create = async (req, res) => {
 };
 
 // Obtener todas las tareas
-const findAll = async (_req, res) => {
+const findAll = async (req, res) => {
+  let data;
   try {
-    const data = await db.tarea.findAll({
-      include:
-        [{model: db.usuario, as: "usuario"}],
-    });
+    if (req.query?.lead_id) {
+      data = await db.tarea.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        where: {
+          lead_id: req.query.lead_id,
+        },
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
+    } else {
+      data = await db.tarea.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
+    }
 
     res.status(200).json({
       data,
@@ -47,7 +74,11 @@ const findOne = async (req, res) => {
   try {
     const data = await db.tarea.findByPk(id, {
       include:
-        [{model: db.usuario, as: "usuario"}],
+        [
+          {model: db.usuario, as: "usuario"},
+          {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+          {model: db.contacto, include: [{model: db.persona, as: "persona"}]},
+        ],
     });
     if (data) {
       res.status(200).json({

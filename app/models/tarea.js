@@ -60,10 +60,11 @@ export default (sequelize, DataTypes) => {
     },
     fec_inicio: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     fec_fin: {
       type: DataTypes.DATE,
+      allowNull: true,
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
