@@ -21,13 +21,39 @@ const create = async (req, res) => {
 };
 
 // Obtener todas las oportunidades
-const findAll = async (_req, res) => {
+const findAll = async (req, res) => {
+  let data;
   try {
-    const data = await db.oportunidad.findAll({
-      include:
-        [{model: db.usuario, as: "usuario"},
-          {model: db.curso}],
-    });
+    if (req.query?.contacto_id) {
+      data = await db.oportunidad.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.curso},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        where: {
+          contacto_id: req.query.contacto_id,
+        },
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
+    } else {
+      data = await db.oportunidad.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.curso},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
+    }
 
     res.status(200).json({
       data,

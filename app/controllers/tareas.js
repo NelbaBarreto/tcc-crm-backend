@@ -40,6 +40,22 @@ const findAll = async (req, res) => {
           ["fec_insercion", "DESC"],
         ],
       });
+    } else if (req.query?.contacto_id) {
+      data = await db.tarea.findAll({
+        include:
+          [{model: db.usuario, as: "usuario"},
+            {model: db.lead, include: [{model: db.persona, as: "persona"}]},
+            {
+              model: db.contacto, include:
+              [{model: db.persona, as: "persona"}],
+            }],
+        where: {
+          contacto_id: req.query.contacto_id,
+        },
+        order: [
+          ["fec_insercion", "DESC"],
+        ],
+      });
     } else {
       data = await db.tarea.findAll({
         include:

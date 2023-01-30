@@ -207,6 +207,9 @@ const leadsPorOrigen = async (_req, res) => {
             db.sequelize.col("origen")), "total"],
       ],
       group: "origen",
+      where: {
+        estado: {[Op.not]: "Convertido"},
+      },
     });
     data.push(dataset_1);
 
