@@ -21,6 +21,11 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
       comment: "Calle secundaria.",
     },
+    referencia: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+      comment: "Referencia para llegar a la dirección.",
+    },
     persona_id: {
       type: Sequelize.INTEGER,
       comment: "Id de persona a la que pertenece la dirección.",
@@ -51,12 +56,6 @@ export async function up(queryInterface, Sequelize) {
         key: "ciudad_id",
       },
       allowNull: true,
-    },
-    principal: {
-      type: Sequelize.BOOLEAN,
-      comment: "Indica si la dirección es o no la principal en el sistema.",
-      defaultValue: false,
-      allowNull: false,
     },
     // Auditoria
     usu_insercion: {
