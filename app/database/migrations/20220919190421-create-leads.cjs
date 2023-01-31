@@ -12,7 +12,8 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     estado: {
-      type: Sequelize.ENUM("Pendiente", "En Proceso", "Convertido", "Perdido"),
+      type: Sequelize.ENUM("Pendiente", "En Proceso", "Convertido",
+          "Perdido", "Archivado"),
       comment: "Estado del lead.",
       // defaultValue: "Pendiente",
       allowNull: false,

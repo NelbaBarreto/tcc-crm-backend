@@ -18,11 +18,6 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    principal: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
     persona_id: {
       type: Sequelize.INTEGER,
       references: {
@@ -31,6 +26,10 @@ export default (sequelize, DataTypes) => {
         },
         key: "persona_id",
       },
+      allowNull: true,
+    },
+    referencia: {
+      type: Sequelize.TEXT,
       allowNull: true,
     },
     calle_1: Sequelize.STRING,

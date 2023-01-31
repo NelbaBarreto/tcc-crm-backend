@@ -28,9 +28,7 @@ const findAll = async (_req, res) => {
   try {
     const data = await db.sede.findAll({
       include:
-        [{model: db.direccion,
-          include: [{model: db.ciudad, as: "ciudad",
-            include: [{model: db.pais, as: "pais"}]}]}],
+        [{model: db.direccion}],
     });
 
     res.status(200).json({
@@ -52,9 +50,7 @@ const findOne = async (req, res) => {
   try {
     const data = await db.sede.findByPk(id, {
       include:
-      [{model: db.direccion,
-        include: [{model: db.ciudad, as: "ciudad",
-          include: [{model: db.pais, as: "pais"}]}]}],
+      [{model: db.direccion}],
     });
 
     if (data) {
