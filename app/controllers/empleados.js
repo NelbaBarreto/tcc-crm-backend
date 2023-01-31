@@ -80,6 +80,12 @@ const update = async (req, res) => {
   try {
     const data = await db.empleado.update(req.body, {
       where: {empleado_id: id},
+      include:
+      [{
+        model: db.persona, as: "persona",
+        include: [{model: db.direccion, as: "direcciones"},
+          {model: db.telefono, as: "telefonos"}],
+      }],
     });
 
     if (data == 1) {
