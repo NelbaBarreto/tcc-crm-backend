@@ -13,7 +13,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
     },
     nombre: {
-      type: Sequelize.STRING(120),
+      type: Sequelize.STRING(200),
       allowNull: false,
     },
     campana_id: {
@@ -63,11 +63,12 @@ export async function up(queryInterface, Sequelize) {
     valor: {
       comment: "Valor estimado de la oportunidad.",
       type: Sequelize.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     descripcion: {
       comment: "Descripción de la oportunidad.",
       type: Sequelize.TEXT,
+      allowNull: true,
     },
     estado: {
       type: Sequelize.ENUM("Abierto", "Ganado", "Perdido", "Anulado"),

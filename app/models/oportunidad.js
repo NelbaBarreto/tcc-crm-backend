@@ -30,7 +30,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     nombre: {
-      type: DataTypes.STRING(120),
+      type: DataTypes.STRING(200),
       allowNull: false,
     },
     estado: {
@@ -76,7 +76,7 @@ export default (sequelize, DataTypes) => {
     },
     valor: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     encuesta: {
       type: DataTypes.BOOLEAN,

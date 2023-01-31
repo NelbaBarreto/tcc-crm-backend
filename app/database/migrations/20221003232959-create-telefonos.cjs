@@ -51,7 +51,7 @@ export async function up(queryInterface, Sequelize) {
       comment: "Número de teléfono.",
     },
     comentario: {
-      type: Sequelize.STRING(20),
+      type: Sequelize.TEXT,
       allowNull: true,
       comment: "Comentario adicional acerca del teléfono.",
     },
