@@ -27,6 +27,17 @@ export async function up(queryInterface, Sequelize) {
       comment: "Nivel del curso (Básico, Intermedio, Avanzado, etc).",
       type: Sequelize.STRING(50),
     },
+    sede_id: {
+      type: Sequelize.INTEGER,
+      comment: "Sede en la que se va a desarrollar el ciclo",
+      references: {
+        model: {
+          tableName: "sedes",
+        },
+        key: "sede_id",
+      },
+      allowNull: true,
+    },
     fec_inicio: {
       comment: "Fecha en la que inicia el ciclo.",
       type: Sequelize.DATE,
@@ -35,10 +46,18 @@ export async function up(queryInterface, Sequelize) {
       comment: "Fecha de finalización del ciclo.",
       type: Sequelize.DATE,
     },
-    meses: {
-      comment: "Meses que dura el ciclo.",
-      type: Sequelize.ARRAY(Sequelize.TEXT),
+    usu_insercion: {
+      // allowNull: false,
+      type: Sequelize.STRING(20),
+      comment: "Nombre del usuario que insertó el registro.",
     },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      field: "fec_insercion",
+      comment: "Fecha en la que se creó el registro.",
+      defaultValue: Date.now(),
+    },    
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,

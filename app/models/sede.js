@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
   class Sede extends Model {
     static associate(models) {
       this.hasOne(models.direccion, {foreignKey: "sede_id"});
-      this.hasMany(models.telefono, {foreignKey: "telefono_id"});
+      this.hasMany(models.curso_ciclo, { foreignKey: "ciclo_id" });
     }
   }
   Sede.init({
