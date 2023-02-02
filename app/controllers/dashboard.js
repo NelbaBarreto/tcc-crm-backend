@@ -329,9 +329,39 @@ const csat = async (_req, res) => {
   }
 };
 
+const oportunidadesGanadasPorCurso = async (_req, res) => {
+  try {
+    const data = await db.sequelize.query(
+      `SELECT
+        COUNT(1) total,
+        c.nombre curso
+      FROM
+            oportunidades o
+        INNER JOIN cursos c ON c.curso_id = o.curso_id
+      WHERE
+        o.estado = 'Ganado'
+      GROUP BY
+        c.nombre`,
+      {
+        type: QueryTypes.SELECT,
+      },
+  );
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar obtener los datos.",
+    });
+  }
+};
+
 export {
   casosPorEstado, leadsPorEstado, llamadasPorEstado,
   casosActivosPorPrioridad, casosPorTipo, casosPorOrigen, tareasPorEstado,
   tareasActivasPorPrioridad, leadsPorOrigen, respuestasPorValor, csat,
+  oportunidadesGanadasPorCurso
 };
 
