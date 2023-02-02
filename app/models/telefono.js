@@ -41,7 +41,6 @@ export default (sequelize, DataTypes) => {
     comentario: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: false,
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
