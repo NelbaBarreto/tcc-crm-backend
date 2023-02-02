@@ -200,30 +200,60 @@ const leadsPorOrigen = async (_req, res) => {
   try {
     let data = [];
 
-    const dataset_1 = await db.lead.findAll({
-      attributes: [
-        "origen",
-        [db.sequelize.fn("COUNT",
-            db.sequelize.col("origen")), "total"],
-      ],
-      group: "origen",
-      where: {
-        estado: {[Op.not]: "Convertido"},
+    const dataset_1 = await db.sequelize.query(
+      `SELECT 
+        ft.origen origen, 
+        COUNT(u.origen) total
+      FROM 
+        (
+          SELECT 
+            unnest(
+              enum_range(NULL :: enum_leads_origen)
+            ) AS origen
+        ) ft 
+        LEFT JOIN (
+          select 
+            u.origen 
+          from 
+            leads u 
+          where 
+            estado <> 'Convertido'
+        ) u ON u.origen = ft.origen 
+      GROUP BY 
+        ft.origen
+      ORDER BY ft.origen`,
+      {
+        type: QueryTypes.SELECT,
       },
-    });
+    );    
     data.push(dataset_1);
 
-    const dataset_2 = await db.lead.findAll({
-      attributes: [
-        "origen",
-        [db.sequelize.fn("COUNT",
-            db.sequelize.col("origen")), "total"],
-      ],
-      group: "origen",
-      where: {
-        estado: "Convertido",
+    const dataset_2 = await db.sequelize.query(
+      `SELECT 
+        ft.origen origen, 
+        COUNT(u.origen) total 
+      FROM 
+        (
+          SELECT 
+            unnest(
+              enum_range(NULL :: enum_leads_origen)
+            ) AS origen
+        ) ft 
+        LEFT JOIN (
+          select 
+            u.origen 
+          from 
+            leads u 
+          where 
+            estado = 'Convertido'
+        ) u ON u.origen = ft.origen 
+      GROUP BY 
+        ft.origen
+      ORDER BY ft.origen`,
+      {
+        type: QueryTypes.SELECT,
       },
-    });
+    );   
     data.push(dataset_2);
 
     res.status(200).json({
