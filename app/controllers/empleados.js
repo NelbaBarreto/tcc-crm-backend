@@ -30,6 +30,9 @@ const findAll = async (_req, res) => {
     const data = await db.empleado.findAll({
       include:
         [{model: db.persona}, {model: db.usuario}],
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
     });
 
     res.status(200).json({

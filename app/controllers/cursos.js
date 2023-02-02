@@ -23,7 +23,11 @@ const create = async (req, res) => {
 // Obtener todos los cursos
 const findAll = async (_req, res) => {
   try {
-    const data = await db.curso.findAll();
+    const data = await db.curso.findAll({
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
+    });
 
     res.status(200).json({
       data,

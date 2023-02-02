@@ -29,6 +29,9 @@ const findAll = async (_req, res) => {
     const data = await db.sede.findAll({
       include:
         [{model: db.direccion}],
+      order: [
+          ["fec_insercion", "DESC"],
+        ],
     });
 
     res.status(200).json({

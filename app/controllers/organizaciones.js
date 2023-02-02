@@ -37,6 +37,9 @@ const findAll = async (_req, res) => {
           include: [{model: db.direccion, as: "direcciones"}],
         },
         ],
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
     });
 
     res.status(200).json({

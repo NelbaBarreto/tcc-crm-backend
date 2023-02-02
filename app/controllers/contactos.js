@@ -40,6 +40,9 @@ const findAll = async (_req, res) => {
           include: [{model: db.persona, as: "persona"}],
         },
         ],
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
     });
 
     res.status(200).json({
