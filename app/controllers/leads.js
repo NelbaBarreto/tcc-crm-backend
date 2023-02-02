@@ -121,14 +121,22 @@ const getOrigenes = async (_req, res) => {
 const update = async (req, res) => {
   try {
     const data = await db.lead.update(req.body.lead, {
-      where: {lead_id: req.body.id},
-      include:
-          [{
-            model: db.persona, as: "persona",
-            include: [{model: db.direccion, as: "direcciones"},
-              {model: db.telefono, as: "telefonos"}],
-          }],
+      where: {lead_id: req.body.id}
     });
+
+    const persona = req.body.lead.persona;
+
+    await db.persona.update(persona, {
+      where: {persona_id: persona.persona_id}
+    });
+
+    persona.direcciones?.forEach(async direccion => {
+      await db.direccion.upsert({ ...direccion, persona_id: persona.persona_id })
+    });   
+
+    persona.telefonos?.forEach(async telefono => {
+      await db.telefono.upsert({ ...telefono, persona_id: persona.persona_id })
+    });   
 
     if (data == 1) {
       res.status(200).json({
@@ -136,12 +144,13 @@ const update = async (req, res) => {
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el lead con id=" + id,
+        message: "No se pudo actualizar el lead con id=" + req.body.id,
       });
     }
   } catch (error) {
+    console.log({error});
     res.status(500).send({
-      message: "Error actualizando el lead con id=" + id,
+      message: "Error actualizando el lead con id=" + req.body.id,
     });
   };
 };
