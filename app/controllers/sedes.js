@@ -29,6 +29,9 @@ const findAll = async (_req, res) => {
     const data = await db.sede.findAll({
       include:
         [{model: db.direccion}],
+      order: [
+          ["fec_insercion", "DESC"],
+        ],
     });
 
     res.status(200).json({
@@ -77,6 +80,14 @@ const update = async (req, res) => {
     const data = await db.sede.update(req.body, {
       where: {sede_id: id},
     });
+    
+    req.body.sede.direcciones?.forEach(async direccion => {
+      await db.direccion.upsert({ ...direccion, persona_id: persona.persona_id })
+    });   
+
+    req.body.sede.telefonos?.forEach(async telefono => {
+      await db.telefono.upsert({ ...telefono, persona_id: persona.persona_id })
+    });  
 
     if (data == 1) {
       res.status(200).json({

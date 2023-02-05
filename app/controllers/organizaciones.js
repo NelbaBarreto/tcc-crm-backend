@@ -37,6 +37,9 @@ const findAll = async (_req, res) => {
           include: [{model: db.direccion, as: "direcciones"}],
         },
         ],
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
     });
 
     res.status(200).json({
@@ -84,14 +87,22 @@ const findOne = async (req, res) => {
 const update = async (req, res) => {
   try {
     const data = await db.organizacion.update(req.body.organizacion, {
-      where: {organizacion_id: req.body.id},
-      include:
-          [{
-            model: db.persona, as: "persona",
-            include: [{model: db.direccion, as: "direcciones"},
-              {model: db.telefono, as: "telefonos"}],
-          }],
+      where: {organizacion_id: req.body.id}
     });
+
+    const persona = req.body.organizacion.persona;
+
+    await db.persona.update(persona, {
+      where: {persona_id: persona.persona_id}
+    });
+
+    persona.direcciones?.forEach(async direccion => {
+      await db.direccion.upsert({ ...direccion, persona_id: persona.persona_id })
+    });   
+
+    persona.telefonos?.forEach(async telefono => {
+      await db.telefono.upsert({ ...telefono, persona_id: persona.persona_id })
+    });  
 
     if (data == 1) {
       res.status(200).json({

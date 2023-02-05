@@ -4,6 +4,7 @@ import {
   casosPorEstado, leadsPorEstado, llamadasPorEstado,
   casosActivosPorPrioridad, casosPorTipo, casosPorOrigen, tareasPorEstado,
   tareasActivasPorPrioridad, leadsPorOrigen, respuestasPorValor, csat,
+  oportunidadesGanadasPorCurso,
 }
   from "../controllers/dashboard.js";
 
@@ -21,6 +22,7 @@ const RutasDashboard = (app) => {
   router.get("/leadsPorOrigen", leadsPorOrigen);
   router.get("/respuestasPorValor", respuestasPorValor);
   router.get("/csat", csat);
+  router.get("/oportunidadesGanadasPorCurso", oportunidadesGanadasPorCurso);
 
   app.use("/api/dashboard", router);
 };

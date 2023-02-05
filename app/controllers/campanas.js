@@ -23,7 +23,11 @@ const create = async (req, res) => {
 // Obtener todas las campañas
 const findAll = async (_req, res) => {
   try {
-    const data = await db.campana.findAll();
+    const data = await db.campana.findAll({
+      order: [
+        ["fec_insercion", "DESC"],
+      ],
+    });
 
     res.status(200).json({
       data,
