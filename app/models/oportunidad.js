@@ -12,6 +12,7 @@ import "dotenv/config.js";
 import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
+  let estadoAnterior = "";
   class Oportunidad extends Model {
     static associate(models) {
       this.belongsTo(models.usuario,
@@ -92,8 +93,12 @@ export default (sequelize, DataTypes) => {
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
     hooks: {
+      beforeUpdate: (instance) => {
+        const previousDataValues = instance._previousDataValues;
+        estadoAnterior = previousDataValues.estado;
+      },
       afterSave: (instance, _options) => {
-        if (instance.estado === "Ganado" && !instance.encuesta) {
+        if (instance.estado === "Ganado" && estadoAnterior ==! "Ganado") {
           Oportunidad.sendMail(instance);
         };
       },

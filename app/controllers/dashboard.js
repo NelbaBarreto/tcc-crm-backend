@@ -200,17 +200,29 @@ const leadsPorOrigen = async (_req, res) => {
   try {
     let data = [];
 
-    const dataset_1 = await db.lead.findAll({
-      attributes: [
-        "origen",
-        [db.sequelize.fn("COUNT",
-            db.sequelize.col("origen")), "total"],
-      ],
-      group: "origen",
-      where: {
-        estado: {[Op.not]: "Convertido"},
-      },
-    });
+    const dataset_1 = await db.sequelize.query(
+        `SELECT 
+        ft.origen, 
+        COUNT(u.origen) 
+      FROM 
+        (
+          SELECT 
+            unnest(
+              enum_range(NULL :: enum_leads_origen)
+            ) AS origen 
+          UNION ALL 
+          SELECT 
+            NULL
+        ) ft 
+        LEFT JOIN leads u ON u.origen = ft.origen 
+      WHERE 
+        ft.origen IS NOT NULL 
+      GROUP BY 
+        ft.origen`,
+        {
+          type: QueryTypes.SELECT,
+        },
+    );
     data.push(dataset_1);
 
     const dataset_2 = await db.lead.findAll({
@@ -236,6 +248,47 @@ const leadsPorOrigen = async (_req, res) => {
     });
   }
 };
+
+// const leadsPorOrigen = async (_req, res) => {
+//   try {
+//     let data = [];
+
+//     const dataset_1 = await db.lead.findAll({
+//       attributes: [
+//         "origen",
+//         [db.sequelize.fn("COUNT",
+//             db.sequelize.col("origen")), "total"],
+//       ],
+//       group: "origen",
+//       where: {
+//         estado: {[Op.not]: "Convertido"},
+//       },
+//     });
+//     data.push(dataset_1);
+
+//     const dataset_2 = await db.lead.findAll({
+//       attributes: [
+//         "origen",
+//         [db.sequelize.fn("COUNT",
+//             db.sequelize.col("origen")), "total"],
+//       ],
+//       group: "origen",
+//       where: {
+//         estado: "Convertido",
+//       },
+//     });
+//     data.push(dataset_2);
+
+//     res.status(200).json({
+//       data,
+//     });
+//   } catch (error) {
+//     res.status(500).send({
+//       message:
+//         error.message || "Ocurrió un error al intentar obtener los datos.",
+//     });
+//   }
+// };
 
 const respuestasPorValor = async (_req, res) => {
   try {

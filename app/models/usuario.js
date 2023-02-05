@@ -59,7 +59,7 @@ export default (sequelize) => {
       },
       beforeUpdate: async (usuario) => {
         if (usuario.password) {
-          const salt = await bcrypt.genSaltSync(10);
+          const salt = bcrypt.genSaltSync(10);
           usuario.password = bcrypt.hashSync(usuario.password, salt);
         }
       },
