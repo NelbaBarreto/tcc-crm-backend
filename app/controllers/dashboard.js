@@ -202,23 +202,26 @@ const leadsPorOrigen = async (_req, res) => {
 
     const dataset_1 = await db.sequelize.query(
         `SELECT 
-        ft.origen, 
-        COUNT(u.origen) 
+        ft.origen origen, 
+        COUNT(u.origen) total 
       FROM 
         (
           SELECT 
             unnest(
               enum_range(NULL :: enum_leads_origen)
-            ) AS origen 
-          UNION ALL 
-          SELECT 
-            NULL
+            ) AS origen
         ) ft 
-        LEFT JOIN leads u ON u.origen = ft.origen 
-      WHERE 
-        ft.origen IS NOT NULL 
+        LEFT JOIN (
+          select 
+            u.origen 
+          from 
+            leads u 
+          where 
+            estado <> 'Convertido'
+        ) u ON u.origen = ft.origen 
       GROUP BY 
-        ft.origen`,
+        ft.origen
+      ORDER BY ft.origen`,
         {
           type: QueryTypes.SELECT,
         },
