@@ -105,26 +105,26 @@ const leadsPorEstado = async (_req, res) => {
   try {
     const data = await db.sequelize.query(
         `SELECT 
-        ft.estado estado, 
-        COUNT(u.estado) total 
-      FROM 
-        (
-          SELECT 
-            unnest(
-              enum_range(NULL :: enum_leads_estado)
-            ) AS estado
-        ) ft 
-        LEFT JOIN (
-          select 
-            u.estado 
-          from 
-            leads u 
-          where 
-            estado <> 'Convertido'
-        ) u ON u.estado = ft.estado 
-      GROUP BY 
-        ft.estado
-      ORDER BY ft.estado`,
+          ft.estado estado, 
+          COUNT(u.estado) total 
+        FROM 
+          (
+            SELECT 
+              unnest(
+                enum_range(NULL :: enum_leads_estado)
+              ) AS estado
+          ) ft 
+          LEFT JOIN (
+            select 
+              u.estado 
+            from 
+              leads u 
+            where 
+              estado <> 'Convertido'
+          ) u ON u.estado = ft.estado 
+        GROUP BY 
+          ft.estado
+        ORDER BY ft.estado`,
         {
           type: QueryTypes.SELECT,
         },
