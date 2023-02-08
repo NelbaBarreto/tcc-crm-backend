@@ -101,30 +101,30 @@ const casosPorOrigen = async (_req, res) => {
 };
 
 // listar leads segun estado
-const leadsPorEstado = async (req, res) => {
+const leadsPorEstado = async (_req, res) => {
   try {
     const data = await db.sequelize.query(
         `SELECT 
-        ft.origen origen, 
-        COUNT(u.origen) total 
+        ft.estado estado, 
+        COUNT(u.estado) total 
       FROM 
         (
           SELECT 
             unnest(
-              enum_range(NULL :: enum_leads_origen)
-            ) AS origen
+              enum_range(NULL :: enum_leads_estado)
+            ) AS estado
         ) ft 
         LEFT JOIN (
           select 
-            u.origen 
+            u.estado 
           from 
             leads u 
           where 
             estado <> 'Convertido'
-        ) u ON u.origen = ft.origen 
+        ) u ON u.estado = ft.estado 
       GROUP BY 
-        ft.origen
-      ORDER BY ft.origen`,
+        ft.estado
+      ORDER BY ft.estado`,
         {
           type: QueryTypes.SELECT,
         },
