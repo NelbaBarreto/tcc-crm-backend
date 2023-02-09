@@ -119,8 +119,6 @@ const leadsPorEstado = async (_req, res) => {
               u.estado 
             from 
               leads u 
-            where 
-              estado <> 'Convertido'
           ) u ON u.estado = ft.estado 
         GROUP BY 
           ft.estado
