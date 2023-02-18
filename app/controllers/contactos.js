@@ -115,12 +115,13 @@ const update = async (req, res) => {
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el contacto con id=" + id,
+        message: "No se pudo actualizar el contacto con id=" + req.body.id,
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).send({
-      message: "Error actualizando el contacto con id=" + id,
+      message: "Error actualizando el contacto con id=" + req.body.id,
     });
   };
 };
