@@ -123,6 +123,7 @@ export default (sequelize, DataTypes) => {
 
     const token =
       await generarTokenEncuesta(instance.contacto_id, instance.oportunidad_id);
+
     const contacto =
     await sequelize.models.contacto.findByPk(instance.contacto_id, {
       include:

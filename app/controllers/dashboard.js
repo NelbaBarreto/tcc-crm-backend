@@ -16,7 +16,7 @@ const casosActivosPorPrioridad = async (_req, res) => {
         estado: {[Op.in]: ["Pendiente", "En Curso"]},
       },
       order: [
-        ["prioridad", "ASC"],
+        ["prioridad", "DESC"],
       ],
     });
 
@@ -197,7 +197,7 @@ const tareasActivasPorPrioridad = async (_req, res) => {
         estado: {[Op.in]: ["Pendiente", "En Curso"]},
       },
       order: [
-        ["prioridad", "ASC"],
+        ["prioridad", "DESC"],
       ],
     });
 
@@ -287,15 +287,17 @@ const respuestasPorValor = async (_req, res) => {
   try {
     const data = await db.sequelize.query(
         `SELECT 
-          COUNT(1) total, 
+          COUNT(r.valor) total, 
           o.etiqueta 
         FROM 
-          encuesta_pregunta_respuestas r 
-          INNER JOIN 
-            encuesta_pregunta_opciones o ON o.pregunta_id = r.pregunta_id 
+          encuesta_pregunta_opciones o 
+          LEFT JOIN 
+          encuesta_pregunta_respuestas r ON o.pregunta_id = r.pregunta_id 
           AND o.valor = r.valor 
         GROUP BY 
-          o.etiqueta`,
+          o.etiqueta,
+          o.opcion_id
+        ORDER BY o.opcion_id ASC`,
         {
           type: QueryTypes.SELECT,
         },
