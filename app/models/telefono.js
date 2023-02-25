@@ -9,7 +9,6 @@ export default (sequelize, DataTypes) => {
   class Telefono extends Model {
     static associate(models) {
       this.belongsTo(models.persona, {foreignKey: "persona_id"});
-      this.belongsTo(models.sede, {foreignKey: "sede_id"});
     }
   }
   Telefono.init({
@@ -20,10 +19,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     persona_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    sede_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },

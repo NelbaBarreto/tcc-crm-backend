@@ -2,13 +2,12 @@
 /* eslint-disable require-jsdoc */
 /* eslint-disable valid-jsdoc */
 "use strict";
-import { Model } from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, Sequelize) => {
   class Curso_Ciclo extends Model {
     static associate(models) {
-      this.belongsTo(models.curso, { foreignKey: "curso_id" });
-      this.belongsTo(models.sede, { foreignKey: "sede_id" });
+      this.belongsTo(models.curso, {foreignKey: "curso_id"});
     }
   }
   Curso_Ciclo.init({
@@ -36,16 +35,6 @@ export default (sequelize, Sequelize) => {
     },
     fec_fin: {
       type: Sequelize.DATE,
-    },
-    sede_id: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: {
-          tableName: "sedes",
-        },
-        key: "sede_id",
-      },
-      allowNull: false,
     },
   }, {
     sequelize,
