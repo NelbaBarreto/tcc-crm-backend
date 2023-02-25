@@ -11,7 +11,6 @@ import direcciones from "./app/routes/direcciones.js";
 import leads from "./app/routes/leads.js";
 import dashboard from "./app/routes/dashboard.js";
 import profesores from "./app/routes/profesores.js";
-import sedes from "./app/routes/sedes.js";
 // Ventas
 import organizaciones from "./app/routes/organizaciones.js";
 import oportunidades from "./app/routes/oportunidades.js";
@@ -53,7 +52,6 @@ cursos(app);
 direcciones(app);
 leads(app);
 profesores(app);
-sedes(app);
 organizaciones(app);
 oportunidades(app);
 contactos(app);

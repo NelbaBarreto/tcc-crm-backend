@@ -8,7 +8,6 @@ export default (sequelize, DataTypes) => {
   class Direccion extends Model {
     static associate(models) {
       this.belongsTo(models.persona, {foreignKey: "persona_id"});
-      this.belongsTo(models.sede, {foreignKey: "sede_id"});
     }
   }
   Direccion.init({
@@ -35,16 +34,6 @@ export default (sequelize, DataTypes) => {
     calle_1: Sequelize.STRING,
     calle_2: Sequelize.STRING,
     cod_postal: Sequelize.STRING,
-    sede_id: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: {
-          tableName: "sedes",
-        },
-        key: "sede_id",
-      },
-      allowNull: true,
-    },
     tipo: Sequelize.ENUM("Laboral", "Particular", "Otro"),
     usu_insercion: Sequelize.STRING,
     usu_modificacion: Sequelize.STRING,

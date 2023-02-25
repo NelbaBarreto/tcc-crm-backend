@@ -12,6 +12,6 @@ export async function up(queryInterface, _Sequelize) {
   await queryInterface.dropTable("roles");
   await queryInterface.dropTable("tip_campanas");
 }
-export async function down(queryInterface, _Sequelize) {
+export async function down(_queryInterface, _Sequelize) {
   // await queryInterface.createTable();
 }
