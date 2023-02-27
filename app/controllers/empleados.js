@@ -82,23 +82,23 @@ const update = async (req, res) => {
 
   try {
     const data = await db.empleado.update(req.body.empleado, {
-      where: {empleado_id: req.body.id}
+      where: {empleado_id: req.body.id},
     });
 
 
     const persona = req.body.empleado.persona;
 
     await db.persona.update(persona, {
-      where: {persona_id: persona.persona_id}
+      where: {persona_id: persona.persona_id},
     });
 
-    persona.direcciones?.forEach(async direccion => {
-      await db.direccion.upsert({ ...direccion, persona_id: persona.persona_id })
-    });   
+    persona.direcciones?.forEach(async (direccion) => {
+      await db.direccion.upsert({...direccion, persona_id: persona.persona_id});
+    });
 
-    persona.telefonos?.forEach(async telefono => {
-      await db.telefono.upsert({ ...telefono, persona_id: persona.persona_id })
-    });   
+    persona.telefonos?.forEach(async (telefono) => {
+      await db.telefono.upsert({...telefono, persona_id: persona.persona_id});
+    });
 
     if (data == 1) {
       res.status(200).json({

@@ -140,7 +140,7 @@ export default (sequelize, DataTypes) => {
           pass: process.env.MAIL_PASS,
         },
       });
-      transporter.verify((err, success) => {
+      transporter.verify((err, _success) => {
         if (err) console.error(err);
         console.log("Your config is correct");
       });

@@ -49,7 +49,7 @@ export default (sequelize) => {
           auxPassword += chars.substring(randomNumber, randomNumber +1);
         }
         if (auxPassword) {
-          const salt = await bcrypt.genSaltSync(10);
+          const salt = bcrypt.genSaltSync(10);
           usuario.password = bcrypt.hashSync(auxPassword, salt);
         }
       },
@@ -77,13 +77,18 @@ export default (sequelize) => {
 
   Usuario.sendMail = async (usuario, password) => {
     async function sendMail() {
-      console.log("Sending mails...");
+      console.log("Enviando correo...");
       const transporter = createTransport({
-        service: "gmail",
+        service: process.env.MAIL_SERVICE,
+        secure: true,
         auth: {
-          user: "barretonelba@gmail.com",
+          user: process.env.MAIL_SENDER,
           pass: process.env.MAIL_PASS,
         },
+      });
+      transporter.verify((err, _success) => {
+        if (err) console.error(err);
+        console.log("Your config is correct");
       });
 
       // point to the template folder
@@ -100,7 +105,7 @@ export default (sequelize) => {
 
       // send mail with defined transport object
       const info = await transporter.sendMail({
-        from: "barretonelba@gmail.com",
+        from: process.env.MAIL_SENDER,
         // to: usuario.email,
         to: process.env.MAIL,
         subject: "Nueva Cuenta de Usuario Creada",
@@ -111,7 +116,7 @@ export default (sequelize) => {
         },
       });
 
-      console.log({data: `Message sent ${info.messageId}`});
+      console.log({data: `Mensaje enviado ${info.messageId}`});
     }
 
     sendMail();
