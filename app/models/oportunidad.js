@@ -98,7 +98,7 @@ export default (sequelize, DataTypes) => {
         estadoAnterior = previousDataValues.estado;
       },
       afterSave: (instance, _options) => {
-        if (instance.estado === "Ganado" && estadoAnterior ==! "Ganado") {
+        if (instance.estado === "Ganado" && estadoAnterior !== "Ganado") {
           Oportunidad.sendMail(instance);
         };
       },
