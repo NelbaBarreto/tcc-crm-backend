@@ -98,7 +98,7 @@ export default (sequelize, DataTypes) => {
         estadoAnterior = previousDataValues.estado;
       },
       afterSave: (instance, _options) => {
-        if (instance.estado === "Ganado" && estadoAnterior ==! "Ganado") {
+        if (instance.estado === "Ganado" && estadoAnterior !== "Ganado") {
           Oportunidad.sendMail(instance);
         };
       },
@@ -131,11 +131,12 @@ export default (sequelize, DataTypes) => {
     });
 
     const sendMail = async () => {
-      console.log("Sending mails...");
+      console.log("Enviando correo...");
       const transporter = createTransport({
-        service: "gmail",
+        // host: process.env.MAIL_HOST,
+        service: process.env.MAIL_SERVICE,
         auth: {
-          user: "barretonelba@gmail.com",
+          user: process.env.MAIL_SENDER,
           pass: process.env.MAIL_PASS,
         },
       });
@@ -154,7 +155,7 @@ export default (sequelize, DataTypes) => {
 
       // send mail with defined transport object
       const info = await transporter.sendMail({
-        from: "barretonelba@gmail.com",
+        from: process.env.MAIL_SENDER,
         // to: usuario.email,
         to: process.env.MAIL,
         subject: "Encuesta de Satisfacción",
@@ -165,7 +166,7 @@ export default (sequelize, DataTypes) => {
         },
       });
 
-      console.log({data: `Message sent ${info.messageId}`});
+      console.log({data: `Mensaje enviado ${info.messageId}`});
     };
 
     sendMail();
