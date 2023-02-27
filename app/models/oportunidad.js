@@ -133,8 +133,8 @@ export default (sequelize, DataTypes) => {
     const sendMail = async () => {
       console.log("Enviando correo...");
       const transporter = createTransport({
-        // host: process.env.MAIL_HOST,
         service: process.env.MAIL_SERVICE,
+        secure: true,
         auth: {
           user: process.env.MAIL_SENDER,
           pass: process.env.MAIL_PASS,
