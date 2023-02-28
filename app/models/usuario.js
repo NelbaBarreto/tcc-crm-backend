@@ -72,7 +72,7 @@ export default (sequelize) => {
   });
 
   Usuario.validPassword = async (password, hash) => {
-    return await bcrypt.compareSync(password, hash);
+    return bcrypt.compareSync(password, hash);
   };
 
   Usuario.sendMail = async (usuario, password) => {

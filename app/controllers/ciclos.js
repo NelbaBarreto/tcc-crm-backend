@@ -23,7 +23,8 @@ const create = async (req, res) => {
 // Obtener todos los ciclos
 const findAll = async (_req, res) => {
   try {
-    const data = await db.curso_ciclo.findAll();
+    const data = await db.curso_ciclo.findAll({include:
+      [{model: db.curso}]});
 
     res.status(200).json({
       data,
@@ -42,7 +43,8 @@ const findOne = async (req, res) => {
   const {id} = req.params;
 
   try {
-    const data = await db.curso_ciclo.findByPk(id);
+    const data = await db.curso_ciclo.findByPk(id, {include:
+      [{model: db.curso}]});
 
     if (data) {
       res.status(200).json({

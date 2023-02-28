@@ -27,15 +27,28 @@ export default (sequelize, Sequelize) => {
       },
       allowNull: false,
     },
+    codigo: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      allowNull: false,
+    },
     nivel: {
       type: Sequelize.STRING(50),
     },
     fec_inicio: {
       type: Sequelize.DATE,
+      allowNull: false,
     },
     fec_fin: {
       type: Sequelize.DATE,
+      allowNull: false,
     },
+    detalles: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
+    usu_insercion: Sequelize.STRING,
+    usu_modificacion: Sequelize.STRING,
   }, {
     sequelize,
     modelName: "curso_ciclo",
