@@ -29,6 +29,7 @@ const findAll = async (req, res) => {
         include:
           [{model: db.usuario, as: "usuario"},
             {model: db.curso},
+            {model: db.campana, as: "campanas"},
             {
               model: db.contacto, include:
               [{model: db.persona, as: "persona"}],
@@ -45,6 +46,7 @@ const findAll = async (req, res) => {
         include:
           [{model: db.usuario, as: "usuario"},
             {model: db.curso},
+            {model: db.campana, as: "campanas"},
             {
               model: db.contacto, include:
               [{model: db.persona, as: "persona"}],
