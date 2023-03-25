@@ -41,8 +41,8 @@ export default (sequelize, DataTypes) => {
       },
       allowNull: true,
     },
-    origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
-        "Evento", "Otro"),
+    origen: DataTypes.ENUM("Facebook", "Instagram", "Twitter",
+        "WhatsApp", "Página Web", "Llamada", "Correo", "Evento", "Otro"),
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
