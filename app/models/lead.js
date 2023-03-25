@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
     },
     estado: {
       type: DataTypes.ENUM("Pendiente", "En Proceso", "Convertido",
-          "Perdido", "Archivado"),
+          "Perdido", "Anulado"),
     },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
@@ -51,8 +51,12 @@ export default (sequelize, DataTypes) => {
       },
       allowNull: false,
     },
-    origen: DataTypes.ENUM("Redes Sociales", "Página Web", "Llamada", "Correo",
-        "Evento", "Otro"),
+    origen: {
+      type: DataTypes.ENUM("Facebook", "Instagram", "Twitter",
+          "WhatsApp", "Página Web", "Llamada", "Correo", "Evento", "Otro"),
+      allowNull: false,
+      defaultValue: "Otro",
+    },
     persona_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
