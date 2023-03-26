@@ -379,10 +379,58 @@ const oportunidadesGanadasPorCurso = async (_req, res) => {
   }
 };
 
+const leadsPorCampana = async (_req, res) => {
+  try {
+    const data = await db.lead.findAll({
+      attributes: [
+        "campana.campana_id",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("campana.campana_id")), "total"],
+      ],
+      include:
+        [{model: db.campana}],
+      group: ["campana.campana_id", "campana.nombre"],
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar obtener los datos.",
+    });
+  }
+};
+
+const oportunidadesPorCampana = async (_req, res) => {
+  try {
+    const data = await db.oportunidad.findAll({
+      attributes: [
+        "campana.campana_id",
+        [db.sequelize.fn("COUNT",
+            db.sequelize.col("campana.campana_id")), "total"],
+      ],
+      include:
+        [{model: db.campana}],
+      group: ["campana.campana_id", "campana.nombre"],
+    });
+
+    res.status(200).json({
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Ocurrió un error al intentar obtener los datos.",
+    });
+  }
+};
+
 export {
   casosPorEstado, leadsPorEstado, llamadasPorEstado,
   casosActivosPorPrioridad, casosPorTipo, casosPorOrigen, tareasPorEstado,
   tareasActivasPorPrioridad, leadsPorOrigen, respuestasPorValor, csat,
-  oportunidadesGanadasPorCurso,
+  oportunidadesGanadasPorCurso, leadsPorCampana, oportunidadesPorCampana,
 };
 
