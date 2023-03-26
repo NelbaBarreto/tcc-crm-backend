@@ -121,22 +121,23 @@ const getOrigenes = async (_req, res) => {
 const update = async (req, res) => {
   try {
     const data = await db.lead.update(req.body.lead, {
-      where: {lead_id: req.body.id}
+      where: {lead_id: req.body.id},
     });
 
     const persona = req.body.lead.persona;
 
     await db.persona.update(persona, {
-      where: {persona_id: persona.persona_id}
+      where: {persona_id: persona.persona_id},
     });
 
-    persona.direcciones?.forEach(async direccion => {
-      await db.direccion.upsert({ ...direccion, persona_id: persona.persona_id })
-    });   
+    persona.direcciones?.forEach(async (direccion) => {
+      await db.direccion.upsert({...direccion,
+        persona_id: persona.persona_id});
+    });
 
-    persona.telefonos?.forEach(async telefono => {
-      await db.telefono.upsert({ ...telefono, persona_id: persona.persona_id })
-    });   
+    persona.telefonos?.forEach(async (telefono) => {
+      await db.telefono.upsert({...telefono, persona_id: persona.persona_id});
+    });
 
     if (data == 1) {
       res.status(200).json({
