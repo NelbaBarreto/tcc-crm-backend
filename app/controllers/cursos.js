@@ -66,8 +66,6 @@ const findOne = async (req, res) => {
 
 // Actualizar curso según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
     const data = await db.curso.update(req.body.curso, {
       where: {curso_id: req.body.id},
@@ -79,12 +77,12 @@ const update = async (req, res) => {
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el curso con id=" + id,
+        message: "No se pudo actualizar el curso con id=" + req.body.id,
       });
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error actualizando el curso con id=" + id,
+      message: "Error actualizando el curso con id=" + req.body.id,
     });
   };
 };

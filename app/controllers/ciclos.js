@@ -64,11 +64,9 @@ const findOne = async (req, res) => {
 
 // Actualizar ciclo según su id
 const update = async (req, res) => {
-  const id = req.params.id;
-
   try {
-    const data = await db.curso_ciclo.update(req.body.curso_ciclo, {
-      where: {curso_ciclo_id: req.body.id},
+    const data = await db.curso_ciclo.update(req.body.ciclo, {
+      where: {ciclo_id: req.body.id},
     });
 
     if (data == 1) {
@@ -77,7 +75,7 @@ const update = async (req, res) => {
       });
     } else {
       res.status(200).json({
-        message: "No se pudo actualizar el ciclo con id=" + id,
+        message: "No se pudo actualizar el ciclo con id=" + req.body.id,
       });
     }
   } catch (error) {
