@@ -91,7 +91,7 @@ const _delete = async (req, res) => {
 
   try {
     const data = await db.curso_ciclo.destroy({
-      where: {curso_ciclo_id: id},
+      where: {ciclo_id: id},
     });
 
     if (data == 1) {
