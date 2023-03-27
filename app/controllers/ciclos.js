@@ -68,7 +68,7 @@ const update = async (req, res) => {
 
   try {
     const data = await db.curso_ciclo.update(req.body.curso_ciclo, {
-      where: {curso_ciclo_id: req.body.id},
+      where: {ciclo_id: req.body.id},
     });
 
     if (data == 1) {
@@ -93,7 +93,7 @@ const _delete = async (req, res) => {
 
   try {
     const data = await db.curso_ciclo.destroy({
-      where: {curso_ciclo_id: id},
+      where: {ciclo_id: id},
     });
 
     if (data == 1) {
