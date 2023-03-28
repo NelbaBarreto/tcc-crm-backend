@@ -38,13 +38,23 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
-    fec_fin: DataTypes.DATE,
+    fec_fin: {
+      type: DataTypes.DATE,
+    },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
     sequelize,
     modelName: "campana",
     tableName: "campanas",
+    validate: {
+      fecFinMayorFecInicio() {
+        if (this.fec_fin <= this.fec_inicio) {
+          throw new Error("Fecha Fin:" +
+          " La fecha fin debe ser mayor a la fecha de inicio.");
+        }
+      },
+    },
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
