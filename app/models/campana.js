@@ -22,7 +22,22 @@ export default (sequelize, DataTypes) => {
     descripcion: {
       type: DataTypes.TEXT,
     },
-    fec_inicio: DataTypes.DATE,
+    fec_inicio: {
+      type: DataTypes.DATE,
+      validate: {
+        isValidDate: async function(value) {
+          const hoy = new Date();
+          const fecha_incio = new Date(value);
+          hoy.setHours(0, 0, 0, 0);
+
+          if (fecha_incio < hoy) {
+            throw new Error("Fecha Inicio: No se puede ingresar" +
+            " una fecha menor a la fecha actual.");
+          }
+          return true;
+        },
+      },
+    },
     fec_fin: DataTypes.DATE,
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,

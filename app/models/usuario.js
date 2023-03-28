@@ -25,6 +25,18 @@ export default (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        notNull: {
+          msg: "Ingrese un nombre de usuario.",
+        },
+        notEmpty: {
+          msg: "El nombre de usuario no puede estar vacío.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El nombre de usuario debe tener entre 3 y 20 caracteres.",
+        },
+      },
     },
     password: {
       type: Sequelize.STRING,
