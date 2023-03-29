@@ -20,8 +20,38 @@ export default (sequelize) => {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    nombre: Sequelize.STRING,
-    email: Sequelize.STRING,
+    nombre: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Nombre, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Nombre, es un campo Obligatorio.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El nombre debe tener entre 3 y 20 caracteres.",
+        },
+      },
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Email, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Email, es un campo Obligatorio.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El nombre debe tener entre 3 y 20 caracteres.",
+        },
+      },
+    },
     nro_documento: Sequelize.STRING,
     tip_documento: Sequelize.ENUM("CI", "RUC",
         "Cédula Extranjera", "Pasaporte"),

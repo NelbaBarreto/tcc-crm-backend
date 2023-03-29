@@ -22,6 +22,18 @@ export default (sequelize, DataTypes) => {
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Nombre, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Nombre, es un campo Obligatorio.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El nombre debe tener entre 3 y 20 caracteres.",
+        },
+      },
     },
     descripcion: {
       type: DataTypes.TEXT,
