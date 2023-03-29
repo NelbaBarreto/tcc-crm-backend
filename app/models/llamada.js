@@ -34,7 +34,18 @@ export default (sequelize, DataTypes) => {
       Sequelize.ENUM("Entrante", "Saliente"),
     fec_inicio: {
       type: DataTypes.DATE,
-      allowNull: false,
+      validate: {
+        isValidDate: async function(value) {
+          const hoy = new Date();
+          const fecha_incio = new Date(value);
+          hoy.setHours(0, 0, 0, 0);
+          if (fecha_incio < hoy) {
+            throw new Error("Fecha Inicio: No se puede ingresar" +
+            " una fecha menor a la fecha actual.");
+          }
+          return true;
+        },
+      },
     },
     contacto_id: {
       comment: "Id de contacto para el caso.",

@@ -60,11 +60,22 @@ export default (sequelize, DataTypes) => {
     },
     fec_inicio: {
       type: DataTypes.DATE,
-      allowNull: true,
+      validate: {
+        isValidDate: async function(value) {
+          const hoy = new Date();
+          const fecha_incio = new Date(value);
+          hoy.setHours(0, 0, 0, 0);
+
+          if (fecha_incio < hoy) {
+            throw new Error("Fecha Inicio: No se puede ingresar" +
+            " una fecha menor a la fecha actual.");
+          }
+          return true;
+        },
+      },
     },
     fec_fin: {
       type: DataTypes.DATE,
-      allowNull: true,
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
@@ -72,6 +83,14 @@ export default (sequelize, DataTypes) => {
     sequelize,
     modelName: "tarea",
     tableName: "tareas",
+    validate: {
+      fecFinMayorFecInicio() {
+        if (this.fec_fin <= this.fec_inicio) {
+          throw new Error("Fecha Fin:" +
+          " La fecha fin debe ser mayor a la fecha de inicio.");
+        }
+      },
+    },
     createdAt: "fec_insercion",
     updatedAt: "fec_modificacion",
   });
