@@ -4,7 +4,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import Sequelize, {Model} from "sequelize";
+import {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Llamada extends Model {
@@ -25,13 +25,44 @@ export default (sequelize, DataTypes) => {
     asunto: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Asunto, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Asunto, es un campo Obligatorio.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El asunto debe tener entre 3 y 255 caracteres.",
+        },
+      },
     },
     descripcion: DataTypes.TEXT,
     estado: {
       type: DataTypes.ENUM("Pendiente", "Finalizado", "Cancelado"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Estado, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Estado, es un campo Obligatorio.",
+        },
+      },
     },
-    tipo:
-      Sequelize.ENUM("Entrante", "Saliente"),
+    tipo: {
+      type: DataTypes.ENUM("Entrante", "Saliente"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Estado, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Estado, es un campo Obligatorio.",
+        },
+      },
+    },
     fec_inicio: {
       type: DataTypes.DATE,
       validate: {
