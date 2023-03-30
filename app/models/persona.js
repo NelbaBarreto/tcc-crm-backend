@@ -24,10 +24,6 @@ export default (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isEmail: {
-          args: true,
-          msg: "Ingrese un correo válido",
-        },
         notNull: {
           msg: "Completar Nombre, es un campo Obligatorio.",
         },
@@ -44,6 +40,10 @@ export default (sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
+        isEmail: {
+          args: true,
+          msg: "Ingrese un correo válido",
+        },
         notNull: {
           msg: "Completar Email, es un campo Obligatorio.",
         },
