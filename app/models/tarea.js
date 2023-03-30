@@ -3,7 +3,7 @@
 /* eslint-disable valid-jsdoc */
 "use strict";
 
-import {Model} from "sequelize";
+import Sequelize, {Model} from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class Tarea extends Model {
@@ -24,58 +24,17 @@ export default (sequelize, DataTypes) => {
     asunto: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notNull: {
-          msg: "Completar Asunto, es un campo Obligatorio.",
-        },
-        notEmpty: {
-          msg: "No dejar vacio Asunto, es un campo Obligatorio.",
-        },
-        len: {
-          args: [3, 255],
-          msg: "El asunto debe tener entre 3 y 20 caracteres.",
-        },
-      },
     },
     descripcion: DataTypes.TEXT,
-    estado: {
-      type: DataTypes.ENUM("Pendiente", "En Curso", "Cancelado", "Finalizado"),
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: "Completar Estado, es un campo Obligatorio.",
-        },
-        notEmpty: {
-          msg: "No dejar vacio Estado, es un campo Obligatorio.",
-        },
-      },
-    },
-    prioridad: {
-      type: DataTypes.ENUM("Alta", "Media", "Baja"),
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: "Completar Prioridad, es un campo Obligatorio.",
-        },
-        notEmpty: {
-          msg: "No dejar vacio Prioridad, es un campo Obligatorio.",
-        },
-      },
-    },
+    estado:
+      Sequelize.ENUM("Pendiente", "En Curso", "Cancelado", "Finalizado"),
+    prioridad:
+      Sequelize.ENUM("Alta", "Media", "Baja"),
     usu_asignado_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       references: {
         model: "usuario",
         key: "usuario_id",
-      },
-      validate: {
-        notNull: {
-          msg: "Completar Usuario Asignado, es un campo Obligatorio.",
-        },
-        notEmpty: {
-          msg: "No dejar vacio Usuario Asignado, es un campo Obligatorio.",
-        },
       },
     },
     contacto_id: {

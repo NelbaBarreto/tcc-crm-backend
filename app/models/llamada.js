@@ -30,7 +30,7 @@ export default (sequelize, DataTypes) => {
           msg: "Completar Asunto, es un campo Obligatorio.",
         },
         notEmpty: {
-          msg: "No dejar vacio Asunto, es un campo Obligatorio.",
+          msg: "No dejar vacío Asunto, es un campo Obligatorio.",
         },
         len: {
           args: [3, 255],
@@ -65,18 +65,6 @@ export default (sequelize, DataTypes) => {
     },
     fec_inicio: {
       type: DataTypes.DATE,
-      validate: {
-        isValidDate: async function(value) {
-          const hoy = new Date();
-          const fecha_incio = new Date(value);
-          hoy.setHours(0, 0, 0, 0);
-          if (fecha_incio < hoy) {
-            throw new Error("Fecha Inicio: No se puede ingresar" +
-            " una fecha menor a la fecha actual.");
-          }
-          return true;
-        },
-      },
     },
     contacto_id: {
       comment: "Id de contacto para el caso.",
@@ -110,6 +98,17 @@ export default (sequelize, DataTypes) => {
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
   }, {
+    hooks: {
+      beforeCreate: (instance, _options) => {
+        const hoy = new Date();
+        const fec_inicio = new Date(instance.fec_inicio);
+        hoy.setHours(0, 0, 0, 0);
+        if (fec_inicio < hoy) {
+          throw new Error("Fecha: No se puede ingresar" +
+                " una fecha menor a la fecha actual.");
+        }
+      },
+    },
     sequelize,
     modelName: "llamada",
     tableName: "llamadas",
