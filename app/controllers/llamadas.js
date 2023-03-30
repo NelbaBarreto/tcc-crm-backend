@@ -148,7 +148,7 @@ const update = async (req, res) => {
 
     if (data == 1) {
       res.status(200).json({
-        message: "Llamada actualizada correctamente",
+        data: "Llamada actualizada correctamente",
       });
     } else {
       res.status(200).json({
