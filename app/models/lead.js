@@ -28,6 +28,15 @@ export default (sequelize, DataTypes) => {
     estado: {
       type: DataTypes.ENUM("Pendiente", "En Proceso", "Convertido",
           "Perdido", "Anulado"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Estado campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio estado, es un campo Obligatorio.",
+        },
+      },
     },
     usu_asignado_id: {
       type: DataTypes.INTEGER,
@@ -50,12 +59,27 @@ export default (sequelize, DataTypes) => {
         key: "curso_id",
       },
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Curso campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio curso, es un campo Obligatorio.",
+        },
+      },
     },
     origen: {
       type: DataTypes.ENUM("Facebook", "Instagram", "Twitter",
           "WhatsApp", "Página Web", "Llamada", "Correo", "Evento", "Otro"),
       allowNull: false,
-      defaultValue: "Otro",
+      validate: {
+        notNull: {
+          msg: "Completar Origen, campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio origen, es un campo Obligatorio.",
+        },
+      },
     },
     persona_id: {
       type: DataTypes.INTEGER,

@@ -21,14 +21,60 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    asunto: DataTypes.STRING,
+    asunto: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Asunto, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Asunto, es un campo Obligatorio.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El asunto debe tener entre 3 y 20 caracteres.",
+        },
+      },
+    },
     descripcion: DataTypes.TEXT,
-    prioridad: DataTypes.ENUM("Alta", "Media", "Baja"),
+    prioridad: {
+      type: DataTypes.ENUM("Alta", "Media", "Baja"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Prioridad, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Prioridad, es un campo Obligatorio.",
+        },
+      },
+    },
     estado: {
       type: DataTypes.ENUM("Pendiente", "En Curso", "Cancelado",
           "Finalizado"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Estado, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Estado, es un campo Obligatorio.",
+        },
+      },
     },
-    tipo: DataTypes.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),
+    tipo: {
+      type: DataTypes.ENUM("Solicitud", "Queja", "Sugerencia", "Otro"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Tipo, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Tipo, es un campo Obligatorio.",
+        },
+      },
+    },
     solucion: DataTypes.STRING,
     usu_asignado_id: {
       type: DataTypes.INTEGER,
@@ -59,8 +105,19 @@ export default (sequelize, DataTypes) => {
       },
       allowNull: true,
     },
-    origen: DataTypes.ENUM("Facebook", "Instagram", "Twitter",
-        "WhatsApp", "Página Web", "Llamada", "Correo", "Evento", "Otro"),
+    origen: {
+      type: DataTypes.ENUM("Facebook", "Instagram", "Twitter",
+          "WhatsApp", "Página Web", "Llamada", "Correo", "Evento", "Otro"),
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Origen, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Origen, es un campo Obligatorio.",
+        },
+      },
+    },
     contacto_id: DataTypes.INTEGER,
     lead_id: DataTypes.INTEGER,
     usu_insercion: DataTypes.STRING,

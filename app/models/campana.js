@@ -12,7 +12,22 @@ export default (sequelize, DataTypes) => {
     }
   }
   Campana.init({
-    nombre: DataTypes.STRING,
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Completar Nombre, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Nombre, es un campo Obligatorio.",
+        },
+        len: {
+          args: [3, 255],
+          msg: "El nombre debe tener entre 3 y 20 caracteres.",
+        },
+      },
+    },
     campana_id: {
       allowNull: false,
       autoIncrement: true,
@@ -24,7 +39,14 @@ export default (sequelize, DataTypes) => {
     },
     fec_inicio: {
       type: DataTypes.DATE,
+      allowNull: false,
       validate: {
+        notNull: {
+          msg: "Completar Fecha inicio, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Fecha inicio, es un campo Obligatorio.",
+        },
         isValidDate: async function(value) {
           const hoy = new Date();
           const fecha_incio = new Date(value);
@@ -40,6 +62,13 @@ export default (sequelize, DataTypes) => {
     },
     fec_fin: {
       type: DataTypes.DATE,
+      allowNull: false,
+      notNull: {
+        msg: "Completar Fecha fin, es un campo Obligatorio.",
+      },
+      notEmpty: {
+        msg: "No dejar vacio Fecha fin, es un campo Obligatorio.",
+      },
     },
     usu_insercion: DataTypes.STRING,
     usu_modificacion: DataTypes.STRING,
