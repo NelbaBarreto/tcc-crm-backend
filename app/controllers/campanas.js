@@ -13,6 +13,7 @@ const create = async (req, res) => {
       data,
     });
   } catch (error) {
+    console.log({error});
     res.status(500).send({
       message:
         error.message || "Ocurrió un error al intentar crear la campaña.",
