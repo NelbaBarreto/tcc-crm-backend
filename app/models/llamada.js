@@ -59,7 +59,7 @@ export default (sequelize, DataTypes) => {
           msg: "Completar Estado, es un campo Obligatorio.",
         },
         notEmpty: {
-          msg: "No dejar vacio Estado, es un campo Obligatorio.",
+          msg: "No dejar vacío Estado, es un campo Obligatorio.",
         },
       },
     },

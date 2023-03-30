@@ -51,6 +51,17 @@ export default (sequelize, Sequelize) => {
     usu_modificacion: Sequelize.STRING,
   }, {
     sequelize,
+    hooks: {
+      beforeCreate: (instance, _options) => {
+        const hoy = new Date();
+        const fec_inicio = new Date(instance.fec_inicio);
+        hoy.setHours(0, 0, 0, 0);
+        if (fec_inicio < hoy) {
+          throw new Error("Fecha: No se puede ingresar" +
+                " una fecha menor a la fecha actual.");
+        }
+      },
+    },
     modelName: "curso_ciclo",
     tableName: "curso_ciclos",
     createdAt: "fec_insercion",
