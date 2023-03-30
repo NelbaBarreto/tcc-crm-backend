@@ -157,7 +157,8 @@ const update = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send({
-      message: "Error actualizando la llamada con id=" + req.body.id,
+      message: error.message ||
+      "Error actualizando la llamada con id=" + req.body.id,
     });
   };
 };
