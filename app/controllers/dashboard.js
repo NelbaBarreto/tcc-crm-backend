@@ -416,7 +416,6 @@ const oportunidadesPorCampana = async (_req, res) => {
       where: {
         campana_id: {
           [Op.not]: null,
-          [Op.ne]: "",
         },
       },
       group: ["campana.campana_id", "campana.nombre"],

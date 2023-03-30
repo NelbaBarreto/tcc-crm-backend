@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
         },
         len: {
           args: [3, 255],
-          msg: "El nombre debe tener entre 3 y 20 caracteres.",
+          msg: "El nombre debe tener entre 3 y 255 caracteres.",
         },
       },
     },
@@ -70,8 +70,7 @@ export default (sequelize, DataTypes) => {
     validate: {
       fecFinMayorFecInicio() {
         if (this.fec_fin <= this.fec_inicio) {
-          throw new Error("Fecha Fin:" +
-          " La fecha fin debe ser mayor a la fecha de inicio.");
+          throw new Error("La fecha fin debe ser mayor a la fecha de inicio.");
         }
       },
     },
@@ -81,7 +80,7 @@ export default (sequelize, DataTypes) => {
         const fec_inicio = new Date(instance.fec_inicio);
         hoy.setHours(0, 0, 0, 0);
         if (fec_inicio < hoy) {
-          throw new Error("Fecha: No se puede ingresar" +
+          throw new Error("No se puede ingresar" +
                 " una fecha menor a la fecha actual.");
         }
       },

@@ -57,7 +57,7 @@ export default (sequelize, Sequelize) => {
         const fec_inicio = new Date(instance.fec_inicio);
         hoy.setHours(0, 0, 0, 0);
         if (fec_inicio < hoy) {
-          throw new Error("Fecha: No se puede ingresar" +
+          throw new Error("No se puede ingresar" +
                 " una fecha menor a la fecha actual.");
         }
       },
