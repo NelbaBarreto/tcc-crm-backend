@@ -63,11 +63,13 @@ export default (sequelize, DataTypes) => {
     fec_fin: {
       type: DataTypes.DATE,
       allowNull: false,
-      notNull: {
-        msg: "Completar Fecha fin, es un campo Obligatorio.",
-      },
-      notEmpty: {
-        msg: "No dejar vacio Fecha fin, es un campo Obligatorio.",
+      validate: {
+        notNull: {
+          msg: "Completar Fecha fin, es un campo Obligatorio.",
+        },
+        notEmpty: {
+          msg: "No dejar vacio Fecha fin, es un campo Obligatorio.",
+        },
       },
     },
     usu_insercion: DataTypes.STRING,
