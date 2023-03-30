@@ -389,6 +389,11 @@ const leadsPorCampana = async (_req, res) => {
       ],
       include:
         [{model: db.campana}],
+      where: {
+        campana_id: {
+          [Op.not]: null,
+        },
+      },
       group: ["campana.campana_id", "campana.nombre"],
     });
 
