@@ -60,19 +60,6 @@ export default (sequelize, DataTypes) => {
     },
     fec_inicio: {
       type: DataTypes.DATE,
-      validate: {
-        isValidDate: async function(value) {
-          const hoy = new Date();
-          const fecha_incio = new Date(value);
-          hoy.setHours(0, 0, 0, 0);
-
-          if (fecha_incio < hoy) {
-            throw new Error("Fecha Inicio: No se puede ingresar" +
-            " una fecha menor a la fecha actual.");
-          }
-          return true;
-        },
-      },
     },
     fec_fin: {
       type: DataTypes.DATE,
@@ -88,6 +75,17 @@ export default (sequelize, DataTypes) => {
         if (this.fec_fin <= this.fec_inicio) {
           throw new Error("Fecha Fin:" +
           " La fecha fin debe ser mayor a la fecha de inicio.");
+        }
+      },
+    },
+    hooks: {
+      beforeCreate: (instance, _options) => {
+        const hoy = new Date();
+        const fec_inicio = new Date(instance.fec_inicio);
+        hoy.setHours(0, 0, 0, 0);
+        if (fec_inicio < hoy) {
+          throw new Error("Fecha: No se puede ingresar" +
+                " una fecha menor a la fecha actual.");
         }
       },
     },
